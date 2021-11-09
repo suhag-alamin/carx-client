@@ -105,7 +105,7 @@ function Navigation(props) {
                 <img className="logo" src={logo} alt="" />
               </Link>
 
-              <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
                 <nav>
                   <ul style={{ display: "flex" }}>
                     <li>
@@ -171,7 +171,7 @@ function Navigation(props) {
           <IconButton
             edge="end"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" }, color: "#16425B" }}
+            sx={{ mr: 2, display: { md: "none" }, color: "#16425B" }}
           >
             <MenuIcon />
           </IconButton>
@@ -203,9 +203,7 @@ function Navigation(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mb: 3 }}>
-        <Toolbar />
-      </Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, mb: 3 }}></Box>
     </Box>
   );
 }

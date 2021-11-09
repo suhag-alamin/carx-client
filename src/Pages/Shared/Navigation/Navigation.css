@@ -5,12 +5,34 @@
 .nav-link {
   font-size: 18px;
   color: #16425b;
-  font-family: "Oswald", sans-serif;
   font-weight: 500;
   padding: 5px 10px;
-  /* margin-left: 10px; */
+  transition: 0.4s;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #457b9d;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  height: 1px;
+  background: #457b9d;
+  transition: 0.5s;
+}
+
+.nav-link:hover.nav-link::after {
+  width: 90%;
 }
 
 .nav-selected {
   color: #457b9d;
+  font-weight: bold;
 }
