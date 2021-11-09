@@ -27,3 +27,19 @@ h6 {
   font-family: "Oswald", sans-serif;
   font-weight: 500;
 }
+
+/* common style  */
+
+.carx-btn {
+  background: #457b9d !important;
+  color: #f0f4ef !important;
+}
+
+.carx-outline-btn {
+  border: 1px solid #16425b !important;
+  color: #16425b !important;
+}
+
+.colored-text {
+  color: #16425b;
+}
