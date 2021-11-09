@@ -1,0 +1,16 @@
+/* navigation style  */
+.logo {
+  width: 70%;
+}
+.nav-link {
+  font-size: 18px;
+  color: #16425b;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  padding: 5px 10px;
+  /* margin-left: 10px; */
+}
+
+.nav-selected {
+  color: #457b9d;
+}
