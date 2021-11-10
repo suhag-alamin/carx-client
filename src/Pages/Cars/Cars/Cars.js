@@ -1,4 +1,11 @@
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  Container,
+  Grid,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -10,15 +17,40 @@ import SingleCar from "../../Shared/SingleCar/SingleCar";
 const Cars = () => {
   const [cars, setCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+
+  const size = 6;
+  const handleChange = (event, value) => {
+    setPage(value - 1);
+    console.log(value);
+  };
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios
+  //     .get(`https://afternoon-tor-94038.herokuapp.com/cars`)
+  //     .then((result) => {
+  //       setCars(result.data);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
+
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("https://afternoon-tor-94038.herokuapp.com/cars")
+      .get(
+        `https://afternoon-tor-94038.herokuapp.com/cars?page=${page}&&size=${size}`
+      )
       .then((result) => {
-        setCars(result.data);
+        setCars(result.data?.cars);
         setIsLoading(false);
+        const count = result.data?.count;
+        const pageNumber = Math.ceil(count / size);
+        setPageCount(pageNumber);
       });
-  }, []);
+  }, [page]);
 
   // loading spinner
   if (isLoading) {
@@ -53,6 +85,18 @@ const Cars = () => {
                 <SingleCar key={car._id} car={car} />
               ))}
             </Grid>
+          </Box>
+          {/* pagination  */}
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
+            <Stack spacing={2}>
+              <Pagination
+                count={pageCount}
+                page={page}
+                onChange={handleChange}
+                shape="rounded"
+                color="primary"
+              />
+            </Stack>
           </Box>
         </Container>
       </Box>
