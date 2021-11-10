@@ -26,7 +26,7 @@ const CounterSection = () => {
                 variant="h4"
                 sx={{ fontWeight: 700, my: 1 }}
               >
-                <CountUp duration={2} end={13000} />
+                <CountUp duration={2} start={0} end={13000} />
               </Typography>
               <Typography color="secondary" variant="subtitle1">
                 HAPPY CUSTOMERS
@@ -42,7 +42,7 @@ const CounterSection = () => {
                 variant="h4"
                 sx={{ fontWeight: 700, my: 1 }}
               >
-                <CountUp duration={2} end={300} />
+                <CountUp duration={2} start={0} end={300} />
               </Typography>
               <Typography color="secondary" variant="subtitle1">
                 CARS IN STOCK
@@ -58,7 +58,7 @@ const CounterSection = () => {
                 variant="h4"
                 sx={{ fontWeight: 700, my: 1 }}
               >
-                <CountUp duration={2} end={10} />
+                <CountUp duration={2} start={0} end={10} />
               </Typography>
               <Typography color="secondary" variant="subtitle1">
                 SHOWROOMS
@@ -74,7 +74,7 @@ const CounterSection = () => {
                 variant="h4"
                 sx={{ fontWeight: 700, my: 1 }}
               >
-                <CountUp duration={2} end={50} />
+                <CountUp duration={2} start={0} end={50} />
               </Typography>
               <Typography color="secondary" variant="subtitle1">
                 AWWARDS

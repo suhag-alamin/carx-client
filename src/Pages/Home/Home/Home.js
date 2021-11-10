@@ -4,6 +4,7 @@ import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import Banner from "../Banner/Banner";
+import BuyingEssentials from "../BuyingEssentials/BuyingEssentials";
 import CounterSection from "../CounterSection/CounterSection";
 import FeaturedCars from "../FeaturedCars/FeaturedCars";
 import Reviews from "../Reviews/Reviews";
@@ -22,10 +23,12 @@ const Home = () => {
       <RunningCar />
       {/* featured cars section  */}
       <FeaturedCars />
-      {/* counter section  */}
-      <CounterSection />
+      {/* buying essentials  */}
+      <BuyingEssentials />
       {/* review section  */}
       <Reviews />
+      {/* counter section  */}
+      <CounterSection />
       {/* footer  */}
       <Footer />
     </div>
