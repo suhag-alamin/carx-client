@@ -11,18 +11,33 @@ const RunningCar = () => {
     windowScroll();
   };
   function windowScroll() {
-    mainNav?.classList.toggle(
-      "in-view",
-      mainNav.scrollTop > 200 || document.documentElement.scrollTop > 200
-    );
+    // mainNav?.classList.toggle(
+    //   "in-view",
+    //   document.documentElement.scrollTop > 50
+    // );
+    if (
+      document.body.scrollTop > 200 ||
+      document.documentElement.scrollTop > 200
+    ) {
+      document.getElementById("main-nav").className = "in-view";
+    } else {
+      document.getElementById("main-nav").className = "";
+    }
   }
   return (
     <Box sx={{ py: 6 }}>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid
+        sx={{ alignItems: "center" }}
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      >
         <Grid item xs={12} md={6}>
-          <Box className="running-car main-nav">
-            <img className="car " src={car} alt="" />
-            <img className="wheel" src={wheel} alt="" />
+          <Box id="main-nav" className="running-car main-nav">
+            <div className="runnig-box">
+              <img className="car " src={car} alt="" />
+              <img className="wheel" src={wheel} alt="" />
+            </div>
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>

@@ -1,11 +1,4 @@
-.running-car {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 659px;
-}
-
-.running-car {
+.runnig-box {
   position: relative;
   top: 0;
   left: 0;
@@ -25,10 +18,10 @@ img.wheel {
   z-index: 1;
 }
 
-.running-car.in-view img.car {
+.in-view img.car {
   transform: translate(600px, 0px) rotate(0deg);
 }
-.running-car.in-view img.wheel {
+.in-view img.wheel {
   transform: translate(600px, 0px) rotate(600deg);
 }
 
@@ -45,3 +38,6 @@ img.wheel {
 .device-xs .running-car.in-view img.wheel {
   transform: translate(350px, 0px) rotate(600deg);
 }
+
+/* @media only screen and (max-width: ) {
+} */
