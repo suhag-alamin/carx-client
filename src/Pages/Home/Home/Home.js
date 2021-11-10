@@ -5,6 +5,7 @@ import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import Banner from "../Banner/Banner";
 import FeaturedCars from "../FeaturedCars/FeaturedCars";
+import Reviews from "../Reviews/Reviews";
 
 const Home = () => {
   // dynamic title
@@ -17,6 +18,8 @@ const Home = () => {
       <Banner />
       {/* featured cars section  */}
       <FeaturedCars />
+      {/* review section  */}
+      <Reviews />
       {/* footer  */}
       <Footer />
     </div>

@@ -27,16 +27,6 @@ const Cars = () => {
     console.log(value);
   };
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   axios
-  //     .get(`https://afternoon-tor-94038.herokuapp.com/cars`)
-  //     .then((result) => {
-  //       setCars(result.data);
-  //       setIsLoading(false);
-  //     });
-  // }, []);
-
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -45,10 +35,10 @@ const Cars = () => {
       )
       .then((result) => {
         setCars(result.data?.cars);
-        setIsLoading(false);
         const count = result.data?.count;
         const pageNumber = Math.ceil(count / size);
         setPageCount(pageNumber);
+        setIsLoading(false);
       });
   }, [page]);
 
