@@ -25,13 +25,16 @@ const Footer = () => {
         minHeight: "50vh",
         bgcolor: "#2f3640",
         color: "#f0f4ef",
-        pt: 3,
+        mb: 0,
       }}
     >
-      <Container>
+      <Container sx={{ py: 3 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={3}>
-            <Box sx={{ px: 2, borderRight: "1px solid #ddd" }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box
+              className="footer-box"
+              sx={{ px: 2, borderRight: "1px solid #ddd" }}
+            >
               <Typography variant="h6">Expert Advice</Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
@@ -50,8 +53,11 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Box sx={{ px: 2, borderRight: "1px solid #ddd" }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box
+              className="footer-box"
+              sx={{ px: 2, borderRight: "1px solid #ddd" }}
+            >
               <Typography variant="h6">Expert Ratings</Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
@@ -67,8 +73,11 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={3}>
-            <Box sx={{ px: 2, borderRight: "1px solid #ddd" }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box
+              className="footer-box"
+              sx={{ px: 2, borderRight: "1px solid #ddd" }}
+            >
               <Typography variant="h6">Expert Info</Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
@@ -86,8 +95,8 @@ const Footer = () => {
               </List>
             </Box>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <Box sx={{ px: 2 }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="footer-box" sx={{ px: 2 }}>
               <Typography variant="h6">Expert Family</Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
@@ -118,23 +127,21 @@ const Footer = () => {
         }}
       >
         <Container>
-          <Grid container spacing={2} sx={{ alignItems: "center" }}>
-            <Grid item xs={12} md={4}>
+          <Grid
+            className="footer-bottom-box"
+            container
+            spacing={2}
+            sx={{ alignItems: "center" }}
+          >
+            <Grid item xs={12} sm={6} md={4}>
               <Link to="/">
                 {" "}
                 <img style={{ width: "40%" }} src={logo} alt="" />
               </Link>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography sx={{ color: "#f0f4ef", textAlign: "center" }}>
-                &copy;{" "}
-                <span>
-                  {new Date().getFullYear()} || All right reserved by Carx
-                </span>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Box sx={{ textAlign: "right" }}>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <Box className="footer-bottom-box" sx={{ textAlign: "center" }}>
                 <a
                   href="https://www.facebook.com/suhag.alamin.315/"
                   target="_blank"
@@ -168,6 +175,18 @@ const Footer = () => {
                   <LinkedInIcon />
                 </a>
               </Box>
+            </Grid>
+            <Grid className="footer-bottom-box" item xs={12} sm={12} md={4}>
+              <Typography
+                sx={{ color: "#f0f4ef", textAlign: "center" }}
+                variant="caption"
+                component="p"
+              >
+                &copy;{" "}
+                <span>
+                  {new Date().getFullYear()} || All right reserved by Carx
+                </span>
+              </Typography>
             </Grid>
           </Grid>
         </Container>

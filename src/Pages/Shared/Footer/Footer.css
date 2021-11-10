@@ -17,3 +17,20 @@
 .footer-social:hover {
   color: #709bb6;
 }
+
+@media only screen and (max-width: 1200px) {
+  .footer-box {
+    border: none !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .footer-box {
+    text-align: center;
+  }
+  .footer-box li {
+    text-align: center;
+  }
+  .footer-bottom-box {
+    text-align: center !important;
+  }
+}
