@@ -15,9 +15,6 @@ const Home = () => {
       <Navigation />
       {/* banner section  */}
       <Banner />
-      <Typography variant="h3" color="primary">
-        this is home
-      </Typography>
       {/* featured cars section  */}
       <FeaturedCars />
       {/* footer  */}

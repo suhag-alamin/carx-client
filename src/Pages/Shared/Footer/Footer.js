@@ -37,7 +37,9 @@ const Footer = () => {
               className="footer-box"
               sx={{ px: 2, borderRight: "1px solid #ddd" }}
             >
-              <Typography variant="h6">Expert Advice</Typography>
+              <Typography color="info.main" variant="h6">
+                Expert Advice
+              </Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
                   <ListItemText>Car buying</ListItemText>
@@ -60,7 +62,9 @@ const Footer = () => {
               className="footer-box"
               sx={{ px: 2, borderRight: "1px solid #ddd" }}
             >
-              <Typography variant="h6">Expert Ratings</Typography>
+              <Typography color="info.main" variant="h6">
+                Expert Ratings
+              </Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
                   <ListItemText>All Expert Ratings</ListItemText>
@@ -80,7 +84,9 @@ const Footer = () => {
               className="footer-box"
               sx={{ px: 2, borderRight: "1px solid #ddd" }}
             >
-              <Typography variant="h6">Expert Info</Typography>
+              <Typography color="info.main" variant="h6">
+                Expert Info
+              </Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
                   <ListItemText>About us</ListItemText>
@@ -99,7 +105,9 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <Box className="footer-box" sx={{ px: 2 }}>
-              <Typography variant="h6">Expert Family</Typography>
+              <Typography color="info.main" variant="h6">
+                Expert Family
+              </Typography>
               <List>
                 <ListItem className="list-item" sx={{ p: 0 }}>
                   <ListItemText>The Van Expert</ListItemText>

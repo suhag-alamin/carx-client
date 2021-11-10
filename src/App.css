@@ -26,6 +26,7 @@ h5,
 h6 {
   font-family: "Oswald", sans-serif;
   font-weight: 500;
+  color: #16425b;
 }
 
 /* common style  */
@@ -41,5 +42,5 @@ h6 {
 }
 
 .colored-text {
-  color: #16425b;
+  color: #457b9d !important;
 }

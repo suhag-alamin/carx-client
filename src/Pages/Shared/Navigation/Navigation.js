@@ -197,7 +197,7 @@ function Navigation(props) {
             display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: 200,
+              width: "70%",
             },
           }}
         >
