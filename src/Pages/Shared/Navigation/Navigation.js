@@ -26,7 +26,11 @@ function Navigation(props) {
     <Box sx={{ mt: 3, px: 2 }}>
       <ul style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <li>
-          <NavLink activeClassName="nav-selected" className="nav-link" to="/">
+          <NavLink
+            activeClassName="nav-selected"
+            className="nav-link"
+            to="/home"
+          >
             Home
           </NavLink>
         </li>
@@ -113,7 +117,7 @@ function Navigation(props) {
                       <NavLink
                         activeClassName="nav-selected"
                         className="nav-link"
-                        to="/"
+                        to="/home"
                       >
                         Home
                       </NavLink>

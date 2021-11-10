@@ -1,8 +1,16 @@
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SingleCar from "../../Shared/SingleCar/SingleCar";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const FeaturedCars = () => {
   const [cars, setCars] = useState([]);
@@ -44,6 +52,17 @@ const FeaturedCars = () => {
               <SingleCar key={car._id} car={car} />
             ))}
           </Grid>
+        </Box>
+        <Box sx={{ mt: 4, textAlign: "center" }}>
+          <Link to="/cars">
+            <Button
+              className="carx-outline-btn"
+              variant="outlined"
+              endIcon={<ArrowRightAltIcon />}
+            >
+              Explore More
+            </Button>
+          </Link>
         </Box>
       </Container>
     </Box>
