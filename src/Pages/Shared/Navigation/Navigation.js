@@ -35,9 +35,9 @@ function Navigation(props) {
           <NavLink
             activeClassName="nav-selected"
             className="nav-link"
-            to="/services"
+            to="/cars"
           >
-            Explore
+            Cars
           </NavLink>
         </li>
         <Divider />
@@ -122,9 +122,9 @@ function Navigation(props) {
                       <NavLink
                         activeClassName="nav-selected"
                         className="nav-link"
-                        to="/services"
+                        to="/cars"
                       >
-                        Explore
+                        Cars
                       </NavLink>
                     </li>
 

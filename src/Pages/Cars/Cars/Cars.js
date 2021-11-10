@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 
-const Services = () => {
+const Cars = () => {
   return (
     <div>
       {/* navbar  */}
@@ -14,4 +14,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Cars;

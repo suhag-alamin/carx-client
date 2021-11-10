@@ -39,7 +39,7 @@ const Banner = () => {
                 <Typography sx={{ mt: 2, mb: 3 }} paragraph color="info.main">
                   New and Powerful SUV
                 </Typography>
-                <Link to="/services">
+                <Link to="/cars">
                   {" "}
                   <Button variant="outlined" className="carx-btn">
                     Explore More
@@ -69,7 +69,7 @@ const Banner = () => {
                 <Typography sx={{ mt: 2, mb: 3 }} paragraph color="info.main">
                   A Black Diamond
                 </Typography>
-                <Link to="/services">
+                <Link to="/cars">
                   {" "}
                   <Button
                     variant="outlined"
@@ -96,7 +96,7 @@ const Banner = () => {
                 <Typography sx={{ mt: 2, mb: 3 }} paragraph color="info.main">
                   Raise your limits over
                 </Typography>
-                <Link to="/services">
+                <Link to="/cars">
                   {" "}
                   <Button variant="outlined" className="carx-btn">
                     Explore More

@@ -6,13 +6,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import useDocumentTitle from "./hooks/useDocumentTitle";
 import About from "./Pages/About/About/About";
+import Cars from "./Pages/Cars/Cars/Cars";
 import Contact from "./Pages/Contact/Contact/Contact";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
 import Home from "./Pages/Home/Home/Home";
 import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
-import Services from "./Pages/Services/Services/Services";
 
 // api link : https://afternoon-tor-94038.herokuapp.com/
 
@@ -56,8 +56,8 @@ function App() {
               <Route exact path="/contact">
                 <Contact></Contact>
               </Route>
-              <Route exact path="/services">
-                <Services></Services>
+              <Route exact path="/cars">
+                <Cars />
               </Route>
               <Route exact path="/login">
                 <Login></Login>
