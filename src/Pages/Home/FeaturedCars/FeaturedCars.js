@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -6,13 +6,25 @@ import SingleCar from "../../Shared/SingleCar/SingleCar";
 
 const FeaturedCars = () => {
   const [cars, setCars] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get("https://afternoon-tor-94038.herokuapp.com/cars")
       .then((result) => {
         setCars(result.data);
+        setIsLoading(false);
       });
   }, []);
+
+  // loading spinner
+  if (isLoading) {
+    return (
+      <Box sx={{ textAlign: "center", py: 2 }}>
+        <CircularProgress color="primary" />
+      </Box>
+    );
+  }
   return (
     <Box sx={{ bgcolor: "#edf2f4" }}>
       <Container sx={{ py: 6 }}>
