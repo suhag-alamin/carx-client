@@ -4,6 +4,7 @@ import "@fontsource/roboto/400.css";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import useDocumentTitle from "./hooks/useDocumentTitle";
 import About from "./Pages/About/About/About";
 import Contact from "./Pages/Contact/Contact/Contact";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
@@ -36,6 +37,7 @@ const theme = createTheme({
 });
 
 function App() {
+  useDocumentTitle("Carx - Affordability at your fingertip", false);
   return (
     <div className="App">
       <CssBaseline>

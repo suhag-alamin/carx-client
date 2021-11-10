@@ -13,6 +13,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../../images/logo.png";
 import "./Navigation.css";
 
+// navbar
 function Navigation(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
