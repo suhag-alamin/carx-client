@@ -1,0 +1,19 @@
+.list-item {
+  color: #f0f4ef;
+  transition: 0.4s;
+}
+.list-item:hover {
+  color: #709bb6;
+  cursor: pointer;
+}
+
+.footer-social {
+  display: inline-block;
+  color: #f0f4ef;
+  margin-left: 10px;
+  transition: 0.4s;
+}
+
+.footer-social:hover {
+  color: #709bb6;
+}
