@@ -94,7 +94,6 @@ const Cars = () => {
                 page={page}
                 onChange={handleChange}
                 shape="rounded"
-                color="primary"
               />
             </Stack>
           </Box>

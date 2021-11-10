@@ -20,7 +20,7 @@ const FeaturedCars = () => {
     axios
       .get("https://afternoon-tor-94038.herokuapp.com/cars")
       .then((result) => {
-        setCars(result.data);
+        setCars(result.data?.cars);
         setIsLoading(false);
       });
   }, []);
