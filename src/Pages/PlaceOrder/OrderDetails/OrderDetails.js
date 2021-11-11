@@ -3,15 +3,16 @@ import {
   CssBaseline,
   Divider,
   Grid,
+  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useAuth from "../../../hooks/useAuth";
-import { useForm } from "react-hook-form";
 import "./OrderDatails.css";
-import axios from "axios";
 
 const OrderDetails = ({ car }) => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ const OrderDetails = ({ car }) => {
   });
   const onSubmit = (data) => {
     data.status = "pending";
+    console.log(data);
     axios
       .post("https://afternoon-tor-94038.herokuapp.com/orders", data)
       .then((result) => {
@@ -111,6 +113,24 @@ const OrderDetails = ({ car }) => {
                 label="Car Price"
                 {...register("price", { required: true })}
               />
+              {errors.price && <span className="error">Price is required</span>}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                select
+                label="Select Color"
+                fullWidth
+                helperText="Please select your color"
+                {...register("color")}
+              >
+                <MenuItem value="black">Black</MenuItem>
+                <MenuItem value="red">Red</MenuItem>
+                <MenuItem value="blue">Blue</MenuItem>
+                <MenuItem value="yellow">Yellow</MenuItem>
+                <MenuItem value="brown">Brown</MenuItem>
+                <MenuItem value="green">Green</MenuItem>
+                <MenuItem value="white">White</MenuItem>
+              </TextField>
               {errors.price && <span className="error">Price is required</span>}
             </Grid>
             <Grid item xs={12}>
