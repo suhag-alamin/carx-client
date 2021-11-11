@@ -38,6 +38,7 @@ const PlaceOrder = () => {
       <Navigation />
       {/* banner  */}
       <OthersBanner>Place Order</OthersBanner>
+      {/* car and order details  */}
       <Box sx={{ bgcolor: "#edf2f4" }}>
         <Container sx={{ py: 6 }}>
           <Grid

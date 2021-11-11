@@ -1,6 +1,5 @@
 import {
   Button,
-  Container,
   CssBaseline,
   Divider,
   Grid,
@@ -8,33 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
 import { toast } from "react-toastify";
 import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import "./OrderDatails.css";
 
 const OrderDetails = ({ car }) => {
-  const { carName, price } = car;
   const { user } = useAuth();
-
-  const [orderInfo, setOrderInfo] = useState({});
-
-  /*   const handleOnBlur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newValue = { ...orderInfo };
-    newValue[field] = value;
-    setOrderInfo(newValue);
-  };
-
-  const handleSubmit = (e) => {
-    const { name, email, carName, phone, address, price } = orderInfo;
-    // toast.warning("Password Not matched");
-    console.log(orderInfo);
-    e.preventDefault();
-    // e.target.reset();
-  }; */
 
   const {
     register,
@@ -73,83 +52,6 @@ const OrderDetails = ({ car }) => {
           marginX: "auto",
         }}
       >
-        {/*  <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                required
-                type="text"
-                name="name"
-                value={user?.displayName}
-                fullWidth
-                label="Your Name"
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                type="email"
-                fullWidth
-                label="Email Address"
-                name="email"
-                value={user?.email}
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                defaultValue={carName}
-                required
-                fullWidth
-                name="carName"
-                label="Car Name"
-                type="text"
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="price"
-                label="Price"
-                type="number"
-                value={price}
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="address"
-                label="Address"
-                type="text"
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="phone"
-                label="Phone Number"
-                type="number"
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Place Order
-          </Button>
-        </Box> */}
-        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
         <Box
           component="form"
           noValidate
@@ -161,8 +63,7 @@ const OrderDetails = ({ car }) => {
               <TextField
                 type="text"
                 fullWidth
-                placeholder="Name"
-                // value={user?.displayName}
+                label="Your Name"
                 {...register("userName", { required: true })}
               />
               {errors.userName && (
@@ -173,32 +74,29 @@ const OrderDetails = ({ car }) => {
               <TextField
                 type="email"
                 fullWidth
-                placeholder="Email"
-                // value={user?.email}
+                label="Email Address"
                 {...register("userEmail", { required: true })}
               />
               {errors.userEmail && (
-                <span className="error">User Emails is required</span>
+                <span className="error">User Email is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 type="text"
                 fullWidth
-                placeholder="car Name"
-                // value={carName}
+                label="Car Name"
                 {...register("carName", { required: true })}
               />
               {errors.carName && (
-                <span className="error">Service Name is required</span>
+                <span className="error">Car Name is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 type="number"
                 fullWidth
-                placeholder="Price"
-                // value={price}
+                label="Car Price"
                 {...register("price", { required: true })}
               />
               {errors.price && <span className="error">Price is required</span>}
@@ -207,7 +105,8 @@ const OrderDetails = ({ car }) => {
               <TextField
                 type="text"
                 fullWidth
-                placeholder="Address"
+                label="Address"
+                required
                 {...register("address", { required: true })}
               />
               {errors.address && (
@@ -218,7 +117,8 @@ const OrderDetails = ({ car }) => {
               <TextField
                 type="text"
                 fullWidth
-                placeholder="City"
+                label="City"
+                required
                 {...register("city", { required: true })}
               />
               {errors.city && <span className="error">City is required</span>}
@@ -227,12 +127,17 @@ const OrderDetails = ({ car }) => {
               <TextField
                 type="tel"
                 fullWidth
-                placeholder="Phone"
+                label="Phone"
+                required
                 {...register("phone", {
                   required: true,
+                  minLength: 6,
+                  maxLength: 12,
                 })}
               />
-              {errors.phone && <span className="error">City is required</span>}
+              {errors.phone && (
+                <span className="error">Phone Number is required</span>
+              )}
             </Grid>
             <Button
               type="submit"
