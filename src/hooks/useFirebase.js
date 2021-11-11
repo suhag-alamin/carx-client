@@ -1,16 +1,17 @@
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import initializeAuthentication from "../Pages/Login/Firebase/firebase.init";
 
@@ -30,6 +31,9 @@ const useFirebase = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         setUser(result.user);
+        // save user to database
+        upsertUser(result?.user?.email, result?.user?.displayName);
+
         toast.success("Logged In Successfully");
         const destination = location?.state?.from || "/";
         history.replace(destination);
@@ -46,6 +50,9 @@ const useFirebase = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setUser(result.user);
+        // save user to database
+        saveUser(email, name);
+
         updateProfile(auth.currentUser, {
           displayName: name,
         })
@@ -110,6 +117,21 @@ const useFirebase = () => {
     });
     return () => unsubscribe;
   }, [auth]);
+
+  // save user to database
+  const saveUser = (email, displayName) => {
+    const user = { email, displayName };
+    axios
+      .post("https://afternoon-tor-94038.herokuapp.com/users", user)
+      .then((result) => {});
+  };
+
+  const upsertUser = (email, displayName) => {
+    const user = { email, displayName };
+    axios
+      .put("https://afternoon-tor-94038.herokuapp.com/users", user)
+      .then((result) => {});
+  };
 
   return {
     handleEmailRegister,

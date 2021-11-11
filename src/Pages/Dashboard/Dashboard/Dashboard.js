@@ -23,14 +23,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import MyOrders from "../MyOrders/MyOrders";
 import GiveReview from "../GiveReview/GiveReview";
 import Payment from "../Payment/Payment";
@@ -289,7 +282,7 @@ function Dashboard(props) {
         <Toolbar />
         <Switch>
           <Route exact path={path}>
-            {/* <DashboardHome></DashboardHome> */}
+            <MyOrders />
           </Route>
           <Route path={`${path}/myOrders`}>
             <MyOrders />

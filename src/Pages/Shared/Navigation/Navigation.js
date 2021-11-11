@@ -45,16 +45,6 @@ function Navigation(props) {
         <NavLink
           activeClassName="nav-selected"
           className="nav-link"
-          to="/dashboard"
-        >
-          Dashboard
-        </NavLink>
-
-        <Divider />
-
-        <NavLink
-          activeClassName="nav-selected"
-          className="nav-link"
           to="/about"
         >
           About
