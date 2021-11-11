@@ -3,19 +3,21 @@ import {
   Container,
   Divider,
   Grid,
+  Rating,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useAuth from "../../../hooks/useAuth";
 
 const GiveReview = () => {
   const { user } = useAuth();
-
+  const [start, setStar] = useState(2);
+  console.log(start);
   const {
     register,
     handleSubmit,
@@ -28,7 +30,7 @@ const GiveReview = () => {
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
+    data.rating = start;
     axios
       .post("https://afternoon-tor-94038.herokuapp.com/reviews", data)
       .then((result) => {
@@ -104,17 +106,22 @@ const GiveReview = () => {
                 )}
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  type="number"
-                  fullWidth
-                  label="Rating"
+                <Typography
+                  color="secondary"
+                  sx={{ mb: 1 }}
+                  variant="subtitle1"
+                >
+                  Give us your rating
+                </Typography>
+                <Rating
+                  precision={0.5}
+                  size="large"
+                  value={start}
                   required
-                  helperText="Ratings should be within five stars."
-                  {...register("rating", { required: true })}
+                  onChange={(event, newValue) => {
+                    setStar(newValue);
+                  }}
                 />
-                {errors.rating && (
-                  <span className="error">Rating is required</span>
-                )}
               </Grid>
               <Button
                 type="submit"
