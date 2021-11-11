@@ -7,6 +7,7 @@ import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 import CarDetails from "../CarDetails/CarDetails";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const PlaceOrder = () => {
   const { id } = useParams();
@@ -28,13 +29,15 @@ const PlaceOrder = () => {
         <Container sx={{ py: 6 }}>
           <Grid
             container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            rowSpacing={2}
+            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <CarDetails car={car} />
             </Grid>
-            <Grid item xs={6}></Grid>
+            <Grid item xs={12} md={6}>
+              <OrderDetails car={car} />
+            </Grid>
           </Grid>
         </Container>
       </Box>

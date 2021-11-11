@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Divider,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Divider, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
@@ -20,10 +13,10 @@ const CarDetails = ({ car }) => {
   const { carName, description, price, gallery, img } = car;
   return (
     <>
-      <Box>
+      <Box sx={{ width: "100%    " }}>
         <Typography
           sx={{ textAlign: "center", mb: 3 }}
-          variant="h4"
+          variant="h5"
           color="primary"
         >
           Product Details
@@ -41,19 +34,19 @@ const CarDetails = ({ car }) => {
           style={{ marginTop: 20 }}
         >
           <SwiperSlide>
-            <img src={img} alt="" />
+            <img style={{ width: "100%" }} src={img} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={gallery?.gallery1} alt="" />
+            <img style={{ width: "100%" }} src={gallery?.gallery1} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={gallery?.gallery2} alt="" />
+            <img style={{ width: "100%" }} src={gallery?.gallery2} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={gallery?.gallery3} alt="" />
+            <img style={{ width: "100%" }} src={gallery?.gallery3} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={gallery?.gallery4} alt="" />
+            <img style={{ width: "100%" }} src={gallery?.gallery4} alt="" />
           </SwiperSlide>
         </Swiper>
       </Box>
