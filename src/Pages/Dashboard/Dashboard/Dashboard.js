@@ -17,12 +17,38 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PaymentIcon from "@mui/icons-material/Payment";
 import RateReviewIcon from "@mui/icons-material/RateReview";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
+import MyOrders from "../MyOrders/MyOrders";
+import GiveReview from "../GiveReview/GiveReview";
+import Payment from "../Payment/Payment";
+import { Button } from "@mui/material";
+import useAuth from "../../../hooks/useAuth";
+import MakeAdmin from "../MakeAdmin/MakeAdmin";
+import AddProduct from "../AddProduct/AddProduct";
+import ManageProducts from "../ManageProducts/ManageProducts";
+import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
+import BorderClearIcon from "@mui/icons-material/BorderClear";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { user, logOut } = useAuth();
+  const { path, url } = useRouteMatch();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -30,16 +56,51 @@ function Dashboard(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar
+        sx={{
+          py: 1,
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Box>
+          {user?.photoURL ? (
+            <div>
+              <img
+                style={{ width: 70, borderRadius: "50%", marginBottom: 5 }}
+                src={user?.photoURL}
+                alt=""
+              />
+              <p>{user?.displayName}</p>
+            </div>
+          ) : (
+            <p>{user?.displayName}</p>
+          )}
+        </Box>
+      </Toolbar>
       <Divider />
 
+      <ListItem color="primary" button>
+        <ListItemIcon>
+          <HomeIcon color="primary" />
+        </ListItemIcon>
+        <ListItemText
+          as={NavLink}
+          to="/"
+          color="primary"
+          sx={{ color: "#457B9D" }}
+          activeClassName="nav-selected"
+          primary="Home"
+        />
+      </ListItem>
       <ListItem color="primary" button>
         <ListItemIcon>
           <DashboardIcon color="primary" />
         </ListItemIcon>
         <ListItemText
           as={NavLink}
-          to="/dashboard"
+          to={`${url}`}
           color="primary"
           sx={{ color: "#457B9D" }}
           activeClassName="nav-selected"
@@ -53,7 +114,7 @@ function Dashboard(props) {
         </ListItemIcon>
         <ListItemText
           as={NavLink}
-          to="/myOrders"
+          to={`${url}/myOrders`}
           sx={{ color: "#457B9D" }}
           activeClassName="nav-selected"
           primary="My Orders"
@@ -66,7 +127,7 @@ function Dashboard(props) {
         </ListItemIcon>
         <ListItemText
           as={NavLink}
-          to="/pay"
+          to={`${url}/payment`}
           sx={{ color: "#457B9D" }}
           activeClassName="nav-selected"
           primary="Pay"
@@ -79,12 +140,73 @@ function Dashboard(props) {
         </ListItemIcon>
         <ListItemText
           as={NavLink}
-          to="/review"
+          to={`${url}/review`}
           sx={{ color: "#457B9D" }}
           activeClassName="nav-selected"
           primary="Review"
         />
       </ListItem>
+
+      {/* admin  */}
+      <ListItem button>
+        <ListItemIcon>
+          <AdminPanelSettingsIcon color="primary" />
+        </ListItemIcon>
+        <ListItemText
+          as={NavLink}
+          to={`${url}/makeAdmin`}
+          sx={{ color: "#457B9D" }}
+          activeClassName="nav-selected"
+          primary="Make Admin"
+        />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <BorderClearIcon color="primary" />
+        </ListItemIcon>
+        <ListItemText
+          as={NavLink}
+          to={`${url}/manageAllOrders`}
+          sx={{ color: "#457B9D" }}
+          activeClassName="nav-selected"
+          primary="Manage All Orders"
+        />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <WifiProtectedSetupIcon color="primary" />
+        </ListItemIcon>
+        <ListItemText
+          as={NavLink}
+          to={`${url}/manageProducts`}
+          sx={{ color: "#457B9D" }}
+          activeClassName="nav-selected"
+          primary="Manage Products"
+        />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <AddCircleOutlineIcon color="primary" />
+        </ListItemIcon>
+        <ListItemText
+          as={NavLink}
+          to={`${url}/addProduct`}
+          sx={{ color: "#457B9D" }}
+          activeClassName="nav-selected"
+          primary="Add Products"
+        />
+      </ListItem>
+
+      {/* log out  */}
+      <Box sx={{ mt: 10 }}>
+        <Divider />
+        <ListItem onClick={logOut} button>
+          <ListItemIcon>
+            <LogoutIcon color="primary" />
+          </ListItemIcon>
+          <Button sx={{ p: 0, m: 0 }}>Log Out</Button>
+        </ListItem>
+      </Box>
 
       <Divider />
     </div>
@@ -165,35 +287,33 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Switch>
+          <Route exact path={path}>
+            {/* <DashboardHome></DashboardHome> */}
+          </Route>
+          <Route path={`${path}/myOrders`}>
+            <MyOrders />
+          </Route>
+          <Route path={`${path}/review`}>
+            <GiveReview />
+          </Route>
+          <Route path={`${path}/payment`}>
+            <Payment />
+          </Route>
+          {/* admin  */}
+          <Route path={`${path}/makeAdmin`}>
+            <MakeAdmin />
+          </Route>
+          <Route path={`${path}/manageAllOrders`}>
+            <ManageAllOrders />
+          </Route>
+          <Route path={`${path}/manageProducts`}>
+            <ManageProducts />
+          </Route>
+          <Route path={`${path}/addProduct`}>
+            <AddProduct />
+          </Route>
+        </Switch>
       </Box>
     </Box>
   );

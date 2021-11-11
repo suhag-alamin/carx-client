@@ -13,6 +13,8 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import logo from "../../../images/logo.png";
 import "./Navigation.css";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
 // navbar
 function Navigation(props) {
@@ -75,8 +77,10 @@ function Navigation(props) {
             activeClassName="nav-selected"
             className="nav-link"
             to="/login"
+            style={{ display: "flex", alignItems: "center" }}
           >
             Login
+            <LoginIcon sx={{ ml: 1 }} />
           </NavLink>
         ) : (
           <Box sx={{}}>
@@ -98,7 +102,12 @@ function Navigation(props) {
               />
             )}
             <Divider />
-            <Button onClick={logOut} sx={{ color: "#16425b" }} variant="text">
+            <Button
+              onClick={logOut}
+              sx={{ color: "#16425b" }}
+              variant="text"
+              endIcon={<LogoutIcon />}
+            >
               Log Out
             </Button>
           </Box>
@@ -166,8 +175,10 @@ function Navigation(props) {
                       activeClassName="nav-selected"
                       className="nav-link"
                       to="/login"
+                      style={{ display: "flex", alignItems: "center" }}
                     >
                       Login
+                      <LoginIcon sx={{ ml: 1 }} />
                     </NavLink>
                   ) : (
                     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -194,8 +205,9 @@ function Navigation(props) {
                       )}
                       <Button
                         onClick={logOut}
-                        sx={{ color: "#16425b", p: 0, m: 0 }}
+                        sx={{ color: "#16425b" }}
                         variant="text"
+                        endIcon={<LogoutIcon />}
                       >
                         Log Out
                       </Button>
