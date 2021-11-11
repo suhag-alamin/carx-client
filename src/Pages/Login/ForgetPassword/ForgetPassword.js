@@ -3,7 +3,6 @@ import {
   Button,
   Checkbox,
   CssBaseline,
-  Divider,
   FormControlLabel,
   Grid,
   Paper,
@@ -14,9 +13,8 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import GoogleIcon from "@mui/icons-material/Google";
 
-const Login = () => {
+const ForgetPassword = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
 
   const handleOnBlur = (e) => {
@@ -28,7 +26,7 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    const { email, password } = loginUpInfo;
+    const { email } = loginUpInfo;
     console.log(loginUpInfo);
     e.preventDefault();
     e.target.reset();
@@ -83,19 +81,6 @@ const Login = () => {
               name="email"
               onBlur={handleOnBlur}
             />
-            <TextField
-              required
-              fullWidth
-              margin="normal"
-              name="password"
-              label="Password"
-              type="password"
-              onBlur={handleOnBlur}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -104,35 +89,13 @@ const Login = () => {
             >
               Sign In
             </Button>
-            <Grid sx={{ mb: 2 }} container>
+            <Grid container>
               <Grid item xs>
-                <Link
-                  style={{ color: "#16425b" }}
-                  to="/forgetPassword"
-                  variant="body2"
-                >
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link
-                  style={{ color: "#16425b" }}
-                  to="/register"
-                  variant="body2"
-                >
-                  {"Don't have an account? Sign Up"}
+                <Link style={{ color: "#16425b" }} to="/login" variant="body2">
+                  Remind it? Login
                 </Link>
               </Grid>
             </Grid>
-            <Divider />
-            <Box sx={{ py: 1, textAlign: "center" }}>
-              <Typography>Or Sign In Using Google</Typography>
-              <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
-                <Button fullWidth startIcon={<GoogleIcon />} variant="outlined">
-                  Google LogIn
-                </Button>
-              </Box>
-            </Box>
           </Box>
         </Box>
       </Grid>
@@ -140,4 +103,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgetPassword;

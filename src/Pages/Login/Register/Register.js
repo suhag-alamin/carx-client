@@ -6,11 +6,13 @@ import {
   Grid,
   TextField,
   Typography,
+  Divider,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const Register = () => {
   const [signUpInfo, setSignUpInfo] = useState({});
@@ -102,13 +104,22 @@ const Register = () => {
           >
             Sign Up
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid sx={{ mb: 2 }} container justifyContent="flex-end">
             <Grid item>
-              <Link to="/login" variant="body2">
+              <Link style={{ color: "#16425b" }} to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
+          <Divider />
+          <Box sx={{ py: 1, textAlign: "center" }}>
+            <Typography>Or Sign In Using Google</Typography>
+            <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
+              <Button fullWidth startIcon={<GoogleIcon />} variant="outlined">
+                Google LogIn
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Container>

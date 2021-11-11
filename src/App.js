@@ -10,6 +10,7 @@ import Cars from "./Pages/Cars/Cars/Cars";
 import Contact from "./Pages/Contact/Contact/Contact";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
 import Home from "./Pages/Home/Home/Home";
+import ForgetPassword from "./Pages/Login/ForgetPassword/ForgetPassword";
 import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
@@ -64,6 +65,9 @@ function App() {
               </Route>
               <Route exact path="/register">
                 <Register></Register>
+              </Route>
+              <Route exact path="/forgetPassword">
+                <ForgetPassword></ForgetPassword>
               </Route>
               <Route path="/dashboard">
                 <Dashboard></Dashboard>
