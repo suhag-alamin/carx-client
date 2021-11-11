@@ -57,7 +57,8 @@ const ManageAllOrders = () => {
       setOrders(result.data);
       setIsLoading(false);
     });
-  }, []);
+  }, [order.status]);
+  console.log(orders);
 
   // loading spinner
   if (isLoading) {
