@@ -32,7 +32,7 @@ const OrderDetails = ({ car }) => {
   });
   const onSubmit = (data) => {
     data.status = "pending";
-    console.log(data);
+    data.carImg = car?.img;
     axios
       .post("https://afternoon-tor-94038.herokuapp.com/orders", data)
       .then((result) => {
@@ -130,7 +130,6 @@ const OrderDetails = ({ car }) => {
                 <MenuItem value="green">Green</MenuItem>
                 <MenuItem value="white">White</MenuItem>
               </TextField>
-              {errors.price && <span className="error">Price is required</span>}
             </Grid>
             <Grid item xs={12}>
               <TextField
