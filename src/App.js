@@ -4,6 +4,7 @@ import "@fontsource/roboto/400.css";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import AuthProvider from "./context/AuthProvider";
 import useDocumentTitle from "./hooks/useDocumentTitle";
 import About from "./Pages/About/About/About";
 import Cars from "./Pages/Cars/Cars/Cars";
@@ -43,40 +44,42 @@ function App() {
     <div className="App">
       <CssBaseline>
         <ThemeProvider theme={theme}>
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Home></Home>
-              </Route>
-              <Route exact path="/home">
-                <Home></Home>
-              </Route>
-              <Route exact path="/about">
-                <About></About>
-              </Route>
-              <Route exact path="/contact">
-                <Contact></Contact>
-              </Route>
-              <Route exact path="/cars">
-                <Cars />
-              </Route>
-              <Route exact path="/login">
-                <Login></Login>
-              </Route>
-              <Route exact path="/register">
-                <Register></Register>
-              </Route>
-              <Route exact path="/forgetPassword">
-                <ForgetPassword></ForgetPassword>
-              </Route>
-              <Route path="/dashboard">
-                <Dashboard></Dashboard>
-              </Route>
-              <Route path="*">
-                <PageNotFound></PageNotFound>
-              </Route>
-            </Switch>
-          </Router>
+          <AuthProvider>
+            <Router>
+              <Switch>
+                <Route exact path="/">
+                  <Home></Home>
+                </Route>
+                <Route exact path="/home">
+                  <Home></Home>
+                </Route>
+                <Route exact path="/about">
+                  <About></About>
+                </Route>
+                <Route exact path="/contact">
+                  <Contact></Contact>
+                </Route>
+                <Route exact path="/cars">
+                  <Cars />
+                </Route>
+                <Route exact path="/login">
+                  <Login></Login>
+                </Route>
+                <Route exact path="/register">
+                  <Register></Register>
+                </Route>
+                <Route exact path="/forgetPassword">
+                  <ForgetPassword></ForgetPassword>
+                </Route>
+                <Route path="/dashboard">
+                  <Dashboard></Dashboard>
+                </Route>
+                <Route path="*">
+                  <PageNotFound></PageNotFound>
+                </Route>
+              </Switch>
+            </Router>
+          </AuthProvider>
         </ThemeProvider>
       </CssBaseline>
     </div>

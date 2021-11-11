@@ -12,12 +12,17 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
+  const { handleEmailLogin, signInWithGoogle } = useAuth();
+
+  const location = useLocation();
+  const history = useHistory();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -29,10 +34,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     const { email, password } = loginUpInfo;
-    console.log(loginUpInfo);
+    handleEmailLogin(email, password, location, history);
     e.preventDefault();
     e.target.reset();
   };
+
+  const handleGoogleLogin = () => {
+    signInWithGoogle(location, history);
+  };
+
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
@@ -128,7 +138,12 @@ const Login = () => {
             <Box sx={{ py: 1, textAlign: "center" }}>
               <Typography>Or Sign In Using Google</Typography>
               <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
-                <Button fullWidth startIcon={<GoogleIcon />} variant="outlined">
+                <Button
+                  onClick={handleGoogleLogin}
+                  fullWidth
+                  startIcon={<GoogleIcon />}
+                  variant="outlined"
+                >
                   Google LogIn
                 </Button>
               </Box>

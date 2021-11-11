@@ -1,4 +1,4 @@
-import { Divider, Grid, Typography } from "@mui/material";
+/* import { Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import car from "../../../images/car.png";
@@ -66,3 +66,4 @@ const RunningCar = () => {
 };
 
 export default RunningCar;
+ */

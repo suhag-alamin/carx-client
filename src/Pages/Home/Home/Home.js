@@ -7,7 +7,7 @@ import BuyingEssentials from "../BuyingEssentials/BuyingEssentials";
 import CounterSection from "../CounterSection/CounterSection";
 import FeaturedCars from "../FeaturedCars/FeaturedCars";
 import Reviews from "../Reviews/Reviews";
-import RunningCar from "../RunningCar/RunningCar";
+// import RunningCar from "../RunningCar/RunningCar";
 
 const Home = () => {
   // dynamic title
@@ -19,7 +19,7 @@ const Home = () => {
       {/* banner section  */}
       <Banner />
       {/* running car  */}
-      <RunningCar />
+      {/* <RunningCar /> */}
       {/* featured cars section  */}
       <FeaturedCars />
       {/* buying essentials  */}

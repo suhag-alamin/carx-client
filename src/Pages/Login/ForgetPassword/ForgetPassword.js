@@ -13,9 +13,12 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import useAuth from "../../../hooks/useAuth";
 
 const ForgetPassword = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
+
+  const { handlePasswordReset } = useAuth();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -27,7 +30,7 @@ const ForgetPassword = () => {
 
   const handleSubmit = (e) => {
     const { email } = loginUpInfo;
-    console.log(loginUpInfo);
+    handlePasswordReset(email);
     e.preventDefault();
     e.target.reset();
   };

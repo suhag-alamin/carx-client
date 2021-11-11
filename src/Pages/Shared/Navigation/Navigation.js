@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,6 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 import logo from "../../../images/logo.png";
 import "./Navigation.css";
 
@@ -18,64 +19,58 @@ function Navigation(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const { user, logOut } = useAuth();
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
     <Box sx={{ mt: 3, px: 2 }}>
-      <ul style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        <li>
-          <NavLink
-            activeClassName="nav-selected"
-            className="nav-link"
-            to="/home"
-          >
-            Home
-          </NavLink>
-        </li>
+      <nav style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <NavLink activeClassName="nav-selected" className="nav-link" to="/home">
+          Home
+        </NavLink>
+
         <Divider />
-        <li>
-          <NavLink
-            activeClassName="nav-selected"
-            className="nav-link"
-            to="/cars"
-          >
-            Cars
-          </NavLink>
-        </li>
+
+        <NavLink activeClassName="nav-selected" className="nav-link" to="/cars">
+          Cars
+        </NavLink>
+
         <Divider />
-        <li>
-          <NavLink
-            activeClassName="nav-selected"
-            className="nav-link"
-            to="/dashboard"
-          >
-            Dashboard
-          </NavLink>
-        </li>
+
+        <NavLink
+          activeClassName="nav-selected"
+          className="nav-link"
+          to="/dashboard"
+        >
+          Dashboard
+        </NavLink>
+
         <Divider />
-        <li>
-          <NavLink
-            activeClassName="nav-selected"
-            className="nav-link"
-            to="/about"
-          >
-            About
-          </NavLink>
-        </li>
+
+        <NavLink
+          activeClassName="nav-selected"
+          className="nav-link"
+          to="/about"
+        >
+          About
+        </NavLink>
+
         <Divider />
-        <li>
-          <NavLink
-            activeClassName="nav-selected"
-            className="nav-link"
-            to="/contact"
-          >
-            Contact
-          </NavLink>
-        </li>
+
+        <NavLink
+          activeClassName="nav-selected"
+          className="nav-link"
+          to="/contact"
+        >
+          Contact
+        </NavLink>
+
         <Divider />
-        <li>
+
+        {!user?.email ? (
           <NavLink
             activeClassName="nav-selected"
             className="nav-link"
@@ -83,9 +78,34 @@ function Navigation(props) {
           >
             Login
           </NavLink>
-        </li>
+        ) : (
+          <Box sx={{}}>
+            <NavLink
+              activeClassName="nav-selected"
+              className="nav-link"
+              to="/dashboard"
+            >
+              Dashboard
+            </NavLink>
+            <Divider />
+            {user?.email && <p className="nav-link">{user?.displayName}</p>}
+
+            {user?.photoURL && (
+              <img
+                style={{ width: 50, borderRadius: "50%" }}
+                src={user.photoURL}
+                alt=""
+              />
+            )}
+            <Divider />
+            <Button onClick={logOut} sx={{ color: "#16425b" }} variant="text">
+              Log Out
+            </Button>
+          </Box>
+        )}
+
         <Divider />
-      </ul>
+      </nav>
     </Box>
   );
 
@@ -111,28 +131,46 @@ function Navigation(props) {
               </Link>
 
               <Box sx={{ display: { xs: "none", md: "block" } }}>
-                <nav>
-                  <ul style={{ display: "flex" }}>
-                    <li>
-                      <NavLink
-                        activeClassName="nav-selected"
-                        className="nav-link"
-                        to="/home"
-                      >
-                        Home
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        activeClassName="nav-selected"
-                        className="nav-link"
-                        to="/cars"
-                      >
-                        Cars
-                      </NavLink>
-                    </li>
+                <nav style={{ display: "flex", alignItems: "center" }}>
+                  <NavLink
+                    activeClassName="nav-selected"
+                    className="nav-link"
+                    to="/home"
+                  >
+                    Home
+                  </NavLink>
+                  <NavLink
+                    activeClassName="nav-selected"
+                    className="nav-link"
+                    to="/cars"
+                  >
+                    Cars
+                  </NavLink>
 
-                    <li>
+                  <NavLink
+                    activeClassName="nav-selected"
+                    className="nav-link"
+                    to="/about"
+                  >
+                    About
+                  </NavLink>
+                  <NavLink
+                    activeClassName="nav-selected"
+                    className="nav-link"
+                    to="/contact"
+                  >
+                    Contact
+                  </NavLink>
+                  {!user?.email ? (
+                    <NavLink
+                      activeClassName="nav-selected"
+                      className="nav-link"
+                      to="/login"
+                    >
+                      Login
+                    </NavLink>
+                  ) : (
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
                       <NavLink
                         activeClassName="nav-selected"
                         className="nav-link"
@@ -140,35 +178,29 @@ function Navigation(props) {
                       >
                         Dashboard
                       </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        activeClassName="nav-selected"
-                        className="nav-link"
-                        to="/about"
+                      {user?.email && (
+                        <span className="nav-link">{user?.displayName}</span>
+                      )}
+                      {user?.photoURL && (
+                        <img
+                          style={{
+                            width: 50,
+                            borderRadius: "50%",
+                            marginRight: 10,
+                          }}
+                          src={user.photoURL}
+                          alt=""
+                        />
+                      )}
+                      <Button
+                        onClick={logOut}
+                        sx={{ color: "#16425b", p: 0, m: 0 }}
+                        variant="text"
                       >
-                        About
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        activeClassName="nav-selected"
-                        className="nav-link"
-                        to="/contact"
-                      >
-                        Contact
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        activeClassName="nav-selected"
-                        className="nav-link"
-                        to="/login"
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                  </ul>
+                        Log Out
+                      </Button>
+                    </Box>
+                  )}
                 </nav>
               </Box>
             </Box>
