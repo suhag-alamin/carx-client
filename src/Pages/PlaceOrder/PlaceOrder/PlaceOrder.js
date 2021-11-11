@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { CircularProgress, Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -12,13 +12,26 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 const PlaceOrder = () => {
   const { id } = useParams();
   const [car, setCar] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`https://afternoon-tor-94038.herokuapp.com/cars/${id}`)
       .then((result) => {
         setCar(result.data);
+        setIsLoading(false);
       });
   }, [id]);
+
+  // loading spinner
+  if (isLoading) {
+    return (
+      <Box sx={{ textAlign: "center", py: 2 }}>
+        <CircularProgress color="primary" />
+      </Box>
+    );
+  }
+
   return (
     <div>
       {/* navbar  */}
