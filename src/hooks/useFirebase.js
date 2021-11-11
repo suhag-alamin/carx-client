@@ -30,10 +30,13 @@ const useFirebase = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         setUser(result.user);
+        toast.success("Logged In Successfully");
         const destination = location?.state?.from || "/";
         history.replace(destination);
       })
-      .catch((error) => {})
+      .catch((error) => {
+        toast.error(error.message);
+      })
       .finally(() => setIsLoading(false));
   };
 
@@ -47,15 +50,15 @@ const useFirebase = () => {
           displayName: name,
         })
           .then(() => {
-            notify("Register Successfully");
-            <ToastContainer position="top-center" />;
-            alert("hoiche");
+            toast.success("Registered Successfully");
             history.replace("/");
           })
-          .catch((error) => {});
+          .catch((error) => {
+            toast.error(error.message);
+          });
       })
       .catch((error) => {
-        const errorMessage = error.message;
+        toast.error(error.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -65,12 +68,12 @@ const useFirebase = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setUser(result.user);
-        alert("hoiche");
+        toast.success("Logged In Successfully");
         const destination = location?.state?.from || "/";
         history.replace(destination);
       })
       .catch((error) => {
-        const errorMessage = error.message;
+        toast.error(error.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -78,22 +81,20 @@ const useFirebase = () => {
   const handlePasswordReset = (email) => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
-        // ..
+        toast.info("Password reset email sent");
       })
       .catch((error) => {
-        const errorMessage = error.message;
-        // ..
+        toast.error(error.message);
       });
   };
   // log out
   const logOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
+        toast.success("Logout Successfully");
       })
       .catch((error) => {
-        // An error happened.
+        toast.error(error.message);
       });
   };
 
@@ -109,8 +110,6 @@ const useFirebase = () => {
     });
     return () => unsubscribe;
   }, [auth]);
-
-  const notify = (message) => toast(message);
 
   return {
     handleEmailRegister,

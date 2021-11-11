@@ -14,6 +14,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [signUpInfo, setSignUpInfo] = useState({});
@@ -34,13 +35,13 @@ const Register = () => {
   const handleSubmit = (e) => {
     const { name, email, password, password2 } = signUpInfo;
     if (password !== password2) {
-      alert("Password Not matched");
+      toast.warning("Password Not matched");
       e.preventDefault();
       return;
     }
     handleEmailRegister(name, email, password, history);
     e.preventDefault();
-    e.target.reset();
+    // e.target.reset();
   };
 
   const handleGoogleLogin = () => {

@@ -3,6 +3,7 @@ import "@fontsource/oswald/700.css";
 import "@fontsource/roboto/400.css";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 import AuthProvider from "./context/AuthProvider";
 import useDocumentTitle from "./hooks/useDocumentTitle";
@@ -60,9 +61,9 @@ function App() {
                 <Route exact path="/contact">
                   <Contact></Contact>
                 </Route>
-                <Route exact path="/cars">
+                <PrivateRoute exact path="/cars">
                   <Cars />
-                </Route>
+                </PrivateRoute>
                 <Route exact path="/login">
                   <Login></Login>
                 </Route>
@@ -79,6 +80,17 @@ function App() {
                   <PageNotFound></PageNotFound>
                 </Route>
               </Switch>
+              <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
             </Router>
           </AuthProvider>
         </ThemeProvider>
