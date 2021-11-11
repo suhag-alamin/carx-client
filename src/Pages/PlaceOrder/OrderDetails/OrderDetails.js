@@ -44,7 +44,6 @@ const OrderDetails = ({ car }) => {
         }
       });
   };
-  console.log(errors);
   return (
     <>
       <Typography
@@ -180,7 +179,6 @@ const OrderDetails = ({ car }) => {
               Place Order
             </Button>
           </Grid>
-          {/* </form> */}
         </Box>
       </Box>
     </>
