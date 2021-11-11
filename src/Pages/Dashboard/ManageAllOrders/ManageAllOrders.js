@@ -1,5 +1,8 @@
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
+  ButtonGroup,
   CircularProgress,
   Container,
   Divider,
@@ -15,8 +18,9 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import CarModal from "../CarModal/CarModal";
+import { confirmAlert } from "react-confirm-alert";
+import { toast } from "react-toastify";
 
 const ManageAllOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -29,6 +33,7 @@ const ManageAllOrders = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleModalOpen = (id) => {
     setOrderId(id);
+    setIsLoading(true);
     axios({
       method: "get",
       url: `https://afternoon-tor-94038.herokuapp.com/allOrders/${id}`,
@@ -37,6 +42,7 @@ const ManageAllOrders = () => {
       // },
     }).then((result) => {
       setOrder(result.data);
+      setIsLoading(false);
     });
     // open modal
     setModalOpen(true);
@@ -57,8 +63,36 @@ const ManageAllOrders = () => {
       setOrders(result.data);
       setIsLoading(false);
     });
-  }, [order.status]);
-  console.log(orders);
+  }, [order?.status]);
+
+  // handleCancel
+  const handleCancel = (id) => {
+    confirmAlert({
+      message: "Are you sure want to delete?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            axios
+              .delete(`https://afternoon-tor-94038.herokuapp.com/orders/${id}`)
+              .then((result) => {
+                if (result.data.deletedCount > 0) {
+                  const remaining = orders.filter((event) => event._id !== id);
+                  setOrders(remaining);
+                  toast.info("Order Canceled");
+                }
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
+  };
 
   // loading spinner
   if (isLoading) {
@@ -70,7 +104,11 @@ const ManageAllOrders = () => {
   }
   return (
     <>
-      <Container sx={{ py: 2 }}>
+      <Box
+        className="result"
+        style={{ marginRight: 0 }}
+        sx={{ py: 2, px: 0, mx: 0 }}
+      >
         <Typography
           sx={{ textAlign: "", pb: 2 }}
           variant="h4"
@@ -80,7 +118,7 @@ const ManageAllOrders = () => {
         </Typography>
         <Divider />
         <TableContainer sx={{ my: 3 }} component={Paper}>
-          <Table sx={{ minWidth: 350 }} aria-label="Appointment table">
+          <Table sx={{}} aria-label="Appointment table">
             <TableHead sx={{ bgcolor: "#f0f4ef" }}>
               <TableRow>
                 <TableCell align="left">Name</TableCell>
@@ -110,21 +148,31 @@ const ManageAllOrders = () => {
                   <TableCell>{row.color}</TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => handleModalOpen(row._id)}
-                      sx={{ color: "#16425b" }}
-                      variant="text"
-                      startIcon={<EditIcon />}
-                    >
-                      Edit
-                    </Button>
+                    <ButtonGroup variant="text">
+                      <Button
+                        onClick={() => handleCancel(row._id)}
+                        sx={{ color: "#16425b" }}
+                        variant="text"
+                        startIcon={<DeleteIcon />}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        onClick={() => handleModalOpen(row._id)}
+                        sx={{ color: "#16425b" }}
+                        variant="text"
+                        startIcon={<EditIcon />}
+                      >
+                        Edit
+                      </Button>
+                    </ButtonGroup>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
+      </Box>
       {/* modal  */}
       <CarModal
         modalOpen={modalOpen}

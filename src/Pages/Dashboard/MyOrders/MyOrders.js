@@ -42,7 +42,6 @@ const MyOrders = () => {
   }, [user?.email]);
 
   // handleCancel
-
   const handleCancel = (id) => {
     confirmAlert({
       message: "Are you sure want to cancel?",

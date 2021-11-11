@@ -12,7 +12,6 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const style = {
@@ -55,41 +54,11 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
           handleModalClose();
         }
       });
-    console.log(order);
     e.preventDefault();
-  };
-
-  const {
-    register,
-    // handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    // defaultValues: {
-    //   userName: user?.displayName,
-    //   userEmail: user?.email,
-    //   carName: car?.carName,
-    //   price: car?.price,
-    // },
-  });
-  const onSubmit = (data) => {
-    // data.status = changeStatus;
-    // data.carImg = car?.img;
-    // axios
-    //   .post("https://afternoon-tor-94038.herokuapp.com/orders", data)
-    //   .then((result) => {
-    //     if (result.data?.insertedId) {
-    //       toast.success(
-    //         "Successfully added an order. Please proceed with payment."
-    //       );
-    //       reset();
-    //     }
-    //   });
   };
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -110,36 +79,6 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
             <Typography id="transition-modal-description" sx={{ my: 2 }}>
               {status}
             </Typography>
-            {/* <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{ mt: 3 }}
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    select
-                    label="Change"
-                    fullWidth
-                    helperText="Please select your color"
-                    {...register("color")}
-                  >
-                    <MenuItem value="black">Shipped</MenuItem>
-                    <MenuItem value="red">Delivered</MenuItem>
-                    <MenuItem value="blue">Reject</MenuItem>
-                  </TextField>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Place Order
-                </Button>
-              </Grid>
-            </Box> */}
             <Box sx={{ minWidth: 120 }}>
               <form onSubmit={handleSubmit}>
                 <FormControl fullWidth>

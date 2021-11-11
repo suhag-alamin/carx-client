@@ -275,7 +275,9 @@ function Dashboard(props) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          py: 3,
+          px: 2,
+          mr: 0,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
