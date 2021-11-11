@@ -1,4 +1,5 @@
 import {
+  Button,
   CircularProgress,
   Container,
   Divider,
@@ -15,12 +16,17 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { toast } from "react-toastify";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
 
+  // load ordes by email
   useEffect(() => {
     setIsLoading(true);
     axios({
@@ -34,6 +40,36 @@ const MyOrders = () => {
       setIsLoading(false);
     });
   }, [user?.email]);
+
+  // handleCancel
+
+  const handleCancel = (id) => {
+    confirmAlert({
+      message: "Are you sure want to cancel?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            axios
+              .delete(`https://afternoon-tor-94038.herokuapp.com/orders/${id}`)
+              .then((result) => {
+                if (result.data.deletedCount > 0) {
+                  const remaining = orders.filter((event) => event._id !== id);
+                  setOrders(remaining);
+                  toast.info("Order Canceled");
+                }
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
+  };
 
   // loading spinner
   if (isLoading) {
@@ -55,7 +91,7 @@ const MyOrders = () => {
       </Typography>
       <Divider />
       <TableContainer sx={{ my: 3 }} component={Paper}>
-        <Table sx={{}} aria-label="Appointment table">
+        <Table sx={{ minWidth: 350 }} aria-label="Appointment table">
           <TableHead sx={{ bgcolor: "#f0f4ef" }}>
             <TableRow>
               <TableCell align="left">Name</TableCell>
@@ -84,7 +120,16 @@ const MyOrders = () => {
                 <TableCell align="center">$ {row.price}</TableCell>
                 <TableCell align="center">{row.color}</TableCell>
                 <TableCell align="center">{row.status}</TableCell>
-                <TableCell align="center">Edit</TableCell>
+                <TableCell align="center">
+                  <Button
+                    onClick={() => handleCancel(row._id)}
+                    sx={{ color: "#ff1654" }}
+                    variant="text"
+                    startIcon={<CancelIcon />}
+                  >
+                    Cancel
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
