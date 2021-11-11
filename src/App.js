@@ -13,6 +13,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
 import Home from "./Pages/Home/Home/Home";
 import ForgetPassword from "./Pages/Login/ForgetPassword/ForgetPassword";
 import Login from "./Pages/Login/Login/Login";
+import PrivateRoute from "./Pages/Login/PrivateRoute/PrivateRoute";
 import Register from "./Pages/Login/Register/Register";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 
@@ -71,9 +72,9 @@ function App() {
                 <Route exact path="/forgetPassword">
                   <ForgetPassword></ForgetPassword>
                 </Route>
-                <Route path="/dashboard">
+                <PrivateRoute path="/dashboard">
                   <Dashboard></Dashboard>
-                </Route>
+                </PrivateRoute>
                 <Route path="*">
                   <PageNotFound></PageNotFound>
                 </Route>

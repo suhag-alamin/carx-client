@@ -1,9 +1,7 @@
 import {
   Avatar,
   Button,
-  Checkbox,
   CssBaseline,
-  FormControlLabel,
   Grid,
   Paper,
   TextField,
