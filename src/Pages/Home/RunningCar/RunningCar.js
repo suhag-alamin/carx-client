@@ -1,4 +1,4 @@
-import { Container, Divider, Grid, Typography } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import car from "../../../images/car.png";
@@ -41,7 +41,7 @@ const RunningCar = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={4} lg={6}>
-          <Box sx={{ px: 2 }}>
+          <Box sx={{ px: 2, width: "75%" }}>
             <Typography
               sx={{ pb: 3, fontWeight: 700 }}
               color="secondary"
