@@ -44,11 +44,11 @@ const BuyingEssentials = () => {
             >
               <img style={{ width: "90px" }} src={icon2} alt="" />
               <Typography variant="subtitle1" color="primary">
-                WHAT'S IT WORTH
+                CAR INSURANCE
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Get a free valuation. Sell or part-exchange your car at the
-                right price.
+                Compare car insurance and you could save up to £267* with
+                Compare the Market.
               </Typography>
             </Paper>
           </Grid>
@@ -60,11 +60,11 @@ const BuyingEssentials = () => {
             >
               <img style={{ width: "90px" }} src={icon3} alt="" />
               <Typography variant="subtitle1" color="primary">
-                WHAT'S IT WORTH
+                CAR FINANCE & LOANS
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Get a free valuation. Sell or part-exchange your car at the
-                right price.
+                Discover how much you can borrow and find the right package for
+                you.
               </Typography>
             </Paper>
           </Grid>
@@ -76,11 +76,11 @@ const BuyingEssentials = () => {
             >
               <img style={{ width: "90px" }} src={icon4} alt="" />
               <Typography variant="subtitle1" color="primary">
-                WHAT'S IT WORTH
+                CHECK A CAR'S HISTORY
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Get a free valuation. Sell or part-exchange your car at the
-                right price.
+                Have complete peace of mind before you buy your next car.Have
+                complete.
               </Typography>
             </Paper>
           </Grid>

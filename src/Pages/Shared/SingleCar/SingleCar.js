@@ -11,9 +11,15 @@ import { Box } from "@mui/system";
 import React from "react";
 import "./SingleCar.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useHistory } from "react-router";
 
 const SingleCar = ({ car }) => {
   const { _id, carName, description, img, price } = car;
+
+  const history = useHistory();
+  const hanldeClick = (id) => {
+    history.push(`/placeOrder/${id}`);
+  };
   return (
     <Grid item xs={2} sm={4} md={6} lg={4}>
       <Card sx={{ height: "100%", boxShadow: 1 }}>
@@ -49,6 +55,7 @@ const SingleCar = ({ car }) => {
             variant="contained"
             sx={{ px: 4 }}
             startIcon={<ShoppingCartIcon />}
+            onClick={() => hanldeClick(_id)}
           >
             Buy Now
           </Button>

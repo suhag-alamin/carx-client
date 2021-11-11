@@ -17,6 +17,7 @@ import Login from "./Pages/Login/Login/Login";
 import PrivateRoute from "./Pages/Login/PrivateRoute/PrivateRoute";
 import Register from "./Pages/Login/Register/Register";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder/PlaceOrder";
 
 // api link : https://afternoon-tor-94038.herokuapp.com/
 
@@ -61,8 +62,11 @@ function App() {
                 <Route exact path="/contact">
                   <Contact></Contact>
                 </Route>
-                <PrivateRoute exact path="/cars">
+                <Route exact path="/cars">
                   <Cars />
+                </Route>
+                <PrivateRoute exact path="/placeOrder/:id">
+                  <PlaceOrder />
                 </PrivateRoute>
                 <Route exact path="/login">
                   <Login></Login>
