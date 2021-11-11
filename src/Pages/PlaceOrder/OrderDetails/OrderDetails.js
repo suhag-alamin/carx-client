@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import "./OrderDatails.css";
+import axios from "axios";
 
 const OrderDetails = ({ car }) => {
   const { user } = useAuth();
@@ -18,6 +19,7 @@ const OrderDetails = ({ car }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -28,7 +30,17 @@ const OrderDetails = ({ car }) => {
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
+    data.status = "pending";
+    axios
+      .post("https://afternoon-tor-94038.herokuapp.com/orders", data)
+      .then((result) => {
+        if (result.data?.insertedId) {
+          toast.success(
+            "Successfully added an order. Please proceed with payment."
+          );
+          reset();
+        }
+      });
   };
   console.log(errors);
   return (
