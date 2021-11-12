@@ -30,17 +30,19 @@ const ManageProducts = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(
-        `https://afternoon-tor-94038.herokuapp.com/cars?page=${page}&&size=${size}`
-      )
-      .then((result) => {
-        setCars(result.data?.cars);
-        const count = result.data?.count;
-        const pageNumber = Math.ceil(count / size);
-        setPageCount(pageNumber);
-        setIsLoading(false);
-      });
+    axios({
+      method: "get",
+      url: `https://afternoon-tor-94038.herokuapp.com/cars?page=${page}&&size=${size}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+      },
+    }).then((result) => {
+      setCars(result.data?.cars);
+      const count = result.data?.count;
+      const pageNumber = Math.ceil(count / size);
+      setPageCount(pageNumber);
+      setIsLoading(false);
+    });
   }, [page]);
 
   // handledelte

@@ -17,12 +17,16 @@ const FeaturedCars = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get("https://afternoon-tor-94038.herokuapp.com/cars")
-      .then((result) => {
-        setCars(result.data?.cars);
-        setIsLoading(false);
-      });
+    axios({
+      method: "get",
+      url: "https://afternoon-tor-94038.herokuapp.com/cars",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+      },
+    }).then((result) => {
+      setCars(result.data?.cars);
+      setIsLoading(false);
+    });
   }, []);
 
   // loading spinner

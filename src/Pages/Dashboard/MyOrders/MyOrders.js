@@ -31,9 +31,9 @@ const MyOrders = () => {
     axios({
       method: "get",
       url: `https://afternoon-tor-94038.herokuapp.com/orders?email=${user?.email}`,
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+      },
     }).then((result) => {
       setOrders(result.data);
       setIsLoading(false);
