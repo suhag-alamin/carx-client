@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { useHistory } from "react-router";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 
