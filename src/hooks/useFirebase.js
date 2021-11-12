@@ -20,6 +20,7 @@ initializeAuthentication();
 const useFirebase = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [admin, setAdmin] = useState(false);
 
   // auth and provider
   const auth = getAuth();
@@ -133,6 +134,15 @@ const useFirebase = () => {
       .then((result) => {});
   };
 
+  // admin check
+  useEffect(() => {
+    axios
+      .get(`https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`)
+      .then((result) => {
+        setAdmin(result.data?.admin);
+      });
+  }, [user?.email]);
+
   return {
     handleEmailRegister,
     handleEmailLogin,
@@ -141,6 +151,7 @@ const useFirebase = () => {
     handlePasswordReset,
     signInWithGoogle,
     logOut,
+    admin,
   };
 };
 

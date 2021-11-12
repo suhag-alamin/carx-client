@@ -40,7 +40,7 @@ const drawerWidth = 240;
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { user, logOut } = useAuth();
+  const { user, logOut, admin } = useAuth();
   const { path, url } = useRouteMatch();
 
   const handleDrawerToggle = () => {
@@ -141,54 +141,58 @@ function Dashboard(props) {
       </ListItem>
 
       {/* admin  */}
-      <ListItem button>
-        <ListItemIcon>
-          <AdminPanelSettingsIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/makeAdmin`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="Make Admin"
-        />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <BorderClearIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/manageAllOrders`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="Manage All Orders"
-        />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <WifiProtectedSetupIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/manageProducts`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="Manage Products"
-        />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <AddCircleOutlineIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/addProduct`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="Add Products"
-        />
-      </ListItem>
+      {admin && (
+        <Box>
+          <ListItem button>
+            <ListItemIcon>
+              <AdminPanelSettingsIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/makeAdmin`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="Make Admin"
+            />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <BorderClearIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/manageAllOrders`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="Manage All Orders"
+            />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <WifiProtectedSetupIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/manageProducts`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="Manage Products"
+            />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <AddCircleOutlineIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/addProduct`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="Add Products"
+            />
+          </ListItem>
+        </Box>
+      )}
 
       {/* log out  */}
       <Box sx={{ mt: 10 }}>
