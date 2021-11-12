@@ -29,7 +29,6 @@ const style = {
 const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
   const { carName, carImg, status } = order;
 
-  //   const { user } = useAuth();
   const [changeStatus, setChangeStatus] = useState("");
 
   const handleChange = (e) => {
@@ -58,7 +57,7 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
   };
 
   return (
-    <div>
+    <>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -111,7 +110,7 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 };
 
