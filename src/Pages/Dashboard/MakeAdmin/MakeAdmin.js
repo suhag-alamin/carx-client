@@ -7,25 +7,32 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const MakeAdmin = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({});
   const onSubmit = (data) => {
-    // axios
-    //   .put(`https://afternoon-tor-94038.herokuapp.com/cars/${_id}`, data)
-    //   .then((result) => {
-    //     if (result.data?.modifiedCount > 0) {
-    //       toast.info(
-    //         "Product Updated. To see the updated version, please refresh."
-    //       );
-    //     }
-    //   });
+    axios({
+      method: "put",
+      url: "https://afternoon-tor-94038.herokuapp.com/users/admin",
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
+      data: data,
+    }).then((result) => {
+      if (result.data?.modifiedCount > 0) {
+        toast.success("Admin made successfully");
+        reset();
+      }
+    });
   };
   return (
     <Container sx={{ py: 2 }}>
