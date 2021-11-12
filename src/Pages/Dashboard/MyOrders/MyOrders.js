@@ -19,8 +19,12 @@ import useAuth from "../../../hooks/useAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const MyOrders = () => {
+  // dynamic title
+  useDocumentTitle("My Orders");
+
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();

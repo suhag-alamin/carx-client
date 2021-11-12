@@ -11,8 +11,11 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const MakeAdmin = () => {
+  // dynamic title
+  useDocumentTitle("Make Admin");
   const {
     register,
     handleSubmit,

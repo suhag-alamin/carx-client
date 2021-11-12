@@ -9,12 +9,16 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 import SingleCar from "../../Shared/SingleCar/SingleCar";
 
 const Cars = () => {
+  // dynamic title
+  useDocumentTitle("Cars");
+
   const [cars, setCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

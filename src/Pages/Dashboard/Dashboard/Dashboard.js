@@ -9,7 +9,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
-import { Button, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -25,6 +25,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import { NavLink, Route, Switch, useRouteMatch } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import AdminRoute from "../../Login/AdminRoute/AdminRoute";
 import AddProduct from "../AddProduct/AddProduct";
 import GiveReview from "../GiveReview/GiveReview";
@@ -37,19 +38,13 @@ import Payment from "../Payment/Payment";
 const drawerWidth = 240;
 
 function Dashboard(props) {
+  // dynamic title
+  useDocumentTitle("Dashboard");
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { user, logOut, admin, isLoading } = useAuth();
+  const { user, logOut, admin } = useAuth();
   const { path, url } = useRouteMatch();
-
-  // // loading spinner
-  // if (isLoading) {
-  //   return (
-  //     <Box sx={{ textAlign: "center", py: 2 }}>
-  //       <CircularProgress color="primary" />
-  //     </Box>
-  //   );
-  // }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

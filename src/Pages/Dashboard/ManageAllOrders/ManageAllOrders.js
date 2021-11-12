@@ -20,8 +20,11 @@ import React, { useEffect, useState } from "react";
 import CarModal from "../CarModal/CarModal";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const ManageAllOrders = () => {
+  // dynamic title
+  useDocumentTitle("Manage All Orders");
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

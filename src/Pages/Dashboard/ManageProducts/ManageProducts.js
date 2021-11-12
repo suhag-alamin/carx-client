@@ -12,9 +12,12 @@ import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import ManageAProduct from "./ManageAProduct/ManageAProduct";
 
 const ManageProducts = () => {
+  // dynamic title
+  useDocumentTitle("Manage Products");
   const [cars, setCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

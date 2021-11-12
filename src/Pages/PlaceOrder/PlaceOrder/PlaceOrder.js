@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
@@ -10,6 +11,8 @@ import CarDetails from "../CarDetails/CarDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 const PlaceOrder = () => {
+  // dynamic title
+  useDocumentTitle("Place Order");
   const { id } = useParams();
   const [car, setCar] = useState({});
   const [isLoading, setIsLoading] = useState(true);

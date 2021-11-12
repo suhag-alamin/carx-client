@@ -11,8 +11,11 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const AddProduct = () => {
+  // dynamic title
+  useDocumentTitle("Add Product");
   const {
     register,
     handleSubmit,

@@ -6,6 +6,7 @@ import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
+import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import SingleReview from "../SingleReview/SingleReview";
 
 // install Swiper modules
@@ -14,6 +15,9 @@ SwiperCore.use([Navigation]);
 // reviews section
 
 const Reviews = () => {
+  // dynamic title
+  useDocumentTitle("Review");
+
   const [clientReviews, setClinetReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
