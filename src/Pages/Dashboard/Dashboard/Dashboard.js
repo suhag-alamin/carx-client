@@ -34,6 +34,7 @@ import AddProduct from "../AddProduct/AddProduct";
 import ManageProducts from "../ManageProducts/ManageProducts";
 import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
 import BorderClearIcon from "@mui/icons-material/BorderClear";
+import AdminRoute from "../../Login/AdminRoute/AdminRoute";
 
 const drawerWidth = 240;
 
@@ -300,18 +301,19 @@ function Dashboard(props) {
             <Payment />
           </Route>
           {/* admin  */}
-          <Route path={`${path}/makeAdmin`}>
+
+          <AdminRoute path={`${path}/makeAdmin`}>
             <MakeAdmin />
-          </Route>
-          <Route path={`${path}/manageAllOrders`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageAllOrders`}>
             <ManageAllOrders />
-          </Route>
-          <Route path={`${path}/manageProducts`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageProducts`}>
             <ManageProducts />
-          </Route>
-          <Route path={`${path}/addProduct`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/addProduct`}>
             <AddProduct />
-          </Route>
+          </AdminRoute>
         </Switch>
       </Box>
     </Box>
