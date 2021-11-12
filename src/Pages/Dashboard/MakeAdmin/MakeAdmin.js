@@ -53,7 +53,7 @@ const MakeAdmin = () => {
           flexDirection: "column",
           // alignItems: "center",
           marginX: "auto",
-          width: "50%",
+          width: { xs: "80%", md: "50%" },
           py: 3,
         }}
       >
