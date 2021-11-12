@@ -23,7 +23,6 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -34,13 +33,13 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
   });
   const onSubmit = (data) => {
     data.price = parseFloat(data.price);
-    console.log(data);
     axios
       .put(`https://afternoon-tor-94038.herokuapp.com/cars/${_id}`, data)
       .then((result) => {
-        console.log(result);
         if (result.data?.modifiedCount > 0) {
-          toast.info("Product Updated");
+          toast.info(
+            "Product Updated. To see the updated version, please refresh."
+          );
           handleModalClose();
         }
       });
@@ -87,7 +86,7 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
                     <TextField
                       type="number"
                       fullWidth
-                      label="Car Price"
+                      label="Car Price $"
                       {...register("price", { required: true })}
                     />
                   </Grid>
