@@ -42,14 +42,14 @@ function Dashboard(props) {
   const { user, logOut, admin, isLoading } = useAuth();
   const { path, url } = useRouteMatch();
 
-  // loading spinner
-  if (isLoading) {
-    return (
-      <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
-      </Box>
-    );
-  }
+  // // loading spinner
+  // if (isLoading) {
+  //   return (
+  //     <Box sx={{ textAlign: "center", py: 2 }}>
+  //       <CircularProgress color="primary" />
+  //     </Box>
+  //   );
+  // }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

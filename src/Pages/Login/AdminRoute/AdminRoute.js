@@ -7,7 +7,7 @@ import useAuth from "../../../hooks/useAuth";
 const AdminRoute = ({ children, ...rest }) => {
   const { user, admin, isLoading } = useAuth();
   // loading spinner
-  if (isLoading) {
+  if (!admin || isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
         <CircularProgress color="primary" />
