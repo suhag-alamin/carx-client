@@ -34,7 +34,6 @@ const CarDetails = ({ car }) => {
         <Divider />
         <Swiper
           navigation={true}
-          loop={true}
           grabCursor={true}
           autoplay={{
             delay: 4000,

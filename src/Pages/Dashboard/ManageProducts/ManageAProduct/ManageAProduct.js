@@ -11,6 +11,7 @@ import {
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
 
 const ManageAProduct = ({ car, handleDelete }) => {
@@ -52,7 +53,7 @@ const ManageAProduct = ({ car, handleDelete }) => {
             <ButtonGroup variant="contained">
               <Button
                 sx={{ px: 4 }}
-                startIcon={<DeleteIcon />}
+                startIcon={<EditIcon />}
                 onClick={() => handleModalOpen(_id)}
               >
                 Edit
