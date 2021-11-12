@@ -2,13 +2,13 @@ import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  getIdToken,
   GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  getIdToken,
   updateProfile,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
@@ -114,9 +114,7 @@ const useFirebase = () => {
         setUser(user);
 
         // id token
-        // setIsLoading(true);
         getIdToken(user).then((idToken) => {
-          console.log(idToken);
           localStorage.setItem("idToken", idToken);
         });
       } else {
@@ -144,12 +142,33 @@ const useFirebase = () => {
 
   // admin check
   useEffect(() => {
-    axios
-      .get(`https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`)
-      .then((result) => {
-        setAdmin(result.data?.admin);
-      });
+    setIsLoading(true);
+    const checkAdmin = async () => {
+      // axios({
+      //   method: "get",
+      //   url: `https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`,
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+      //   },
+      // }).then((result) => {
+      //   setAdmin(result.data?.admin);
+      //   setIsLoading(false);
+      // });
+      const res = await fetch(
+        `https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("idToken")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setAdmin(data.admin);
+      setIsLoading(false);
+    };
+    checkAdmin();
   }, [user?.email]);
+  console.log(admin);
 
   return {
     handleEmailRegister,
