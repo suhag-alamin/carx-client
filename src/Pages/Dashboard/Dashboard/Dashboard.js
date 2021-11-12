@@ -1,5 +1,15 @@
-import * as React from "react";
-import PropTypes from "prop-types";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import BorderClearIcon from "@mui/icons-material/BorderClear";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
+import PaymentIcon from "@mui/icons-material/Payment";
+import RateReviewIcon from "@mui/icons-material/RateReview";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
+import { Button } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,32 +19,20 @@ import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { NavLink } from "react-router-dom";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PaymentIcon from "@mui/icons-material/Payment";
-import RateReviewIcon from "@mui/icons-material/RateReview";
-import HomeIcon from "@mui/icons-material/Home";
-import LogoutIcon from "@mui/icons-material/Logout";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-import MyOrders from "../MyOrders/MyOrders";
-import GiveReview from "../GiveReview/GiveReview";
-import Payment from "../Payment/Payment";
-import { Button } from "@mui/material";
+import PropTypes from "prop-types";
+import * as React from "react";
+import { NavLink, Route, Switch, useRouteMatch } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import MakeAdmin from "../MakeAdmin/MakeAdmin";
-import AddProduct from "../AddProduct/AddProduct";
-import ManageProducts from "../ManageProducts/ManageProducts";
-import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
-import BorderClearIcon from "@mui/icons-material/BorderClear";
 import AdminRoute from "../../Login/AdminRoute/AdminRoute";
+import AddProduct from "../AddProduct/AddProduct";
+import GiveReview from "../GiveReview/GiveReview";
+import MakeAdmin from "../MakeAdmin/MakeAdmin";
+import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
+import ManageProducts from "../ManageProducts/ManageProducts";
+import MyOrders from "../MyOrders/MyOrders";
+import Payment from "../Payment/Payment";
 
 const drawerWidth = 240;
 
@@ -101,45 +99,49 @@ function Dashboard(props) {
           primary="Dashboard"
         />
       </ListItem>
+      {/* normal user  */}
+      {!admin && (
+        <Box>
+          <ListItem button>
+            <ListItemIcon>
+              <ShoppingCartIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/myOrders`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="My Orders"
+            />
+          </ListItem>
 
-      <ListItem button>
-        <ListItemIcon>
-          <ShoppingCartIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/myOrders`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="My Orders"
-        />
-      </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <PaymentIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/payment`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="Pay"
+            />
+          </ListItem>
 
-      <ListItem button>
-        <ListItemIcon>
-          <PaymentIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/payment`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="Pay"
-        />
-      </ListItem>
-
-      <ListItem button>
-        <ListItemIcon>
-          <RateReviewIcon color="primary" />
-        </ListItemIcon>
-        <ListItemText
-          as={NavLink}
-          to={`${url}/review`}
-          sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
-          primary="Review"
-        />
-      </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <RateReviewIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText
+              as={NavLink}
+              to={`${url}/review`}
+              sx={{ color: "#457B9D" }}
+              activeClassName="nav-selected"
+              primary="Review"
+            />
+          </ListItem>
+        </Box>
+      )}
 
       {/* admin  */}
       {admin && (
@@ -288,9 +290,12 @@ function Dashboard(props) {
       >
         <Toolbar />
         <Switch>
-          <Route exact path={path}>
-            <MyOrders />
-          </Route>
+          {/* normal user */}
+          {!admin && (
+            <Route exact path={path}>
+              <MyOrders />
+            </Route>
+          )}
           <Route path={`${path}/myOrders`}>
             <MyOrders />
           </Route>
@@ -301,6 +306,12 @@ function Dashboard(props) {
             <Payment />
           </Route>
           {/* admin  */}
+
+          {admin && (
+            <Route exact path={path}>
+              <ManageAllOrders />
+            </Route>
+          )}
 
           <AdminRoute path={`${path}/makeAdmin`}>
             <MakeAdmin />

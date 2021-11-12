@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  getIdToken,
   updateProfile,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
@@ -111,6 +112,12 @@ const useFirebase = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+
+        // id token
+        getIdToken(user).then((idToken) => {
+          console.log(idToken);
+          localStorage.setItem("idToken", idToken);
+        });
       } else {
         setUser({});
       }
