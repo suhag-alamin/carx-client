@@ -18,7 +18,6 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import { toast } from "react-toastify";
 
 const MyOrders = () => {

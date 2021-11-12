@@ -10,7 +10,16 @@ import "swiper/swiper.min.css";
 SwiperCore.use([Navigation, Autoplay]);
 
 const CarDetails = ({ car }) => {
-  const { carName, description, price, gallery, img } = car;
+  const {
+    carName,
+    description,
+    price,
+    img,
+    gallery1,
+    gallery2,
+    gallery3,
+    gallery4,
+  } = car;
   return (
     <>
       <Box sx={{ width: "100%    " }}>
@@ -37,16 +46,16 @@ const CarDetails = ({ car }) => {
             <img style={{ width: "100%" }} src={img} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery?.gallery1} alt="" />
+            <img style={{ width: "100%" }} src={gallery1} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery?.gallery2} alt="" />
+            <img style={{ width: "100%" }} src={gallery2} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery?.gallery3} alt="" />
+            <img style={{ width: "100%" }} src={gallery3} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery?.gallery4} alt="" />
+            <img style={{ width: "100%" }} src={gallery4} alt="" />
           </SwiperSlide>
         </Swiper>
       </Box>
