@@ -24,7 +24,6 @@ const Cars = () => {
   const size = 6;
   const handleChange = (event, value) => {
     setPage(value - 1);
-    console.log(value);
   };
 
   useEffect(() => {
