@@ -109,7 +109,7 @@ const useFirebase = () => {
 
   // observe user
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
 
@@ -122,7 +122,6 @@ const useFirebase = () => {
       }
       setIsLoading(false);
     });
-    return () => unsubscribe;
   }, [auth]);
 
   // save user to database
@@ -142,7 +141,7 @@ const useFirebase = () => {
 
   // admin check
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     axios({
       method: "get",
       url: `https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`,
@@ -151,7 +150,7 @@ const useFirebase = () => {
       },
     }).then((result) => {
       setAdmin(result.data?.admin);
-      setIsLoading(false);
+      // setIsLoading(false);
     });
     // const checkAdmin = async () => {
 

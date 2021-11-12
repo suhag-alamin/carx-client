@@ -78,9 +78,9 @@ function App() {
                 <Route exact path="/forgetPassword">
                   <ForgetPassword></ForgetPassword>
                 </Route>
-                <Route path="/dashboard">
+                <PrivateRoute path="/dashboard">
                   <Dashboard></Dashboard>
-                </Route>
+                </PrivateRoute>
                 <Route path="*">
                   <PageNotFound></PageNotFound>
                 </Route>
