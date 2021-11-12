@@ -7,8 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const AddProduct = () => {
   // const { user } = useAuth();
@@ -18,28 +20,18 @@ const AddProduct = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-    // defaultValues: {
-    //   userName: user?.displayName,
-    //   userEmail: user?.email,
-    //   carName: car?.carName,
-    //   price: car?.price,
-    // },
-  });
+  } = useForm({});
   const onSubmit = (data) => {
+    data.price = parseFloat(data.price);
     console.log(data);
-    // data.status = "pending";
-    // data.carImg = car?.img;
-    // axios
-    //   .post("https://afternoon-tor-94038.herokuapp.com/orders", data)
-    //   .then((result) => {
-    //     if (result.data?.insertedId) {
-    //       toast.success(
-    //         "Successfully added an order. Please proceed with payment."
-    //       );
-    //       reset();
-    //     }
-    //   });
+    axios
+      .post("https://afternoon-tor-94038.herokuapp.com/cars", data)
+      .then((result) => {
+        if (result.data?.insertedId) {
+          toast.success("Car added successfully!");
+          reset();
+        }
+      });
   };
   return (
     <Container>
@@ -53,11 +45,11 @@ const AddProduct = () => {
       <Divider />
       <Box
         sx={{
-          marginTop: 2,
+          marginTop: 1,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "90%",
+          width: "80%",
           marginX: "auto",
         }}
       >

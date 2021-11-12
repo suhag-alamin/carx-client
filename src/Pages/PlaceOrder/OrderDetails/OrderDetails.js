@@ -109,7 +109,7 @@ const OrderDetails = ({ car }) => {
               <TextField
                 type="number"
                 fullWidth
-                label="Car Price"
+                label="Car Price $"
                 {...register("price", { required: true })}
               />
               {errors.price && <span className="error">Price is required</span>}

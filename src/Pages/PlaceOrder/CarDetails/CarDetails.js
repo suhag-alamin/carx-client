@@ -5,6 +5,7 @@ import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
+import "./CarDetails.css";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Autoplay]);
@@ -43,20 +44,53 @@ const CarDetails = ({ car }) => {
           style={{ marginTop: 20 }}
         >
           <SwiperSlide>
-            <img style={{ width: "100%" }} src={img} alt="" />
+            <img
+              className="car-gallery-img"
+              style={{ width: "100%" }}
+              src={img}
+              alt=""
+            />
           </SwiperSlide>
-          <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery1} alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery2} alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery3} alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img style={{ width: "100%" }} src={gallery4} alt="" />
-          </SwiperSlide>
+          {gallery1 && (
+            <SwiperSlide>
+              <img
+                className="car-gallery-img"
+                style={{ width: "100%" }}
+                src={gallery1}
+                alt=""
+              />
+            </SwiperSlide>
+          )}
+          {gallery2 && (
+            <SwiperSlide>
+              <img
+                className="car-gallery-img"
+                style={{ width: "100%" }}
+                src={gallery2}
+                alt=""
+              />
+            </SwiperSlide>
+          )}
+          {gallery3 && (
+            <SwiperSlide>
+              <img
+                className="car-gallery-img"
+                style={{ width: "100%" }}
+                src={gallery3}
+                alt=""
+              />
+            </SwiperSlide>
+          )}
+          {gallery4 && (
+            <SwiperSlide>
+              <img
+                className="car-gallery-img"
+                style={{ width: "100%", height: 400 }}
+                src={gallery4}
+                alt=""
+              />
+            </SwiperSlide>
+          )}
         </Swiper>
       </Box>
       <Paper sx={{ px: 3, py: 2 }}>
