@@ -23,9 +23,9 @@ const MakeAdmin = () => {
     axios({
       method: "put",
       url: "https://afternoon-tor-94038.herokuapp.com/users/admin",
-      // headers: {
-      //   Authorization: `Bearer ${localStorage.getItem("idToken")}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+      },
       data: data,
     }).then((result) => {
       if (result.data?.modifiedCount > 0) {

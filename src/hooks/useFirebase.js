@@ -114,6 +114,7 @@ const useFirebase = () => {
         setUser(user);
 
         // id token
+        // setIsLoading(true);
         getIdToken(user).then((idToken) => {
           console.log(idToken);
           localStorage.setItem("idToken", idToken);
