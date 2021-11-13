@@ -68,7 +68,7 @@ const MakeAdmin = () => {
                 {...register("email", { required: true })}
               />
               {errors.email && (
-                <span className="error">Car Name is required</span>
+                <span className="error">User Email is required</span>
               )}
             </Grid>
 
