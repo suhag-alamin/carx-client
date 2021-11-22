@@ -16,6 +16,10 @@ import useDocumentTitle from "../../../hooks/useDocumentTitle";
 const AddProduct = () => {
   // dynamic title
   useDocumentTitle("Add Product");
+
+  const formData = new FormData();
+  const url = "https://api.cloudinary.com/v1_1/dkw1ovah4/image/upload";
+
   const {
     register,
     handleSubmit,
@@ -23,16 +27,34 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm({});
   const onSubmit = (data) => {
-    data.price = parseFloat(data.price);
-    console.log(data);
-    axios
-      .post("https://afternoon-tor-94038.herokuapp.com/cars", data)
-      .then((result) => {
-        if (result.data?.insertedId) {
-          toast.success("Car added successfully!");
-          reset();
-        }
-      });
+    data.img = data.img[0];
+
+    formData.append("carName", data.carName);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("file", data.img);
+    formData.append("upload_preset", "llqbnsmr");
+
+    // upload image to cloudinary
+    const uploadImage = async () => {
+      const pic = await axios.post(url, formData);
+      uploadToDb(pic.data.url);
+    };
+    uploadImage();
+
+    const uploadToDb = (img) => {
+      data.img = img;
+      data.price = parseFloat(data.price);
+
+      axios
+        .post("https://afternoon-tor-94038.herokuapp.com/cars", data)
+        .then((result) => {
+          if (result.data?.insertedId) {
+            toast.success("Car added successfully!");
+            reset();
+          }
+        });
+    };
   };
   return (
     <Container>
@@ -96,13 +118,27 @@ const AddProduct = () => {
               />
               {errors.price && <span className="error">Price is required</span>}
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 type="url"
                 fullWidth
                 required
                 label="Car Image"
                 helperText="Upload the image to imgbb or wherever you want and submit the live link."
+                {...register("img", { required: true })}
+              />
+              {errors.img && (
+                <span className="error">Car Image is required</span>
+              )}
+            </Grid> */}
+
+            {/* image upload  */}
+            <Grid item xs={12}>
+              <TextField
+                type="file"
+                fullWidth
+                required
+                helperText="Upload Product Image"
                 {...register("img", { required: true })}
               />
               {errors.img && (
