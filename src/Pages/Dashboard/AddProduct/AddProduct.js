@@ -45,7 +45,6 @@ const AddProduct = () => {
 
     // gallery
     for (let i = 0; i < files.length; i++) {
-      // const gallery = [];
       //  upload image to cloudinary
 
       if (i === 0) {
@@ -54,11 +53,8 @@ const AddProduct = () => {
         formData.append("upload_preset", "llqbnsmr");
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          // console.log(pic.data);
           console.log(pic.data.url);
           data.gallery1 = pic.data.url;
-          console.log(i);
-          // uploadToDb(gallery);
         };
         uploadGallery();
       }
@@ -69,11 +65,8 @@ const AddProduct = () => {
         console.log("object");
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          // console.log(pic.data);
           console.log(pic.data.url);
           data.gallery2 = pic.data.url;
-          console.log(i);
-          // uploadToDb(gallery);
         };
         uploadGallery();
       }
@@ -84,11 +77,8 @@ const AddProduct = () => {
         console.log("object");
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          // console.log(pic.data);
           console.log(pic.data.url);
           data.gallery3 = pic.data.url;
-          console.log(i);
-          // uploadToDb(gallery);
         };
         uploadGallery();
       }
@@ -99,16 +89,11 @@ const AddProduct = () => {
         console.log("object");
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          // console.log(pic.data);
           console.log(pic.data.url);
           data.gallery4 = pic.data.url;
-          console.log(i);
-          // uploadToDb(gallery);
         };
         uploadGallery();
       }
-
-      // uploadToDb(gallery);
     }
 
     // upload image to cloudinary
