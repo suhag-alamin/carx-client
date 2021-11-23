@@ -28,12 +28,88 @@ const AddProduct = () => {
   } = useForm({});
   const onSubmit = (data) => {
     data.img = data.img[0];
+    console.log(data);
+    const files = [
+      data.gallery1[0],
+      data.gallery2[0],
+      data.gallery3[0],
+      data.gallery4[0],
+    ];
+    console.log(files);
 
     formData.append("carName", data.carName);
     formData.append("description", data.description);
     formData.append("price", data.price);
     formData.append("file", data.img);
     formData.append("upload_preset", "llqbnsmr");
+
+    // gallery
+    for (let i = 0; i < files.length; i++) {
+      // const gallery = [];
+      //  upload image to cloudinary
+
+      if (i === 0) {
+        const file = files[i];
+        formData.append("file", file);
+        formData.append("upload_preset", "llqbnsmr");
+        const uploadGallery = async () => {
+          const pic = await axios.post(url, formData);
+          // console.log(pic.data);
+          console.log(pic.data.url);
+          data.gallery1 = pic.data.url;
+          console.log(i);
+          // uploadToDb(gallery);
+        };
+        uploadGallery();
+      }
+      if (i === 1) {
+        const file = files[i];
+        formData.append("file", file);
+        formData.append("upload_preset", "llqbnsmr");
+        console.log("object");
+        const uploadGallery = async () => {
+          const pic = await axios.post(url, formData);
+          // console.log(pic.data);
+          console.log(pic.data.url);
+          data.gallery2 = pic.data.url;
+          console.log(i);
+          // uploadToDb(gallery);
+        };
+        uploadGallery();
+      }
+      if (i === 2) {
+        const file = files[i];
+        formData.append("file", file);
+        formData.append("upload_preset", "llqbnsmr");
+        console.log("object");
+        const uploadGallery = async () => {
+          const pic = await axios.post(url, formData);
+          // console.log(pic.data);
+          console.log(pic.data.url);
+          data.gallery3 = pic.data.url;
+          console.log(i);
+          // uploadToDb(gallery);
+        };
+        uploadGallery();
+      }
+      if (i === 3) {
+        const file = files[i];
+        formData.append("file", file);
+        formData.append("upload_preset", "llqbnsmr");
+        console.log("object");
+        const uploadGallery = async () => {
+          const pic = await axios.post(url, formData);
+          // console.log(pic.data);
+          console.log(pic.data.url);
+          data.gallery4 = pic.data.url;
+          console.log(i);
+          // uploadToDb(gallery);
+        };
+        uploadGallery();
+      }
+
+      // uploadToDb(gallery);
+    }
 
     // upload image to cloudinary
     const uploadImage = async () => {
@@ -45,7 +121,7 @@ const AddProduct = () => {
     const uploadToDb = (img) => {
       data.img = img;
       data.price = parseFloat(data.price);
-
+      console.log(data);
       axios
         .post("https://afternoon-tor-94038.herokuapp.com/cars", data)
         .then((result) => {
@@ -150,14 +226,45 @@ const AddProduct = () => {
 
             <Grid item xs={12}>
               <TextField
-                type="url"
+                type="file"
                 fullWidth
-                label="Car Gallery image 1"
+                // label="Car Gallery image 1"
                 helperText="Upload the image to imgbb or wherever you want and submit the live link."
                 {...register("gallery1")}
               />
             </Grid>
+
             <Grid item xs={12}>
+              <TextField
+                type="file"
+                fullWidth
+                // label="Car Gallery image 1"
+                helperText="Upload the image to imgbb or wherever you want and submit the live link."
+                {...register("gallery2")}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                type="file"
+                fullWidth
+                // label="Car Gallery image 1"
+                helperText="Upload the image to imgbb or wherever you want and submit the live link."
+                {...register("gallery3")}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                type="file"
+                fullWidth
+                // label="Car Gallery image 1"
+                helperText="Upload the image to imgbb or wherever you want and submit the live link."
+                {...register("gallery4")}
+              />
+            </Grid>
+
+            {/* <Grid item xs={12}>
               <TextField
                 type="url"
                 fullWidth
@@ -183,7 +290,7 @@ const AddProduct = () => {
                 helperText="Upload the image to imgbb or wherever you want and submit the live link."
                 {...register("gallery4")}
               />
-            </Grid>
+            </Grid> */}
 
             <Button
               type="submit"
