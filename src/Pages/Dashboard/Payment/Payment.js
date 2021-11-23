@@ -1,3 +1,4 @@
+import PaymentIcon from "@mui/icons-material/Payment";
 import {
   Button,
   CircularProgress,
@@ -15,10 +16,9 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import PaymentIcon from "@mui/icons-material/Payment";
-import { useHistory } from "react-router";
 
 const Payment = () => {
   // dynamic title
@@ -27,7 +27,7 @@ const Payment = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // load ordes by email
   useEffect(() => {
@@ -48,6 +48,7 @@ const Payment = () => {
   const handlePay = (id) => {
     console.log(id);
     // history.push(`/dashboard/payment/${id}`);
+    navigate(`/dashboard/payment/${id}`);
   };
 
   // loading spinner
@@ -66,7 +67,7 @@ const Payment = () => {
         variant="h4"
         color="secondary"
       >
-        My Orders
+        Make Payment
       </Typography>
       <Divider />
       <TableContainer sx={{ my: 3 }} component={Paper}>
