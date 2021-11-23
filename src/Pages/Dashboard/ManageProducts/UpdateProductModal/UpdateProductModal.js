@@ -123,27 +123,16 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
                       {...register("price", { required: true })}
                     />
                   </Grid>
-                  {/* <Grid item xs={12}>
-                    <TextField
-                      type="url"
-                      fullWidth
-                      label="Car Image"
-                      helperText="Upload the image to imgbb or wherever you want and submit the live link."
-                      {...register("img", { required: true })}
-                    />
-                  </Grid> */}
-                  {/* car primary image upload  */}
+
+                  {/* car primary image update  */}
                   <Grid item xs={12}>
                     <TextField
                       type="file"
                       fullWidth
                       required
                       helperText="Update Car Image"
-                      {...register("img", { required: true })}
+                      {...register("img")}
                     />
-                    {errors.img && (
-                      <span className="error">Car Image is required</span>
-                    )}
                   </Grid>
 
                   <Button

@@ -34,6 +34,7 @@ import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
 import ManageProducts from "../ManageProducts/ManageProducts";
 import MyOrders from "../MyOrders/MyOrders";
 import Payment from "../Payment/Payment";
+import PaymentHome from "../Payment/PaymentHome";
 
 const drawerWidth = 240;
 
@@ -308,6 +309,9 @@ function Dashboard(props) {
           <Route path={`${path}/payment`}>
             <Payment />
           </Route>
+          {/* <Route path={`${path}/payment/:id`}>
+            <PaymentHome></PaymentHome>
+          </Route> */}
           {/* admin  */}
 
           {admin && (
