@@ -10,7 +10,6 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
-import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import ManageAProduct from "./ManageAProduct/ManageAProduct";
@@ -23,8 +22,6 @@ const ManageProducts = () => {
 
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-
-  const history = useHistory();
 
   const size = 6;
   const handleChange = (event, value) => {
@@ -60,7 +57,6 @@ const ManageProducts = () => {
               .delete(`https://afternoon-tor-94038.herokuapp.com/cars/${id}`)
               .then((result) => {
                 if (result.data.deletedCount > 0) {
-                  history.replace("/dashboard");
                   const remaining = cars.filter((event) => event._id !== id);
                   setCars(remaining);
                   toast.info("Car deleted");
