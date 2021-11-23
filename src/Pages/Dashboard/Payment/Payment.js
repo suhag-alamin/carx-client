@@ -95,13 +95,17 @@ const Payment = () => {
                   {row.payment ? "Paid" : "Pending Payment"}
                 </TableCell>
                 <TableCell align="center">
-                  <Button
-                    onClick={() => handlePay(row._id)}
-                    variant="text"
-                    startIcon={<PaymentIcon />}
-                  >
-                    Pay
-                  </Button>
+                  {row.payment ? (
+                    "Paid"
+                  ) : (
+                    <Button
+                      onClick={() => handlePay(row._id)}
+                      variant="text"
+                      startIcon={<PaymentIcon />}
+                    >
+                      Pay
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
