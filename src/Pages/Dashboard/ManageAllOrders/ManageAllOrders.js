@@ -129,6 +129,7 @@ const ManageAllOrders = () => {
                 <TableCell>Car</TableCell>
                 <TableCell>Price</TableCell>
                 <TableCell>Color</TableCell>
+                <TableCell>Payment</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
@@ -148,6 +149,7 @@ const ManageAllOrders = () => {
                   <TableCell>{row.carName}</TableCell>
                   <TableCell>$ {row.price}</TableCell>
                   <TableCell>{row.color}</TableCell>
+                  <TableCell>{row.payment ? "Paid" : "Need to pay"}</TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>
                     <ButtonGroup variant="text">
