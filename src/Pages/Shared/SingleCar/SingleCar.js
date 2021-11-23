@@ -11,14 +11,14 @@ import { Box } from "@mui/system";
 import React from "react";
 import "./SingleCar.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 const SingleCar = ({ car }) => {
   const { _id, carName, description, img, price } = car;
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const hanldeClick = (id) => {
-    history.push(`/placeOrder/${id}`);
+    navigate(`/placeOrder/${id}`);
   };
   return (
     <Grid item xs={2} sm={4} md={6} lg={4}>

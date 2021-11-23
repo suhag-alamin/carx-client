@@ -23,18 +23,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { NavLink, Route, Switch, useRouteMatch } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import AdminRoute from "../../Login/AdminRoute/AdminRoute";
-import AddProduct from "../AddProduct/AddProduct";
-import GiveReview from "../GiveReview/GiveReview";
-import MakeAdmin from "../MakeAdmin/MakeAdmin";
-import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
-import ManageProducts from "../ManageProducts/ManageProducts";
-import MyOrders from "../MyOrders/MyOrders";
-import Payment from "../Payment/Payment";
-import PaymentHome from "../Payment/PaymentHome";
 
 const drawerWidth = 240;
 
@@ -45,7 +36,6 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { user, logOut, admin } = useAuth();
-  const { path, url } = useRouteMatch();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -97,7 +87,7 @@ function Dashboard(props) {
         </ListItemIcon>
         <ListItemText
           as={NavLink}
-          to={`${url}`}
+          to="/dashboard"
           color="primary"
           sx={{ color: "#457B9D" }}
           activeClassName="nav-selected"
@@ -113,7 +103,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/myOrders`}
+              to={`/dashboard/myOrders`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="My Orders"
@@ -126,7 +116,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/payment`}
+              to={`/dashboard/payment`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="Pay"
@@ -139,7 +129,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/review`}
+              to={`/dashboard/review`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="Review"
@@ -157,7 +147,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/makeAdmin`}
+              to={`/dashboard/makeAdmin`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="Make Admin"
@@ -169,7 +159,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/manageAllOrders`}
+              to={`/dashboard/manageAllOrders`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="Manage All Orders"
@@ -181,7 +171,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/manageProducts`}
+              to={`/dashboard/manageProducts`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="Manage Products"
@@ -193,7 +183,7 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={NavLink}
-              to={`${url}/addProduct`}
+              to={`/dashboard/addProduct`}
               sx={{ color: "#457B9D" }}
               activeClassName="nav-selected"
               primary="Add Products"
@@ -293,46 +283,7 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-        <Switch>
-          {/* normal user */}
-          {!admin && (
-            <Route exact path={path}>
-              <MyOrders />
-            </Route>
-          )}
-          <Route path={`${path}/myOrders`}>
-            <MyOrders />
-          </Route>
-          <Route path={`${path}/review`}>
-            <GiveReview />
-          </Route>
-          <Route path={`${path}/payment`}>
-            <Payment />
-          </Route>
-          {/* <Route path={`${path}/payment/:id`}>
-            <PaymentHome></PaymentHome>
-          </Route> */}
-          {/* admin  */}
-
-          {admin && (
-            <Route exact path={path}>
-              <ManageAllOrders />
-            </Route>
-          )}
-
-          <AdminRoute path={`${path}/makeAdmin`}>
-            <MakeAdmin />
-          </AdminRoute>
-          <AdminRoute path={`${path}/manageAllOrders`}>
-            <ManageAllOrders />
-          </AdminRoute>
-          <AdminRoute path={`${path}/manageProducts`}>
-            <ManageProducts />
-          </AdminRoute>
-          <AdminRoute path={`${path}/addProduct`}>
-            <AddProduct />
-          </AdminRoute>
-        </Switch>
+        <Outlet />
       </Box>
     </Box>
   );

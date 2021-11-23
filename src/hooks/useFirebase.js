@@ -28,7 +28,7 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   // google sign in
-  const signInWithGoogle = (location, history) => {
+  const signInWithGoogle = (location, navigate) => {
     setIsLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((result) => {
@@ -38,7 +38,7 @@ const useFirebase = () => {
 
         toast.success("Logged In Successfully");
         const destination = location?.state?.from || "/";
-        history.replace(destination);
+        navigate(destination);
       })
       .catch((error) => {
         toast.error(error.message);
@@ -47,7 +47,7 @@ const useFirebase = () => {
   };
 
   //   register new user
-  const handleEmailRegister = (name, email, password, history) => {
+  const handleEmailRegister = (name, email, password, navigate) => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -60,7 +60,7 @@ const useFirebase = () => {
         })
           .then(() => {
             toast.success("Registered Successfully");
-            history.replace("/");
+            navigate("/");
           })
           .catch((error) => {
             toast.error(error.message);
@@ -72,14 +72,14 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
   // email login
-  const handleEmailLogin = (email, password, location, history) => {
+  const handleEmailLogin = (email, password, location, navigate) => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setUser(result.user);
         toast.success("Logged In Successfully");
         const destination = location?.state?.from || "/";
-        history.replace(destination);
+        navigate(destination);
       })
       .catch((error) => {
         toast.error(error.message);
@@ -168,7 +168,6 @@ const useFirebase = () => {
     // };
     // checkAdmin();
   }, [user?.email]);
-
   return {
     handleEmailRegister,
     handleEmailLogin,

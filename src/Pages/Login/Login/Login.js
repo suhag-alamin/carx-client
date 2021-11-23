@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import useAuth from "../../../hooks/useAuth";
@@ -22,7 +22,7 @@ const Login = () => {
   const { handleEmailLogin, signInWithGoogle } = useAuth();
 
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -34,13 +34,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     const { email, password } = loginUpInfo;
-    handleEmailLogin(email, password, location, history);
+    handleEmailLogin(email, password, location, navigate);
     e.preventDefault();
     e.target.reset();
   };
 
   const handleGoogleLogin = () => {
-    signInWithGoogle(location, history);
+    signInWithGoogle(location, navigate);
   };
 
   return (

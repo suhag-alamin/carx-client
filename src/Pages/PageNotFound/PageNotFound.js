@@ -1,12 +1,12 @@
 import { Button, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import error from "../../images/404.gif";
 const PageNotFound = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleClick = () => {
-    history.push("/");
+    navigate("/");
   };
   return (
     <Container sx={{ py: 6, textAlign: "center" }}>
