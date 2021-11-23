@@ -1,7 +1,15 @@
-import { Backdrop, Button, Fade, Grid, Modal, TextField } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  Fade,
+  Grid,
+  Modal,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -18,7 +26,11 @@ const style = {
 };
 
 const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
-  const { _id, carName, img, price } = car;
+  const { _id, carName, price } = car;
+  const [isLoading, setIsLoading] = useState(false);
+
+  const formData = new FormData();
+  const url = "https://api.cloudinary.com/v1_1/dkw1ovah4/image/upload";
 
   const {
     register,
@@ -28,21 +40,42 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
     defaultValues: {
       carName: carName,
       price: price,
-      img: img,
     },
   });
   const onSubmit = (data) => {
+    data.img = data.img[0];
     data.price = parseFloat(data.price);
-    axios
-      .put(`https://afternoon-tor-94038.herokuapp.com/cars/${_id}`, data)
-      .then((result) => {
-        if (result.data?.modifiedCount > 0) {
-          toast.info(
-            "Product Updated. To see the updated version, please refresh."
-          );
-          handleModalClose();
-        }
-      });
+
+    formData.append("carName", data.carName);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("file", data.img);
+    formData.append("upload_preset", "llqbnsmr");
+
+    // upload image to cloudinary
+    const uploadImage = async () => {
+      setIsLoading(true);
+      const pic = await axios.post(url, formData);
+      uploadToDb(pic.data.url);
+      setIsLoading(false);
+    };
+    uploadImage();
+
+    const uploadToDb = (img) => {
+      data.img = img;
+      setIsLoading(true);
+      axios
+        .put(`https://afternoon-tor-94038.herokuapp.com/cars/${_id}`, data)
+        .then((result) => {
+          if (result.data?.modifiedCount > 0) {
+            toast.info(
+              "Product Updated. To see the updated version, please refresh."
+            );
+            setIsLoading(false);
+            handleModalClose();
+          }
+        });
+    };
   };
   return (
     <>
@@ -90,7 +123,7 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
                       {...register("price", { required: true })}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <TextField
                       type="url"
                       fullWidth
@@ -98,6 +131,19 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
                       helperText="Upload the image to imgbb or wherever you want and submit the live link."
                       {...register("img", { required: true })}
                     />
+                  </Grid> */}
+                  {/* car primary image upload  */}
+                  <Grid item xs={12}>
+                    <TextField
+                      type="file"
+                      fullWidth
+                      required
+                      helperText="Update Car Image"
+                      {...register("img", { required: true })}
+                    />
+                    {errors.img && (
+                      <span className="error">Car Image is required</span>
+                    )}
                   </Grid>
 
                   <Button
@@ -106,7 +152,20 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
                     variant="contained"
                     sx={{ mt: 3 }}
                   >
-                    Update Product
+                    {isLoading ? (
+                      <Box
+                        sx={{
+                          textAlign: "center",
+                          display: "flex",
+                          alignItems: "center",
+                          p: 0,
+                        }}
+                      >
+                        <CircularProgress size="20px" color="info" />
+                      </Box>
+                    ) : (
+                      "Update Product"
+                    )}
                   </Button>
                 </Grid>
               </Box>

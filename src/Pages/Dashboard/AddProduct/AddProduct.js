@@ -177,7 +177,7 @@ const AddProduct = () => {
                 type="number"
                 fullWidth
                 required
-                label="Car Price"
+                label="Car Price $"
                 {...register("price", { required: true })}
               />
               {errors.price && <span className="error">Price is required</span>}
@@ -203,36 +203,52 @@ const AddProduct = () => {
               <TextField
                 type="file"
                 fullWidth
+                required
                 helperText="Upload car gallery image 1"
-                {...register("gallery1")}
+                {...register("gallery1", { required: true })}
               />
+              {errors.gallery1 && (
+                <span className="error">Gallery image 1 is required</span>
+              )}
             </Grid>
 
             <Grid item xs={12}>
               <TextField
                 type="file"
                 fullWidth
+                required
                 helperText="Upload car gallery image 2"
-                {...register("gallery2")}
+                {...register("gallery2", { required: true })}
               />
+              {errors.gallery2 && (
+                <span className="error">Gallery image 2 is required</span>
+              )}
             </Grid>
 
             <Grid item xs={12}>
               <TextField
                 type="file"
                 fullWidth
+                required
                 helperText="Upload car gallery image 3"
-                {...register("gallery3")}
+                {...register("gallery3", { required: true })}
               />
+              {errors.gallery3 && (
+                <span className="error">Gallery image 3 is required</span>
+              )}
             </Grid>
 
             <Grid item xs={12}>
               <TextField
                 type="file"
                 fullWidth
+                required
                 helperText="Upload car gallery image 4"
-                {...register("gallery4")}
+                {...register("gallery4", { required: true })}
               />
+              {errors.gallery4 && (
+                <span className="error">Gallery image 4 is required</span>
+              )}
             </Grid>
 
             <Grid item xs={12}>
