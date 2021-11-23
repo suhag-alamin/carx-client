@@ -30,7 +30,6 @@ const Contact = () => {
     formState: { errors },
   } = useForm({});
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("https://afternoon-tor-94038.herokuapp.com/messages", data)
       .then((result) => {

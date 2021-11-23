@@ -47,7 +47,6 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
         order
       )
       .then((result) => {
-        console.log(result);
         if (result.data?.modifiedCount > 0) {
           toast.info("Status Updated");
           handleModalClose();

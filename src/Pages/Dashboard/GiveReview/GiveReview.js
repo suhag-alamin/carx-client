@@ -16,8 +16,7 @@ import useAuth from "../../../hooks/useAuth";
 
 const GiveReview = () => {
   const { user } = useAuth();
-  const [start, setStar] = useState(2);
-  console.log(start);
+  const [star, setStar] = useState(2);
   const {
     register,
     handleSubmit,
@@ -30,7 +29,7 @@ const GiveReview = () => {
     },
   });
   const onSubmit = (data) => {
-    data.rating = start;
+    data.rating = star;
     axios
       .post("https://afternoon-tor-94038.herokuapp.com/reviews", data)
       .then((result) => {
@@ -116,7 +115,7 @@ const GiveReview = () => {
                 <Rating
                   precision={0.5}
                   size="large"
-                  value={start}
+                  value={star}
                   required
                   onChange={(event, newValue) => {
                     setStar(newValue);
