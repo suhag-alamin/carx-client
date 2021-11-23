@@ -1,3 +1,5 @@
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button, Container } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -13,8 +15,6 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import logo from "../../../images/logo.png";
 import "./Navigation.css";
-import LogoutIcon from "@mui/icons-material/Logout";
-import LoginIcon from "@mui/icons-material/Login";
 
 // navbar
 function Navigation(props) {
@@ -30,21 +30,32 @@ function Navigation(props) {
   const drawer = (
     <Box sx={{ mt: 3, px: 2 }}>
       <nav style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        <NavLink activeClassName="nav-selected" className="nav-link" to="/home">
+        <NavLink
+          className={(navInfo) =>
+            navInfo.isActive ? "nav-selected" : "nav-link"
+          }
+          to="/home"
+        >
           Home
         </NavLink>
 
         <Divider />
 
-        <NavLink activeClassName="nav-selected" className="nav-link" to="/cars">
+        <NavLink
+          className={(navInfo) =>
+            navInfo.isActive ? "nav-selected" : "nav-link"
+          }
+          to="/cars"
+        >
           Cars
         </NavLink>
 
         <Divider />
 
         <NavLink
-          activeClassName="nav-selected"
-          className="nav-link"
+          className={(navInfo) =>
+            navInfo.isActive ? "nav-selected" : "nav-link"
+          }
           to="/about"
         >
           About
@@ -53,8 +64,9 @@ function Navigation(props) {
         <Divider />
 
         <NavLink
-          activeClassName="nav-selected"
-          className="nav-link"
+          className={(navInfo) =>
+            navInfo.isActive ? "nav-selected" : "nav-link"
+          }
           to="/contact"
         >
           Contact
@@ -64,8 +76,9 @@ function Navigation(props) {
 
         {!user?.email ? (
           <NavLink
-            activeClassName="nav-selected"
-            className="nav-link"
+            className={(navInfo) =>
+              navInfo.isActive ? "nav-selected" : "nav-link"
+            }
             to="/login"
             style={{ display: "flex", alignItems: "center" }}
           >
@@ -75,8 +88,9 @@ function Navigation(props) {
         ) : (
           <Box sx={{}}>
             <NavLink
-              activeClassName="nav-selected"
-              className="nav-link"
+              className={(navInfo) =>
+                navInfo.isActive ? "nav-selected" : "nav-link"
+              }
               to="/dashboard"
             >
               Dashboard
@@ -130,40 +144,48 @@ function Navigation(props) {
               </Link>
 
               <Box sx={{ display: { xs: "none", md: "block" } }}>
-                <nav style={{ display: "flex", alignItems: "center" }}>
+                <nav
+                  className="navbar"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   <NavLink
-                    activeClassName="nav-selected"
-                    className="nav-link"
+                    className={(navInfo) =>
+                      navInfo.isActive ? "nav-selected" : "nav-link"
+                    }
                     to="/home"
                   >
                     Home
                   </NavLink>
                   <NavLink
-                    activeClassName="nav-selected"
-                    className="nav-link"
+                    className={(navInfo) =>
+                      navInfo.isActive ? "nav-selected" : "nav-link"
+                    }
                     to="/cars"
                   >
                     Cars
                   </NavLink>
 
                   <NavLink
-                    activeClassName="nav-selected"
-                    className="nav-link"
+                    className={(navInfo) =>
+                      navInfo.isActive ? "nav-selected" : "nav-link"
+                    }
                     to="/about"
                   >
                     About
                   </NavLink>
                   <NavLink
-                    activeClassName="nav-selected"
-                    className="nav-link"
+                    className={(navInfo) =>
+                      navInfo.isActive ? "nav-selected" : "nav-link"
+                    }
                     to="/contact"
                   >
                     Contact
                   </NavLink>
                   {!user?.email ? (
                     <NavLink
-                      activeClassName="nav-selected"
-                      className="nav-link"
+                      className={(navInfo) =>
+                        navInfo.isActive ? "nav-selected" : "nav-link"
+                      }
                       to="/login"
                       style={{ display: "flex", alignItems: "center" }}
                     >
@@ -173,8 +195,9 @@ function Navigation(props) {
                   ) : (
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <NavLink
-                        activeClassName="nav-selected"
-                        className="nav-link"
+                        className={(navInfo) =>
+                          navInfo.isActive ? "nav-selected" : "nav-link"
+                        }
                         to="/dashboard"
                       >
                         Dashboard

@@ -77,7 +77,7 @@ function Dashboard(props) {
           to="/"
           color="primary"
           sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
+          className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
           primary="Home"
         />
       </ListItem>
@@ -90,7 +90,7 @@ function Dashboard(props) {
           to="/dashboard"
           color="primary"
           sx={{ color: "#457B9D" }}
-          activeClassName="nav-selected"
+          className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
           primary="Dashboard"
         />
       </ListItem>
@@ -105,7 +105,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/myOrders`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="My Orders"
             />
           </ListItem>
@@ -118,7 +118,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/payment`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="Pay"
             />
           </ListItem>
@@ -131,7 +131,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/review`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="Review"
             />
           </ListItem>
@@ -149,7 +149,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/makeAdmin`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="Make Admin"
             />
           </ListItem>
@@ -161,7 +161,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/manageAllOrders`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="Manage All Orders"
             />
           </ListItem>
@@ -173,7 +173,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/manageProducts`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="Manage Products"
             />
           </ListItem>
@@ -185,7 +185,7 @@ function Dashboard(props) {
               as={NavLink}
               to={`/dashboard/addProduct`}
               sx={{ color: "#457B9D" }}
-              activeClassName="nav-selected"
+              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
               primary="Add Products"
             />
           </ListItem>
