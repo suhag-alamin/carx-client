@@ -17,6 +17,8 @@
 - Carx is a website for selling cars.
 - We have an easy-to-use website where you can order your car. Delivery service is available as well.
 - From our website you can know our previous clients feedback.
+- Improved performance by optimizing and resizing images
+- Used Axios to fetch data
 
 ## Technology Used -
 
