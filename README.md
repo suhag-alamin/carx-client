@@ -3,13 +3,12 @@
 # Carx - Affordability at your fingertip (Client-side)
 
 - MERN Stack project (7 days)
-  Carx is one of the top car-selling websites.
 
 [Visit our website](https://carx-b99bf.web.app/)
 
 [Server-side Code](https://github.com/developer-suhag/carx-server)
 
-## About the website -
+## Featured in -
 
 - Niche product-related website includes a user dashboard to view their orders.
 - Secure API with JWT token and Payment gateway included
