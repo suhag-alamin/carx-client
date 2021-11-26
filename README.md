@@ -2,7 +2,7 @@
 
 # Carx - Affordability at your fingertip (Client-side)
 
-- MERN Stack project (7 days)
+### MERN Stack project (7 days)
 
 [Visit our website](https://carx-b99bf.web.app/)
 
