@@ -128,14 +128,14 @@ const useFirebase = () => {
   const saveUser = (email, displayName) => {
     const user = { email, displayName };
     axios
-      .post("https://afternoon-tor-94038.herokuapp.com/users", user)
+      .post("https://carx-suhag.onrender.com/users", user)
       .then((result) => {});
   };
 
   const upsertUser = (email, displayName) => {
     const user = { email, displayName };
     axios
-      .put("https://afternoon-tor-94038.herokuapp.com/users", user)
+      .put("https://carx-suhag.onrender.com/users", user)
       .then((result) => {});
   };
 
@@ -144,7 +144,7 @@ const useFirebase = () => {
     // setIsLoading(true);
     axios({
       method: "get",
-      url: `https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`,
+      url: `https://carx-suhag.onrender.com/users/${user?.email}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },
@@ -155,7 +155,7 @@ const useFirebase = () => {
     // const checkAdmin = async () => {
 
     //   const res = await fetch(
-    //     `https://afternoon-tor-94038.herokuapp.com/users/${user?.email}`,
+    //     `https://carx-suhag.onrender.com/users/${user?.email}`,
     //     {
     //       headers: {
     //         authorization: `Bearer ${localStorage.getItem("idToken")}`,

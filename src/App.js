@@ -29,7 +29,7 @@ import Register from "./Pages/Login/Register/Register";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder/PlaceOrder";
 
-// api link : https://afternoon-tor-94038.herokuapp.com/
+// api link : https://carx-suhag.onrender.com/
 
 // customize theme colors
 

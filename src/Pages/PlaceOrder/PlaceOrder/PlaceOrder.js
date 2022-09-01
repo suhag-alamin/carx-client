@@ -18,12 +18,10 @@ const PlaceOrder = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(`https://afternoon-tor-94038.herokuapp.com/cars/${id}`)
-      .then((result) => {
-        setCar(result.data);
-        setIsLoading(false);
-      });
+    axios.get(`https://carx-suhag.onrender.com/cars/${id}`).then((result) => {
+      setCar(result.data);
+      setIsLoading(false);
+    });
   }, [id]);
 
   // loading spinner

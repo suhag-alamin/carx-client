@@ -34,7 +34,7 @@ const OrderDetails = ({ car }) => {
     data.status = "pending";
     data.carImg = car?.img;
     axios
-      .post("https://afternoon-tor-94038.herokuapp.com/orders", data)
+      .post("https://carx-suhag.onrender.com/orders", data)
       .then((result) => {
         if (result.data?.insertedId) {
           toast.success(

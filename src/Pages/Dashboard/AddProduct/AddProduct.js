@@ -110,7 +110,7 @@ const AddProduct = () => {
       data.price = parseFloat(data.price);
       setIsLoading(true);
       axios
-        .post("https://afternoon-tor-94038.herokuapp.com/cars", data)
+        .post("https://carx-suhag.onrender.com/cars", data)
         .then((result) => {
           if (result.data?.insertedId) {
             toast.success("Car added successfully!");

@@ -1,3 +1,4 @@
+import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Button,
   CircularProgress,
@@ -15,10 +16,9 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import useAuth from "../../../hooks/useAuth";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
+import useAuth from "../../../hooks/useAuth";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const MyOrders = () => {
@@ -34,7 +34,7 @@ const MyOrders = () => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: `https://afternoon-tor-94038.herokuapp.com/orders?email=${user?.email}`,
+      url: `https://carx-suhag.onrender.com/orders?email=${user?.email}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },
@@ -53,7 +53,7 @@ const MyOrders = () => {
           label: "Yes",
           onClick: () => {
             axios
-              .delete(`https://afternoon-tor-94038.herokuapp.com/orders/${id}`)
+              .delete(`https://carx-suhag.onrender.com/orders/${id}`)
               .then((result) => {
                 if (result.data.deletedCount > 0) {
                   const remaining = orders.filter((event) => event._id !== id);

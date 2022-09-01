@@ -31,7 +31,7 @@ const GiveReview = () => {
   const onSubmit = (data) => {
     data.rating = star;
     axios
-      .post("https://afternoon-tor-94038.herokuapp.com/reviews", data)
+      .post("https://carx-suhag.onrender.com/reviews", data)
       .then((result) => {
         if (result.data?.insertedId) {
           toast.success("Thanks for your review. 😍");

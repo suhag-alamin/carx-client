@@ -25,7 +25,7 @@ const MakeAdmin = () => {
   const onSubmit = (data) => {
     axios({
       method: "put",
-      url: "https://afternoon-tor-94038.herokuapp.com/users/admin",
+      url: "https://carx-suhag.onrender.com/users/admin",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },

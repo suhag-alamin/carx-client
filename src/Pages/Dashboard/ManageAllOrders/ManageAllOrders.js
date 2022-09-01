@@ -1,5 +1,5 @@
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Button,
   ButtonGroup,
@@ -17,10 +17,10 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CarModal from "../CarModal/CarModal";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
+import CarModal from "../CarModal/CarModal";
 
 const ManageAllOrders = () => {
   // dynamic title
@@ -38,7 +38,7 @@ const ManageAllOrders = () => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: `https://afternoon-tor-94038.herokuapp.com/allOrders/${id}`,
+      url: `https://carx-suhag.onrender.com/allOrders/${id}`,
       // headers: {
       //   Authorization: `Bearer ${token}`,
       // },
@@ -57,7 +57,7 @@ const ManageAllOrders = () => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: "https://afternoon-tor-94038.herokuapp.com/allOrders",
+      url: "https://carx-suhag.onrender.com/allOrders",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },
@@ -76,7 +76,7 @@ const ManageAllOrders = () => {
           label: "Yes",
           onClick: () => {
             axios
-              .delete(`https://afternoon-tor-94038.herokuapp.com/orders/${id}`)
+              .delete(`https://carx-suhag.onrender.com/orders/${id}`)
               .then((result) => {
                 if (result.data.deletedCount > 0) {
                   const remaining = orders.filter((event) => event._id !== id);

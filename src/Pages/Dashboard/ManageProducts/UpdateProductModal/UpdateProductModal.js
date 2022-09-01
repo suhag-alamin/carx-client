@@ -65,7 +65,7 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
       data.img = img;
       setIsLoading(true);
       axios
-        .put(`https://afternoon-tor-94038.herokuapp.com/cars/${_id}`, data)
+        .put(`https://carx-suhag.onrender.com/cars/${_id}`, data)
         .then((result) => {
           if (result.data?.modifiedCount > 0) {
             toast.info(

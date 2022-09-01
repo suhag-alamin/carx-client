@@ -32,7 +32,7 @@ const ManageProducts = () => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: `https://afternoon-tor-94038.herokuapp.com/cars?page=${page}&&size=${size}`,
+      url: `https://carx-suhag.onrender.com/cars?page=${page}&&size=${size}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },
@@ -54,7 +54,7 @@ const ManageProducts = () => {
           label: "Yes",
           onClick: () => {
             axios
-              .delete(`https://afternoon-tor-94038.herokuapp.com/cars/${id}`)
+              .delete(`https://carx-suhag.onrender.com/cars/${id}`)
               .then((result) => {
                 if (result.data.deletedCount > 0) {
                   const remaining = cars.filter((event) => event._id !== id);

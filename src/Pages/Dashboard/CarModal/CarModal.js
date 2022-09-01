@@ -42,10 +42,7 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
       order.status = changeStatus;
     }
     axios
-      .put(
-        `https://afternoon-tor-94038.herokuapp.com/allOrders/${orderId}`,
-        order
-      )
+      .put(`https://carx-suhag.onrender.com/allOrders/${orderId}`, order)
       .then((result) => {
         if (result.data?.modifiedCount > 0) {
           toast.info("Status Updated");

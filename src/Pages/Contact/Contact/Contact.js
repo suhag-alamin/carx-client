@@ -1,3 +1,5 @@
+import CallIcon from "@mui/icons-material/Call";
+import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   Button,
@@ -7,17 +9,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
+import axios from "axios";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
-import CallIcon from "@mui/icons-material/Call";
-import EmailIcon from "@mui/icons-material/Email";
-import { useForm } from "react-hook-form";
-import { Box } from "@mui/system";
-import { toast } from "react-toastify";
-import axios from "axios";
 
 const Contact = () => {
   // dynamic title
@@ -31,7 +31,7 @@ const Contact = () => {
   } = useForm({});
   const onSubmit = (data) => {
     axios
-      .post("https://afternoon-tor-94038.herokuapp.com/messages", data)
+      .post("https://carx-suhag.onrender.com/messages", data)
       .then((result) => {
         if (result.data?.insertedId) {
           toast.success("Thank you. We got your message");

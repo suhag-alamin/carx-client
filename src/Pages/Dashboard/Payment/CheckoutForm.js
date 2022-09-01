@@ -23,7 +23,7 @@ const CheckoutForm = ({ order }) => {
 
   useEffect(() => {
     axios
-      .post("https://afternoon-tor-94038.herokuapp.com/create-payment-intent", {
+      .post("https://carx-suhag.onrender.com/create-payment-intent", {
         price,
       })
       .then((result) => {
@@ -85,7 +85,7 @@ const CheckoutForm = ({ order }) => {
       };
 
       axios
-        .put(`https://afternoon-tor-94038.herokuapp.com/orders/${_id}`, payment)
+        .put(`https://carx-suhag.onrender.com/orders/${_id}`, payment)
         .then((result) => {
           navigate("/dashboard/payment");
         });

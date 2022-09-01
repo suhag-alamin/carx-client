@@ -22,12 +22,10 @@ const Reviews = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get("https://afternoon-tor-94038.herokuapp.com/reviews")
-      .then((result) => {
-        setClinetReviews(result.data);
-        setIsLoading(false);
-      });
+    axios.get("https://carx-suhag.onrender.com/reviews").then((result) => {
+      setClinetReviews(result.data);
+      setIsLoading(false);
+    });
   }, []);
 
   // loading spinner

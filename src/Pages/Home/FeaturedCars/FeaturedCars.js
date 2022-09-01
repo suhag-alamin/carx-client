@@ -1,3 +1,4 @@
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import {
   Button,
   CircularProgress,
@@ -10,7 +11,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SingleCar from "../../Shared/SingleCar/SingleCar";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const FeaturedCars = () => {
   const [cars, setCars] = useState([]);
@@ -19,7 +19,7 @@ const FeaturedCars = () => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: "https://afternoon-tor-94038.herokuapp.com/cars",
+      url: "https://carx-suhag.onrender.com/cars",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },

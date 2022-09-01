@@ -34,7 +34,7 @@ const Payment = () => {
     setIsLoading(true);
     axios({
       method: "get",
-      url: `https://afternoon-tor-94038.herokuapp.com/orders?email=${user?.email}`,
+      url: `https://carx-suhag.onrender.com/orders?email=${user?.email}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("idToken")}`,
       },
