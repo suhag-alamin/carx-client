@@ -46,7 +46,6 @@ const Payment = () => {
 
   // handlePay
   const handlePay = (id) => {
-    console.log(id);
     // history.push(`/dashboard/payment/${id}`);
     navigate(`/dashboard/payment/${id}`);
   };
