@@ -11,9 +11,7 @@
     "@mui/material": "^5.1.0",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.21.1",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@vitejs/plugin-react-swc": "^3.4.1",
     "axios": "^0.24.0",
     "firebase": "^9.4.0",
     "react": "^17.0.2",
@@ -22,16 +20,18 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "7.18.0",
     "react-router-dom": "6",
-    "react-scripts": "4.0.3",
     "react-toastify": "^8.1.0",
     "swiper": "6.8.4",
+    "vite": "^4.5.0",
+    "vite-plugin-svgr": "^4.1.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage --watch=false"
   },
   "eslintConfig": {
     "extends": [
@@ -50,5 +50,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^0.34.6",
+    "jsdom": "^22.1.0",
+    "vitest": "^0.34.6"
   }
 }
