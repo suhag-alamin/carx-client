@@ -2,6 +2,18 @@
   "name": "carx-client",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "author": {
+    "name": "Suhag Al Amin",
+    "url": "https://suhag.me"
+  },
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage --watch=false"
+  },
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -25,13 +37,6 @@
     "vite": "^4.5.0",
     "vite-plugin-svgr": "^4.1.0",
     "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage --watch=false"
   },
   "eslintConfig": {
     "extends": [
