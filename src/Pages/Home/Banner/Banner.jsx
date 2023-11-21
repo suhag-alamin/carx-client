@@ -2,15 +2,12 @@ import { Button, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
-// import Swiper core and required modules
-import SwiperCore, { Autoplay, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.min.css";
-import "swiper/swiper.min.css";
 import "./Banner.css";
-
-// install Swiper modules
-SwiperCore.use([Navigation, Autoplay]);
 
 const Banner = () => {
   return (
@@ -23,6 +20,8 @@ const Banner = () => {
           delay: 4000,
           disableOnInteraction: false,
         }}
+        modules={[Navigation, Autoplay]}
+        slidesPerView={1}
         className="mySwiper"
       >
         <SwiperSlide className="single-slide-one">

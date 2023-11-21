@@ -2,15 +2,13 @@ import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import SwiperCore, { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.min.css";
-import "swiper/swiper.min.css";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import SingleReview from "../SingleReview/SingleReview";
-
-// install Swiper modules
-SwiperCore.use([Navigation]);
 
 // reviews section
 
@@ -56,6 +54,7 @@ const Reviews = () => {
               <Swiper
                 navigation={true}
                 grabCursor={true}
+                modules={[Navigation]}
                 className="mySwiper"
                 slidesPerView={1}
                 spaceBetween={10}

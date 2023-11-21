@@ -1,14 +1,12 @@
 import { Divider, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import SwiperCore, { Autoplay, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.min.css";
-import "swiper/swiper.min.css";
 import "./CarDetails.css";
-
-// install Swiper modules
-SwiperCore.use([Navigation, Autoplay]);
 
 const CarDetails = ({ car }) => {
   const {
@@ -35,6 +33,7 @@ const CarDetails = ({ car }) => {
         <Swiper
           navigation={true}
           grabCursor={true}
+          modules={[Navigation, Autoplay]}
           autoplay={{
             delay: 4000,
             disableOnInteraction: false,
