@@ -1,21 +1,16 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import CounterSection from "../../../components/Home/CounterSection/CounterSection";
+import Reviews from "../../../components/Home/Reviews/Reviews";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import Footer from "../../Shared/Footer/Footer";
-import Navigation from "../../Shared/Navigation/Navigation";
-import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 import aboutCar from "../../../images/about-car.png";
-import CounterSection from "../../Home/CounterSection/CounterSection";
-import Reviews from "../../Home/Reviews/Reviews";
+import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 
 const About = () => {
   // dynamic title
   useDocumentTitle("About");
   return (
     <>
-      {/* navbar  */}
-      <Navigation />
       {/* banner  */}
       <OthersBanner>About Us</OthersBanner>
       {/* out company section  */}
@@ -56,9 +51,6 @@ const About = () => {
 
       {/* review section  */}
       <Reviews />
-
-      {/* footer  */}
-      <Footer />
     </>
   );
 };

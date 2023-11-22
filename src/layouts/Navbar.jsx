@@ -12,15 +12,14 @@ import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import logo from "../../../images/logo.png";
-import "./Navigation.css";
+import logo from "@/images/logo.png";
+import useAuth from "@/hooks/useAuth";
+import styles from "@/styles/Navbar.module.css";
 
 // navbar
-function Navigation(props) {
+const Navbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const { user, logOut } = useAuth();
 
   const handleDrawerToggle = () => {
@@ -32,7 +31,7 @@ function Navigation(props) {
       <nav style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <NavLink
           className={(navInfo) =>
-            navInfo.isActive ? "nav-selected" : "nav-link"
+            navInfo.isActive ? styles.navSelected : styles.navLink
           }
           to="/home"
         >
@@ -43,7 +42,7 @@ function Navigation(props) {
 
         <NavLink
           className={(navInfo) =>
-            navInfo.isActive ? "nav-selected" : "nav-link"
+            navInfo.isActive ? styles.navSelected : styles.navLink
           }
           to="/cars"
         >
@@ -54,7 +53,7 @@ function Navigation(props) {
 
         <NavLink
           className={(navInfo) =>
-            navInfo.isActive ? "nav-selected" : "nav-link"
+            navInfo.isActive ? styles.navSelected : styles.navLink
           }
           to="/about"
         >
@@ -65,7 +64,7 @@ function Navigation(props) {
 
         <NavLink
           className={(navInfo) =>
-            navInfo.isActive ? "nav-selected" : "nav-link"
+            navInfo.isActive ? styles.navSelected : styles.navLink
           }
           to="/contact"
         >
@@ -77,7 +76,7 @@ function Navigation(props) {
         {!user?.email ? (
           <NavLink
             className={(navInfo) =>
-              navInfo.isActive ? "nav-selected" : "nav-link"
+              navInfo.isActive ? styles.navSelected : styles.navLink
             }
             to="/login"
             style={{ display: "flex", alignItems: "center" }}
@@ -89,14 +88,16 @@ function Navigation(props) {
           <Box sx={{}}>
             <NavLink
               className={(navInfo) =>
-                navInfo.isActive ? "nav-selected" : "nav-link"
+                navInfo.isActive ? styles.navSelected : styles.navLink
               }
               to="/dashboard"
             >
               Dashboard
             </NavLink>
             <Divider />
-            {user?.email && <p className="nav-link">{user?.displayName}</p>}
+            {user?.email && (
+              <p className={styles.navLink}>{user?.displayName}</p>
+            )}
 
             {user?.photoURL && (
               <img
@@ -140,17 +141,17 @@ function Navigation(props) {
               }}
             >
               <Link to="/">
-                <img className="logo" src={logo} alt="" />
+                <img className={styles.logo} src={logo} alt="" />
               </Link>
 
               <Box sx={{ display: { xs: "none", md: "block" } }}>
                 <nav
-                  className="navbar"
+                  className={styles.navbar}
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <NavLink
                     className={(navInfo) =>
-                      navInfo.isActive ? "nav-selected" : "nav-link"
+                      navInfo.isActive ? styles.navSelected : styles.navLink
                     }
                     to="/home"
                   >
@@ -158,7 +159,7 @@ function Navigation(props) {
                   </NavLink>
                   <NavLink
                     className={(navInfo) =>
-                      navInfo.isActive ? "nav-selected" : "nav-link"
+                      navInfo.isActive ? styles.navSelected : styles.navLink
                     }
                     to="/cars"
                   >
@@ -167,7 +168,7 @@ function Navigation(props) {
 
                   <NavLink
                     className={(navInfo) =>
-                      navInfo.isActive ? "nav-selected" : "nav-link"
+                      navInfo.isActive ? styles.navSelected : styles.navLink
                     }
                     to="/about"
                   >
@@ -175,7 +176,7 @@ function Navigation(props) {
                   </NavLink>
                   <NavLink
                     className={(navInfo) =>
-                      navInfo.isActive ? "nav-selected" : "nav-link"
+                      navInfo.isActive ? styles.navSelected : styles.navLink
                     }
                     to="/contact"
                   >
@@ -184,7 +185,7 @@ function Navigation(props) {
                   {!user?.email ? (
                     <NavLink
                       className={(navInfo) =>
-                        navInfo.isActive ? "nav-selected" : "nav-link"
+                        navInfo.isActive ? styles.navSelected : styles.navLink
                       }
                       to="/login"
                       style={{ display: "flex", alignItems: "center" }}
@@ -196,14 +197,16 @@ function Navigation(props) {
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <NavLink
                         className={(navInfo) =>
-                          navInfo.isActive ? "nav-selected" : "nav-link"
+                          navInfo.isActive ? styles.navSelected : styles.navLink
                         }
                         to="/dashboard"
                       >
                         Dashboard
                       </NavLink>
                       {user?.email && (
-                        <span className="nav-link">{user?.displayName}</span>
+                        <span className={styles.navLink}>
+                          {user?.displayName}
+                        </span>
                       )}
                       {user?.photoURL && (
                         <img
@@ -268,10 +271,10 @@ function Navigation(props) {
       <Box component="main" sx={{ flexGrow: 1, p: 3, mb: 3 }}></Box>
     </Box>
   );
-}
+};
 
-Navigation.propTypes = {
+Navbar.propTypes = {
   window: PropTypes.func,
 };
 
-export default Navigation;
+export default Navbar;

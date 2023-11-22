@@ -1,13 +1,12 @@
+import styles from "@/styles/Home.module.css";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
 import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "./Banner.css";
 
 const Banner = () => {
   return (
@@ -19,30 +18,29 @@ const Banner = () => {
         autoplay={{
           delay: 4000,
           disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         }}
         modules={[Navigation, Autoplay]}
         slidesPerView={1}
         className="mySwiper"
       >
-        <SwiperSlide className="single-slide-one">
+        <SwiperSlide className={styles.singleSlideOne}>
           <Container sx={{ px: 6 }}>
             <Grid sx={{ px: 1 }} container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Typography
-                  sx={{ fontSize: { xs: 30, sm: 60 }, mt: 8 }}
-                  variant="h3"
-                  color="info.main"
-                >
+                <Typography sx={{ mt: 8 }} variant="h1" color="info.main">
                   Chevrolet Traverse
                 </Typography>
-                <Typography sx={{ mt: 2, mb: 3 }} paragraph color="info.main">
+                <Typography
+                  sx={{ mt: 2, mb: 3 }}
+                  variant="body1"
+                  color="info.main"
+                >
                   New and Powerful SUV
                 </Typography>
                 <Link to="/cars">
                   {" "}
-                  <Button variant="outlined" className="carx-btn">
-                    Explore More
-                  </Button>
+                  <Button variant="contained">Explore More</Button>
                 </Link>
               </Grid>
               <Grid
@@ -54,52 +52,45 @@ const Banner = () => {
             </Grid>
           </Container>
         </SwiperSlide>
-        <SwiperSlide className="single-slide-two">
+        <SwiperSlide className={styles.singleSlideTwo}>
           <Container sx={{ px: 6 }}>
             <Grid sx={{ px: 1 }} container spacing={3}>
               <Grid item xs={12} md={12} sx={{ textAlign: "center" }}>
-                <Typography
-                  sx={{ fontSize: { xs: 30, sm: 60 }, mt: 12 }}
-                  variant="h3"
-                  color="info.main"
-                >
+                <Typography sx={{ mt: 12 }} variant="h1" color="info.main">
                   Audi 2021 S5 Cabriolet
                 </Typography>
-                <Typography sx={{ mt: 2, mb: 3 }} paragraph color="info.main">
+                <Typography
+                  sx={{ mt: 2, mb: 3 }}
+                  variant="body1"
+                  color="info.main"
+                >
                   A Black Diamond
                 </Typography>
                 <Link to="/cars">
                   {" "}
-                  <Button
-                    variant="outlined"
-                    sx={{ color: "#f0f4ef", borderColor: "#f0f4ef" }}
-                  >
-                    Explore More
-                  </Button>
+                  <Button variant="contained">Explore More</Button>
                 </Link>
               </Grid>
             </Grid>
           </Container>
         </SwiperSlide>
-        <SwiperSlide className="single-slide-three">
+        <SwiperSlide className={styles.singleSlideThree}>
           <Container sx={{ px: 6 }}>
             <Grid sx={{ px: 1 }} container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Typography
-                  sx={{ fontSize: { xs: 30, sm: 60 }, mt: 8 }}
-                  variant="h3"
-                  color="info.main"
-                >
+                <Typography sx={{ mt: 8 }} variant="h1" color="info.main">
                   Renegade 730S
                 </Typography>
-                <Typography sx={{ mt: 2, mb: 3 }} paragraph color="info.main">
+                <Typography
+                  sx={{ mt: 2, mb: 3 }}
+                  variant="body1"
+                  color="info.main"
+                >
                   Raise your limits over
                 </Typography>
                 <Link to="/cars">
                   {" "}
-                  <Button variant="outlined" className="carx-btn">
-                    Explore More
-                  </Button>
+                  <Button variant="contained">Explore More</Button>
                 </Link>
               </Grid>
               <Grid sx={{ display: { xs: "none", md: "block" } }}></Grid>

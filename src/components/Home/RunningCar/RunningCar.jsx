@@ -1,9 +1,9 @@
-/* import { Divider, Grid, Typography } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import car from "../../../images/car.png";
-import wheel from "../../../images/car-tier.png";
-import "./RunningCar.css";
+import car from "@/images/car.png";
+import wheel from "@/images/car-tier.png";
+import styles from "@/styles/Home.module.css";
 
 const RunningCar = () => {
   window.onscroll = function () {
@@ -11,12 +11,12 @@ const RunningCar = () => {
   };
   function windowScroll() {
     if (
-      document.body.scrollTop > 200 ||
-      document.documentElement.scrollTop > 200
+      document.body.scrollTop > 150 ||
+      document.documentElement.scrollTop > 150
     ) {
-      document.getElementById("main-nav").className = "in-view";
+      document.getElementById("running-car").className = styles.inView;
     } else {
-      document.getElementById("main-nav").className = "";
+      document.getElementById("running-car").className = "";
     }
   }
   return (
@@ -28,29 +28,25 @@ const RunningCar = () => {
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       >
         <Grid item xs={12} md={8} lg={6}>
-          <Box id="main-nav" className="running-car main-nav">
-            <div className="runnig-box">
+          <Box id="running-car" className="running-car">
+            <div className={styles.runningBox}>
               <img
                 style={{ width: "100%" }}
-                className="car "
+                className={styles.car}
                 src={car}
-                alt=""
+                alt="running-car"
               />
-              <img className="wheel" src={wheel} alt="" />
+              <img className={styles.wheel} src={wheel} alt="" />
             </div>
           </Box>
         </Grid>
         <Grid item xs={12} md={4} lg={6}>
           <Box sx={{ px: 2, width: "75%" }}>
-            <Typography
-              sx={{ pb: 3, fontWeight: 700 }}
-              color="secondary"
-              variant="h4"
-            >
+            <Typography color="secondary" variant="h3">
               OUR FLEET YOUR FLEET
             </Typography>
             <Divider />
-            <Typography sx={{ pt: 2 }} paragraph color="text.secondary">
+            <Typography variant="body1" color="text.secondary">
               Assertively iterate enterprise-wide portals through synergistic
               products. Efficiently build adaptive schemas after transparent
               quality vectors. Phosfluorescently optimize competitive resources
@@ -66,4 +62,3 @@ const RunningCar = () => {
 };
 
 export default RunningCar;
- */

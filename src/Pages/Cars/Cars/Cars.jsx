@@ -8,10 +8,8 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import Footer from "../../Shared/Footer/Footer";
-import Navigation from "../../Shared/Navigation/Navigation";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 import SingleCar from "../../Shared/SingleCar/SingleCar";
 
@@ -57,8 +55,6 @@ const Cars = () => {
   }
   return (
     <div>
-      {/* navbar  */}
-      <Navigation />
       {/* banner  */}
       <OthersBanner>Cars</OthersBanner>
       {/* cars section  */}
@@ -94,8 +90,6 @@ const Cars = () => {
           </Box>
         </Container>
       </Box>
-      {/* footer  */}
-      <Footer />
     </div>
   );
 };

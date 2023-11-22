@@ -15,8 +15,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import Footer from "../../Shared/Footer/Footer";
-import Navigation from "../../Shared/Navigation/Navigation";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 
 const Contact = () => {
@@ -41,8 +39,6 @@ const Contact = () => {
   };
   return (
     <div>
-      {/* navbar  */}
-      <Navigation />
       {/* banner  */}
       <OthersBanner>Contact Us</OthersBanner>
       {/* contact details  */}
@@ -197,8 +193,6 @@ const Contact = () => {
           </Box>
         </Box>
       </Container>
-      {/* footer  */}
-      <Footer />
     </div>
   );
 };

@@ -1,37 +1,37 @@
 /* footer section style  */
-.list-item {
+.listItem {
   color: #f0f4ef;
   transition: 0.4s;
 }
-.list-item:hover {
+.listItem:hover {
   color: #709bb6;
   cursor: pointer;
 }
 
-.footer-social {
+.footerSocial {
   display: inline-block;
   color: #f0f4ef;
   margin-left: 10px;
   transition: 0.4s;
 }
 
-.footer-social:hover {
+.footerSocial:hover {
   color: #709bb6;
 }
 
 @media only screen and (max-width: 1200px) {
-  .footer-box {
+  .footerBox {
     border: none !important;
   }
 }
 @media only screen and (max-width: 600px) {
-  .footer-box {
+  .footerBox {
     text-align: center;
   }
-  .footer-box li {
+  .footerBox li {
     text-align: center;
   }
-  .footer-bottom-box {
+  .footerBottomBox {
     text-align: center !important;
   }
 }

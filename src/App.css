@@ -30,11 +30,11 @@ h6 {
 }
 
 /* common style  */
-
+/* 
 .carx-btn {
   background: #457b9d !important;
   color: #f0f4ef !important;
-}
+} */
 
 .carx-outline-btn {
   border: 1px solid #16425b !important;
@@ -43,4 +43,19 @@ h6 {
 
 .colored-text {
   color: #457b9d !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #457b9d !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 30px !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #16425b !important;
 }

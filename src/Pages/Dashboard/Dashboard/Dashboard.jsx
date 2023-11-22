@@ -1,3 +1,4 @@
+import DashboardLayout from "@/layouts/DashboardLayout";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BorderClearIcon from "@mui/icons-material/BorderClear";
@@ -23,7 +24,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
@@ -283,7 +284,7 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-        <Outlet />
+        <DashboardLayout />
       </Box>
     </Box>
   );

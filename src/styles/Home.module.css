@@ -1,0 +1,85 @@
+/* hero */
+.singleSlideOne {
+  background: url(../images/slider-1.jpg) no-repeat center center;
+  background-size: cover;
+  padding: 60px 0;
+  height: 400px;
+}
+.singleSlideTwo {
+  background: url(../images/slider-2.jpg) no-repeat center center;
+  background-size: cover;
+  padding: 60px 0;
+  height: 400px;
+}
+.singleSlideThree {
+  background: url(../images/slider-3.jpg) no-repeat center center;
+  background-size: cover;
+  padding: 60px 0;
+  height: 400px;
+}
+
+/* running car */
+.runningBox {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 659px;
+}
+
+.car,
+.wheel {
+  transition: all 1s ease-out;
+  margin-left: -660px;
+}
+
+.wheel {
+  position: absolute;
+  left: 401px;
+  bottom: 33px;
+  z-index: 1;
+}
+
+.inView .car {
+  transform: translate(600px, 0px) rotate(0deg);
+}
+.inView .wheel {
+  transform: translate(600px, 0px) rotate(600deg);
+}
+
+@media only screen and (max-width: 768px) {
+  .runningBox {
+    position: inherit;
+    width: 80%;
+  }
+
+  .car,
+  .wheel {
+    transition: none;
+    margin-left: 0;
+  }
+
+  .wheel {
+    position: inherit;
+    display: none;
+  }
+
+  .inView .car {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  .inView .wheel {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .singleSlideOne,
+  .singleSlideTwo,
+  .singleSlideThree {
+    height: 200px;
+  }
+  .singleSlideOne h3,
+  .singleSlideTwo h3,
+  .singleSlideThree h3 {
+    margin-top: 10px;
+  }
+}

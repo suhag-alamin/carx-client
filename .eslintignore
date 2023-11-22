@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+vite.config.js
+.eslintrc.cjs
+.prettierrc.json
+```

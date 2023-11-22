@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SingleCar from "../../Shared/SingleCar/SingleCar";
+import SingleCar from "../../../pages/Shared/SingleCar/SingleCar";
 
 const FeaturedCars = () => {
   const [cars, setCars] = useState([]);

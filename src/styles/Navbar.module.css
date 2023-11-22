@@ -3,22 +3,22 @@
   width: 70%;
 }
 .navbar a,
-.nav-link {
+.navLink {
   font-size: 18px;
   padding: 5px 10px;
 }
-.nav-link {
+.navLink {
   color: #16425b;
   font-weight: 500;
   transition: 0.4s;
   position: relative;
 }
 
-.nav-link:hover {
+.navLink:hover {
   color: #457b9d;
 }
 
-.nav-link::after {
+.navLink::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -31,11 +31,11 @@
   transition: 0.5s;
 }
 
-.nav-link:hover.nav-link::after {
+.navLink:hover.navLink::after {
   width: 90%;
 }
 
-.nav-selected {
+.navSelected {
   color: #457b9d;
   font-size: 18px;
   font-weight: bold;
