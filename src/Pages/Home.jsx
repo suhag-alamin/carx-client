@@ -11,17 +11,11 @@ const Home = () => {
   useDocumentTitle("Carx - Affordability at your fingertip", false);
   return (
     <div>
-      {/* banner section  */}
       <Banner />
-      {/* running car  */}
       <RunningCar />
-      {/* featured cars section  */}
       <FeaturedCars />
-      {/* buying essentials  */}
       <BuyingEssentials />
-      {/* review section  */}
       <Reviews />
-      {/* counter section  */}
       <CounterSection />
     </div>
   );

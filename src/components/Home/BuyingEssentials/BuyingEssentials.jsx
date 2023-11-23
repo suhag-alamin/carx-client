@@ -1,18 +1,15 @@
 import { Container, Grid, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import icon1 from "../../../images/ico-buying.svg";
-import icon2 from "../../../images/ico-insurance.svg";
-import icon3 from "../../../images/ico-finance.svg";
-import icon4 from "../../../images/ico-history.svg";
+import icon1 from "@/images/ico-buying.svg";
+import icon2 from "@/images/ico-insurance.svg";
+import icon3 from "@/images/ico-finance.svg";
+import icon4 from "@/images/ico-history.svg";
 
 const BuyingEssentials = () => {
   return (
-    <Container sx={{ py: 6, border: "1px solid #f0f4ef", my: 4 }}>
-      <Typography
-        variant="h4"
-        sx={{ fontWeight: 700, textAlign: "center", mb: 4 }}
-      >
+    <Container sx={{ py: 6 }}>
+      <Typography variant="h3" sx={{ textAlign: "center" }}>
         BUYING <span className="colored-text">ESSENTIALS</span>{" "}
       </Typography>
       <Box sx={{ flexGrow: 1 }}>
@@ -28,7 +25,7 @@ const BuyingEssentials = () => {
             >
               <img style={{ width: "90px" }} src={icon1} alt="" />
               <Typography variant="subtitle1" color="primary">
-                WHAT'S IT WORTH
+                WHAT&apos;S IT WORTH
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 Get a free valuation. Sell or part-exchange your car at the
@@ -76,7 +73,7 @@ const BuyingEssentials = () => {
             >
               <img style={{ width: "90px" }} src={icon4} alt="" />
               <Typography variant="subtitle1" color="primary">
-                CHECK A CAR'S HISTORY
+                CHECK A CAR&apos;S HISTORY
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 Have complete peace of mind before you buy your next car.Have

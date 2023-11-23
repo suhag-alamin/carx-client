@@ -9,9 +9,9 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import SingleCar from "../../../components/Card/CarCard";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
-import SingleCar from "../../Shared/SingleCar/SingleCar";
 
 const Cars = () => {
   // dynamic title

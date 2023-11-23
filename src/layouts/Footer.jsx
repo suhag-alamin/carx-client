@@ -23,18 +23,15 @@ const Footer = () => {
         display: "flex",
         flexDirection: "column",
         minHeight: "50vh",
-        bgcolor: "#2f3640",
-        color: "#f0f4ef",
+        bgcolor: "customBg.secondary",
+        color: "info.main",
         mb: 0,
       }}
     >
       <Container sx={{ py: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={3}>
-            <Box
-              className={styles.footerBox}
-              sx={{ px: 2, borderRight: "1px solid #ddd" }}
-            >
+            <Box className={styles.footerBox}>
               <Typography color="info.main" variant="h6">
                 Expert Advice
               </Typography>
@@ -56,10 +53,7 @@ const Footer = () => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Box
-              className={styles.footerBox}
-              sx={{ px: 2, borderRight: "1px solid #ddd" }}
-            >
+            <Box className={styles.footerBox}>
               <Typography color="info.main" variant="h6">
                 Expert Ratings
               </Typography>
@@ -78,10 +72,7 @@ const Footer = () => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Box
-              className={styles.footerBox}
-              sx={{ px: 2, borderRight: "1px solid #ddd" }}
-            >
+            <Box className={styles.footerBox}>
               <Typography color="info.main" variant="h6">
                 Expert Info
               </Typography>
@@ -124,17 +115,18 @@ const Footer = () => {
           </Grid>
         </Grid>
       </Container>
+      {/* footer bottom  */}
       <Box
         component="footer"
         sx={{
           py: 1,
           px: 2,
           mt: "auto",
-          bgcolor: "#353b48",
-          borderTop: "1px solid #ddd",
+          bgcolor: "customBg.secondary",
+          borderTop: "1px solid",
+          borderColor: "info.main",
         }}
       >
-        {/* footer bottom  */}
         <Container>
           <Grid
             className={styles.footerBottomBox}
@@ -196,13 +188,31 @@ const Footer = () => {
               md={4}
             >
               <Typography
-                sx={{ color: "#f0f4ef", textAlign: "center" }}
+                sx={{ color: "info.main", textAlign: "center" }}
                 variant="caption"
                 component="p"
               >
                 &copy;{" "}
                 <span>
-                  {new Date().getFullYear()} || All right reserved by Carx
+                  {new Date().getFullYear()} || All right reserved by CARX ||
+                  Developed by{" "}
+                  <Typography
+                    sx={{
+                      color: "info.main",
+                    }}
+                    component="span"
+                  >
+                    <a
+                      style={{
+                        color: "inherit",
+                      }}
+                      href="https://suhag.me"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Suhag Al Amin
+                    </a>
+                  </Typography>
                 </span>
               </Typography>
             </Grid>

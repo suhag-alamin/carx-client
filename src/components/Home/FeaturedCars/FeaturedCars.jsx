@@ -1,3 +1,4 @@
+import SingleCar from "@/components/Card/CarCard";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import {
   Button,
@@ -10,7 +11,6 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SingleCar from "../../../pages/Shared/SingleCar/SingleCar";
 
 const FeaturedCars = () => {
   const [cars, setCars] = useState([]);
@@ -38,12 +38,9 @@ const FeaturedCars = () => {
     );
   }
   return (
-    <Box sx={{ bgcolor: "#edf2f4" }}>
-      <Container sx={{ py: 6 }}>
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: 700, textAlign: "center", mb: 4 }}
-        >
+    <Box sx={{ bgcolor: "customBg.main" }}>
+      <Container sx={{ py: 5 }}>
+        <Typography variant="h3" sx={{ textAlign: "center" }}>
           FEATURED <span className="colored-text">CARS</span>{" "}
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
@@ -59,11 +56,7 @@ const FeaturedCars = () => {
         </Box>
         <Box sx={{ mt: 4, textAlign: "center" }}>
           <Link to="/cars">
-            <Button
-              className="carx-outline-btn"
-              variant="outlined"
-              endIcon={<ArrowRightAltIcon />}
-            >
+            <Button variant="outlined" endIcon={<ArrowRightAltIcon />}>
               Explore More
             </Button>
           </Link>

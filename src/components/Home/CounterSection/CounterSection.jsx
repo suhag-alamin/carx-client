@@ -19,11 +19,11 @@ const CounterSection = () => {
           columns={{ xs: 2, sm: 8, md: 12 }}
         >
           <Grid item xs={2} sm={4} md={3}>
-            <Paper sx={{ p: 2, textAlign: "center" }}>
+            <Paper variant="outlined" sx={{ p: 2, textAlign: "center" }}>
               <EmojiEmotionsIcon sx={{ fontSize: 30 }} color="primary" />
               <Typography
                 color="primary"
-                variant="h4"
+                variant="h5"
                 sx={{ fontWeight: 700, my: 1 }}
               >
                 <CountUp duration={2} start={0} end={13000} />
@@ -35,11 +35,11 @@ const CounterSection = () => {
           </Grid>
 
           <Grid item xs={2} sm={4} md={3}>
-            <Paper sx={{ p: 2, textAlign: "center" }}>
+            <Paper variant="outlined" sx={{ p: 2, textAlign: "center" }}>
               <DirectionsCarIcon sx={{ fontSize: 30 }} color="primary" />
               <Typography
                 color="primary"
-                variant="h4"
+                variant="h5"
                 sx={{ fontWeight: 700, my: 1 }}
               >
                 <CountUp duration={2} start={0} end={300} />
@@ -51,11 +51,11 @@ const CounterSection = () => {
           </Grid>
 
           <Grid item xs={2} sm={4} md={3}>
-            <Paper sx={{ p: 2, textAlign: "center" }}>
+            <Paper variant="outlined" sx={{ p: 2, textAlign: "center" }}>
               <StoreIcon sx={{ fontSize: 30 }} color="primary" />
               <Typography
                 color="primary"
-                variant="h4"
+                variant="h5"
                 sx={{ fontWeight: 700, my: 1 }}
               >
                 <CountUp duration={2} start={0} end={10} />
@@ -67,17 +67,17 @@ const CounterSection = () => {
           </Grid>
 
           <Grid item xs={2} sm={4} md={3}>
-            <Paper sx={{ p: 2, textAlign: "center" }}>
+            <Paper variant="outlined" sx={{ p: 2, textAlign: "center" }}>
               <AutoAwesomeIcon sx={{ fontSize: 30 }} color="primary" />
               <Typography
                 color="primary"
-                variant="h4"
+                variant="h5"
                 sx={{ fontWeight: 700, my: 1 }}
               >
                 <CountUp duration={2} start={0} end={50} />
               </Typography>
               <Typography color="secondary" variant="subtitle1">
-                AWWARDS
+                AWARDS
               </Typography>
             </Paper>
           </Grid>

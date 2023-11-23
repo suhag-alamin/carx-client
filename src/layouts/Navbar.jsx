@@ -1,10 +1,12 @@
+import useAuth from "@/hooks/useAuth";
+import logo from "@/images/logo.png";
+import styles from "@/styles/Navbar.module.css";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button, Container } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -12,11 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "@/images/logo.png";
-import useAuth from "@/hooks/useAuth";
-import styles from "@/styles/Navbar.module.css";
 
-// navbar
 const Navbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -85,7 +83,7 @@ const Navbar = (props) => {
             <LoginIcon sx={{ ml: 1 }} />
           </NavLink>
         ) : (
-          <Box sx={{}}>
+          <Box>
             <NavLink
               className={(navInfo) =>
                 navInfo.isActive ? styles.navSelected : styles.navLink
@@ -109,8 +107,7 @@ const Navbar = (props) => {
             <Divider />
             <Button
               onClick={logOut}
-              sx={{ color: "#16425b" }}
-              variant="text"
+              variant="outlined"
               endIcon={<LogoutIcon />}
             >
               Log Out
@@ -128,8 +125,7 @@ const Navbar = (props) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ bgcolor: "#F0F4EF", boxShadow: 1, py: 1 }}>
+      <AppBar position="fixed" sx={{ py: 1 }}>
         <Toolbar>
           <Container>
             <Box
@@ -221,8 +217,7 @@ const Navbar = (props) => {
                       )}
                       <Button
                         onClick={logOut}
-                        sx={{ color: "#16425b" }}
-                        variant="text"
+                        variant="outlined"
                         endIcon={<LogoutIcon />}
                       >
                         Log Out
@@ -236,7 +231,7 @@ const Navbar = (props) => {
           <IconButton
             edge="end"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" }, color: "#16425B" }}
+            sx={{ mr: 2, display: { md: "none" }, color: "secondary.main" }}
           >
             <MenuIcon />
           </IconButton>
@@ -268,7 +263,6 @@ const Navbar = (props) => {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mb: 3 }}></Box>
     </Box>
   );
 };

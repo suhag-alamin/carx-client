@@ -14,10 +14,10 @@ const SingleReview = ({ review: clientReview }) => {
         <Typography variant="h5" color="primary">
           {userName}
         </Typography>
-        <Typography sx={{ mb: 1 }} variant="subtitle1" color="seconday">
+        <Typography variant="subtitle1" color="secondary.main">
           {email}
         </Typography>
-        <Typography color="text.secondary" paragraph>
+        <Typography color="text.secondary" variant="body1">
           {review}
         </Typography>
         <Rating

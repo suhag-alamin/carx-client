@@ -10,7 +10,14 @@ const theme = createTheme({
       main: "#16425B",
     },
     info: {
-      main: "#F0F4EF",
+      main: "#fff",
+    },
+    error: {
+      main: "#FF1654",
+    },
+    customBg: {
+      main: "#f7f7ff", // F0F4EF
+      secondary: "#2f3640",
     },
   },
   typography: {
@@ -60,9 +67,68 @@ const theme = createTheme({
       fontWeight: "400",
     },
   },
-
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "4px",
+          padding: "6px 20px",
+          textTransform: "none",
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: "4px",
+          height: "100%",
+          boxShadow: "4px 2px 20px -15px rgba(22,66,91,0.4)",
+          // backgroundColor: "#fff",
+          // border: "5px double #457B9D",
+          border: "none",
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: "4px",
+          // border: "1px solid rgba(22,66,91,0.4)",
+          boxShadow: "4px 2px 20px -15px rgba(22,66,91,0.4)",
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: "0 8px",
+          margin: "8px 0",
+          justifyContent: "end",
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#fff",
+          boxShadow: "4px 2px 20px -15px rgba(22,66,91,0.4)",
+          border: "none",
+          borderRadius: "0px",
+          // "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
+          // &apos;bgcolor: "#F0F4EF",
+        },
+      },
+    },
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: {
+          color: "#457B9D",
+        },
+      },
+    },
+  },
   background: {
-    default: "#F0F4EF",
+    default: "#fff",
   },
 });
 
@@ -79,45 +145,53 @@ const theme = createTheme({
 // body2 = 14 - 12px
 
 theme.typography.h1 = {
-  fontSize: "48px",
+  fontSize: "36px",
+  // margin: "20px 0",
   [theme.breakpoints.up("md")]: {
     fontSize: "64px",
+    // margin: "32px 0",
   },
 };
 
 theme.typography.h2 = {
-  fontSize: "36px",
+  fontSize: "28px",
+  margin: "28px 0",
   [theme.breakpoints.up("md")]: {
     fontSize: "48px",
+    margin: "28px 0",
   },
 };
 
 theme.typography.h3 = {
-  fontSize: "30px",
+  fontSize: "24px",
   [theme.breakpoints.up("md")]: {
     fontSize: "36px",
   },
+  margin: "24px 0",
 };
 
 theme.typography.h4 = {
-  fontSize: "24px",
+  fontSize: "20px",
   [theme.breakpoints.up("md")]: {
     fontSize: "30px",
   },
+  margin: "20px 0",
 };
 
 theme.typography.h5 = {
-  fontSize: "20px",
+  fontSize: "18px",
   [theme.breakpoints.up("md")]: {
     fontSize: "24px",
   },
+  margin: "16px 0",
 };
 
 theme.typography.h6 = {
-  fontSize: "18px",
+  fontSize: "16px",
   [theme.breakpoints.up("md")]: {
     fontSize: "20px",
   },
+  margin: "12px 0",
 };
 
 theme.typography.subtitle1 = {
@@ -125,6 +199,7 @@ theme.typography.subtitle1 = {
   [theme.breakpoints.up("md")]: {
     fontSize: "18px",
   },
+  margin: "12px 0",
 };
 
 theme.typography.subtitle2 = {
@@ -132,6 +207,7 @@ theme.typography.subtitle2 = {
   [theme.breakpoints.up("md")]: {
     fontSize: "16px",
   },
+  margin: "8px 0",
 };
 
 theme.typography.body1 = {
@@ -139,6 +215,7 @@ theme.typography.body1 = {
   [theme.breakpoints.up("md")]: {
     fontSize: "14px",
   },
+  margin: "10px 0",
 };
 
 theme.typography.body2 = {
@@ -146,15 +223,15 @@ theme.typography.body2 = {
   [theme.breakpoints.up("md")]: {
     fontSize: "12px",
   },
+  margin: "8px 0",
 };
 
 theme.typography.button = {
   fontSize: "14px",
-  borderRadius: "8px",
-  textTransform: "none",
   [theme.breakpoints.up("md")]: {
     fontSize: "16px",
   },
+  margin: "10px 0",
 };
 
 export default theme;

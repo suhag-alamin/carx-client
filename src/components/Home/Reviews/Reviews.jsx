@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import SingleReview from "../SingleReview/SingleReview";
+import SingleReview from "../../Card/ReviewCard";
 
 // reviews section
 
@@ -16,12 +16,12 @@ const Reviews = () => {
   // dynamic title
   useDocumentTitle("Review");
 
-  const [clientReviews, setClinetReviews] = useState([]);
+  const [clientReviews, setClientReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
     axios.get("https://carx-suhag.onrender.com/reviews").then((result) => {
-      setClinetReviews(result.data);
+      setClientReviews(result.data);
       setIsLoading(false);
     });
   }, []);
@@ -30,13 +30,13 @@ const Reviews = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ bgcolor: "#edf2f4" }}>
+    <Box sx={{ bgcolor: "customBg.main" }}>
       <Container sx={{ py: 6 }}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid
@@ -46,8 +46,8 @@ const Reviews = () => {
           >
             <Grid item xs={2} sm={8} md={4}>
               <Typography variant="subtitle1">What Our Clients Say</Typography>
-              <Typography variant="h4" sx={{ fontWeight: 700, my: 2 }}>
-                CLIENT <span className="colored-text">REVIEWS</span>{" "}
+              <Typography variant="h3">
+                CLIENT <span className="colored-text">REVIEWS</span>
               </Typography>
             </Grid>
             <Grid item xs={2} sm={8} md={8} sx={{ py: 2 }}>
@@ -55,7 +55,6 @@ const Reviews = () => {
                 navigation={true}
                 grabCursor={true}
                 modules={[Navigation]}
-                className="mySwiper"
                 slidesPerView={1}
                 spaceBetween={10}
                 breakpoints={{
@@ -75,7 +74,7 @@ const Reviews = () => {
               >
                 {clientReviews.map((clientReview) => (
                   <SwiperSlide key={clientReview._id}>
-                    <SingleReview review={clientReview}></SingleReview>
+                    <SingleReview review={clientReview} />
                   </SwiperSlide>
                 ))}
               </Swiper>
