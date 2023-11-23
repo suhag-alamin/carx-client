@@ -2,8 +2,8 @@ import App from "@/App";
 import About from "@/pages/About";
 import Cars from "@/pages/Cars";
 import Contact from "@/pages/Contact";
+import Dashboard from "@/pages/Dashboard";
 import AddProduct from "@/pages/Dashboard/AddProduct/AddProduct";
-import Dashboard from "@/pages/Dashboard/Dashboard/Dashboard";
 import GiveReview from "@/pages/Dashboard/GiveReview/GiveReview";
 import MakeAdmin from "@/pages/Dashboard/MakeAdmin/MakeAdmin";
 import ManageAllOrders from "@/pages/Dashboard/ManageAllOrders/ManageAllOrders";
@@ -11,12 +11,12 @@ import ManageProducts from "@/pages/Dashboard/ManageProducts/ManageProducts";
 import MyOrders from "@/pages/Dashboard/MyOrders/MyOrders";
 import Payment from "@/pages/Dashboard/Payment/Payment";
 import PaymentHome from "@/pages/Dashboard/Payment/PaymentHome";
+import ForgetPassword from "@/pages/ForgetPassword";
 import Home from "@/pages/Home";
-import ForgetPassword from "@/pages/Login/ForgetPassword/ForgetPassword";
-import Login from "@/pages/Login/Login/Login";
-import Register from "@/pages/Login/Register/Register";
-import PageNotFound from "@/pages/PageNotFound/PageNotFound";
+import Login from "@/pages/Login";
+import NotFound from "@/pages/NotFound";
 import PlaceOrder from "@/pages/PlaceOrder";
+import Register from "@/pages/Register";
 import { createBrowserRouter } from "react-router-dom";
 import AdminRoute from "./AdminRoute";
 import MainDashboard from "./MainDashboard";
@@ -31,9 +31,7 @@ const routes = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/cars", element: <Cars /> },
       { path: "/contact", element: <Contact /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
-      { path: "/forget-password", element: <ForgetPassword /> },
+
       {
         path: "/place-order/:id",
         element: (
@@ -44,6 +42,7 @@ const routes = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/dashboard",
     element: (
@@ -129,10 +128,12 @@ const routes = createBrowserRouter([
       },
     ],
   },
-
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/forget-password", element: <ForgetPassword /> },
   {
     path: "*",
-    element: <PageNotFound />,
+    element: <NotFound />,
   },
 ]);
 

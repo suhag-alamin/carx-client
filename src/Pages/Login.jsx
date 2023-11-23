@@ -1,8 +1,10 @@
+import useAuth from "@/hooks/useAuth";
+import GoogleIcon from "@mui/icons-material/Google";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
   Button,
   Checkbox,
-  CssBaseline,
   Divider,
   FormControlLabel,
   Grid,
@@ -11,11 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import GoogleIcon from "@mui/icons-material/Google";
-import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
@@ -45,7 +44,6 @@ const Login = () => {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
-      <CssBaseline />
       <Grid
         item
         xs={false}
@@ -76,9 +74,7 @@ const Login = () => {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+          <Typography variant="h5">Sign in</Typography>
           <Box
             component="form"
             noValidate
@@ -107,19 +103,14 @@ const Login = () => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained">
               Sign In
             </Button>
             <Grid sx={{ mb: 2 }} container>
               <Grid item xs>
                 <Link
                   style={{ color: "#16425b" }}
-                  to="/forgetPassword"
+                  to="/forget-password"
                   variant="body2"
                 >
                   Forgot password?

@@ -119,6 +119,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          // padding: "0 16px",
+          // backgroundColor: "#16425B",
+        },
+      },
+    },
     MuiCircularProgress: {
       styleOverrides: {
         root: {

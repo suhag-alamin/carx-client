@@ -1,3 +1,5 @@
+import useAuth from "@/hooks/useAuth";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -13,7 +15,6 @@ import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
 import { Button } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -23,10 +24,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
-import * as React from "react";
-import { NavLink } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -35,7 +34,7 @@ function Dashboard(props) {
   useDocumentTitle("Dashboard");
 
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { user, logOut, admin } = useAuth();
 
   const handleDrawerToggle = () => {
@@ -74,11 +73,10 @@ function Dashboard(props) {
           <HomeIcon color="primary" />
         </ListItemIcon>
         <ListItemText
-          as={NavLink}
+          as={Link}
           to="/"
           color="primary"
-          sx={{ color: "#457B9D" }}
-          className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+          sx={{ color: "secondary.main" }}
           primary="Home"
         />
       </ListItem>
@@ -87,11 +85,10 @@ function Dashboard(props) {
           <DashboardIcon color="primary" />
         </ListItemIcon>
         <ListItemText
-          as={NavLink}
+          as={Link}
           to="/dashboard"
           color="primary"
-          sx={{ color: "#457B9D" }}
-          className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+          sx={{ color: "secondary.main" }}
           primary="Dashboard"
         />
       </ListItem>
@@ -103,10 +100,9 @@ function Dashboard(props) {
               <ShoppingCartIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
-              to={`/dashboard/myOrders`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              as={Link}
+              to={`/dashboard/my-orders`}
+              sx={{ color: "secondary.main" }}
               primary="My Orders"
             />
           </ListItem>
@@ -116,10 +112,9 @@ function Dashboard(props) {
               <PaymentIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
+              as={Link}
               to={`/dashboard/payment`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              sx={{ color: "secondary.main" }}
               primary="Pay"
             />
           </ListItem>
@@ -129,10 +124,9 @@ function Dashboard(props) {
               <RateReviewIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
+              as={Link}
               to={`/dashboard/review`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              sx={{ color: "secondary.main" }}
               primary="Review"
             />
           </ListItem>
@@ -147,10 +141,9 @@ function Dashboard(props) {
               <AdminPanelSettingsIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
-              to={`/dashboard/makeAdmin`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              as={Link}
+              to={`/dashboard/make-admin`}
+              sx={{ color: "secondary.main" }}
               primary="Make Admin"
             />
           </ListItem>
@@ -159,10 +152,9 @@ function Dashboard(props) {
               <BorderClearIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
-              to={`/dashboard/manageAllOrders`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              as={Link}
+              to={`/dashboard/manage-all-orders`}
+              sx={{ color: "secondary.main" }}
               primary="Manage All Orders"
             />
           </ListItem>
@@ -171,10 +163,9 @@ function Dashboard(props) {
               <WifiProtectedSetupIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
-              to={`/dashboard/manageProducts`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              as={Link}
+              to={`/dashboard/manage-products`}
+              sx={{ color: "secondary.main" }}
               primary="Manage Products"
             />
           </ListItem>
@@ -183,10 +174,9 @@ function Dashboard(props) {
               <AddCircleOutlineIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              as={NavLink}
-              to={`/dashboard/addProduct`}
-              sx={{ color: "#457B9D" }}
-              className={(navInfo) => (navInfo.isActive ? "nav-selected" : "")}
+              as={Link}
+              to={`/dashboard/add-product`}
+              sx={{ color: "secondary.main" }}
               primary="Add Products"
             />
           </ListItem>
@@ -213,12 +203,12 @@ function Dashboard(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          bgcolor: "secondary.main",
         }}
       >
         <Toolbar>
@@ -231,7 +221,12 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography
+            sx={{
+              color: "info.main",
+            }}
+            variant="h6"
+          >
             Dashboard
           </Typography>
         </Toolbar>
@@ -291,10 +286,6 @@ function Dashboard(props) {
 }
 
 Dashboard.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

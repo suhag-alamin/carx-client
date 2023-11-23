@@ -1,3 +1,4 @@
+import initializeAuthentication from "@/config/firebase.init";
 import axios from "axios";
 import {
   createUserWithEmailAndPassword,
@@ -14,7 +15,6 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import initializeAuthentication from "../Pages/Login/Firebase/firebase.init";
 
 initializeAuthentication();
 
@@ -127,16 +127,12 @@ const useFirebase = () => {
   // save user to database
   const saveUser = (email, displayName) => {
     const user = { email, displayName };
-    axios
-      .post("https://carx-suhag.onrender.com/users", user)
-      .then((result) => {});
+    axios.post("https://carx-suhag.onrender.com/users", user).then(() => {});
   };
 
   const upsertUser = (email, displayName) => {
     const user = { email, displayName };
-    axios
-      .put("https://carx-suhag.onrender.com/users", user)
-      .then((result) => {});
+    axios.put("https://carx-suhag.onrender.com/users", user).then(() => {});
   };
 
   // admin check

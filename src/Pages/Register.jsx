@@ -1,19 +1,19 @@
+import useAuth from "@/hooks/useAuth";
+import GoogleIcon from "@mui/icons-material/Google";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
   Button,
   Container,
   CssBaseline,
+  Divider,
   Grid,
   TextField,
   Typography,
-  Divider,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import GoogleIcon from "@mui/icons-material/Google";
-import useAuth from "../../../hooks/useAuth";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
@@ -41,7 +41,7 @@ const Register = () => {
     }
     handleEmailRegister(name, email, password, navigate);
     e.preventDefault();
-    // e.target.reset();
+    e.target.reset();
   };
 
   const handleGoogleLogin = () => {
@@ -62,9 +62,7 @@ const Register = () => {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+        <Typography variant="h5">Sign up</Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

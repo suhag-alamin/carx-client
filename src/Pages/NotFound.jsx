@@ -1,9 +1,9 @@
+import error from "@/images/404.gif";
 import { Button, Container } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
 import { useNavigate } from "react-router";
-import error from "../../images/404.gif";
-const PageNotFound = () => {
+
+const NotFound = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/");
@@ -20,4 +20,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default NotFound;

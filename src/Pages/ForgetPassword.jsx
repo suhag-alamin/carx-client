@@ -1,3 +1,5 @@
+import useAuth from "@/hooks/useAuth";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
   Button,
@@ -8,10 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import useAuth from "../../../hooks/useAuth";
 
 const ForgetPassword = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
@@ -41,7 +41,8 @@ const ForgetPassword = () => {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(https://source.unsplash.com/random)",
+          backgroundImage:
+            "url(https://source.unsplash.com/collection/24844936)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -64,8 +65,9 @@ const ForgetPassword = () => {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography variant="h5">Forget Password?</Typography>
+          <Typography variant="body2">
+            Please enter your email address
           </Typography>
           <Box
             component="form"
@@ -88,7 +90,7 @@ const ForgetPassword = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Reset Password
             </Button>
             <Grid container>
               <Grid item xs>
