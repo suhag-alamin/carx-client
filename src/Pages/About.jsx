@@ -1,10 +1,10 @@
+import CounterSection from "@/components/Shared/CounterSection";
+import OthersBanner from "@/components/Shared/OthersBanner";
+import Reviews from "@/components/Shared/Reviews";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+import aboutCar from "@/images/about-car.png";
 import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CounterSection from "../../../components/Home/CounterSection/CounterSection";
-import Reviews from "../../../components/Home/Reviews/Reviews";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import aboutCar from "../../../images/about-car.png";
-import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 
 const About = () => {
   // dynamic title
@@ -13,23 +13,23 @@ const About = () => {
     <>
       {/* banner  */}
       <OthersBanner>About Us</OthersBanner>
-      {/* out company section  */}
       <Container sx={{ py: 6 }}>
         <Grid
           sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}
           container
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          alignItems="center"
         >
           <Grid item xs={12} md={6}>
-            <Box sx={{ mt: 4 }}>
+            <Box>
               <Typography gutterBottom variant="subtitle1">
                 Our Company
               </Typography>
               <Typography gutterBottom variant="h4" color="primary">
                 Experienc & Experience
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1">
                 Our mission is to deliver a positive, reliable experience to
                 each and every one of our clients while offering exceptional
                 value in the marketplace and setting the standard for

@@ -12,14 +12,37 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = (props) => {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+
   const { user, logOut } = useAuth();
 
+  useEffect(() => {
+    const checkScroll = () => {
+      if (typeof document !== "undefined") {
+        if (document.documentElement.scrollTop >= 200) {
+          setIsScrolling(true);
+        } else {
+          setIsScrolling(false);
+        }
+      }
+    };
+
+    if (typeof document !== "undefined") {
+      document.addEventListener("scroll", checkScroll);
+    }
+
+    return () => {
+      if (typeof document !== "undefined") {
+        document.removeEventListener("scroll", checkScroll);
+      }
+    };
+  }, []);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -31,7 +54,7 @@ const Navbar = (props) => {
           className={(navInfo) =>
             navInfo.isActive ? styles.navSelected : styles.navLink
           }
-          to="/home"
+          to="/"
         >
           Home
         </NavLink>
@@ -124,8 +147,16 @@ const Navbar = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" sx={{ py: 1 }}>
+    <Box>
+      <AppBar
+        position={isScrolling ? "fixed" : "sticky"}
+        sx={{
+          py: 1,
+          transition: "all ease-in-out 0.5s",
+          transform: isScrolling ? "translateY(0)" : "translateY(0)",
+          top: isScrolling ? 0 : "-100%",
+        }}
+      >
         <Toolbar>
           <Container>
             <Box
@@ -149,7 +180,7 @@ const Navbar = (props) => {
                     className={(navInfo) =>
                       navInfo.isActive ? styles.navSelected : styles.navLink
                     }
-                    to="/home"
+                    to="/"
                   >
                     Home
                   </NavLink>

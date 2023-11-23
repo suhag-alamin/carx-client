@@ -1,3 +1,4 @@
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
@@ -7,8 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import SingleReview from "../../Card/ReviewCard";
+import ReviewCard from "../Card/ReviewCard";
 
 // reviews section
 
@@ -74,7 +74,7 @@ const Reviews = () => {
               >
                 {clientReviews.map((clientReview) => (
                   <SwiperSlide key={clientReview._id}>
-                    <SingleReview review={clientReview} />
+                    <ReviewCard review={clientReview} />
                   </SwiperSlide>
                 ))}
               </Swiper>

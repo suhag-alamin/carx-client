@@ -1,4 +1,4 @@
-import SingleCar from "@/components/Card/CarCard";
+import CarCard from "@/components/Card/CarCard";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import {
   Button,
@@ -50,7 +50,7 @@ const FeaturedCars = () => {
             columns={{ xs: 2, sm: 8, md: 12, lg: 12 }}
           >
             {cars.slice(0, 6).map((car) => (
-              <SingleCar key={car._id} car={car} />
+              <CarCard key={car._id} car={car} />
             ))}
           </Grid>
         </Box>

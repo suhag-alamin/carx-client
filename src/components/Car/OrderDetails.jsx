@@ -11,8 +11,8 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAuth from "../../../hooks/useAuth";
-import "./OrderDatails.css";
+import styles from "@/styles/Car.module.css";
+import useAuth from "@/hooks/useAuth";
 
 const OrderDetails = ({ car }) => {
   const { user } = useAuth();
@@ -46,11 +46,7 @@ const OrderDetails = ({ car }) => {
   };
   return (
     <>
-      <Typography
-        sx={{ textAlign: "center", mb: 3 }}
-        variant="h5"
-        color="primary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h5" color="primary">
         Order Details
       </Typography>
       <Divider />
@@ -80,7 +76,7 @@ const OrderDetails = ({ car }) => {
                 {...register("userName", { required: true })}
               />
               {errors.userName && (
-                <span className="error">User Name is required</span>
+                <span className={styles.error}>User Name is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -91,7 +87,7 @@ const OrderDetails = ({ car }) => {
                 {...register("userEmail", { required: true })}
               />
               {errors.userEmail && (
-                <span className="error">User Email is required</span>
+                <span className={styles.error}>User Email is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -102,7 +98,7 @@ const OrderDetails = ({ car }) => {
                 {...register("carName", { required: true })}
               />
               {errors.carName && (
-                <span className="error">Car Name is required</span>
+                <span className={styles.error}>Car Name is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -112,7 +108,9 @@ const OrderDetails = ({ car }) => {
                 label="Car Price $"
                 {...register("price", { required: true })}
               />
-              {errors.price && <span className="error">Price is required</span>}
+              {errors.price && (
+                <span className={styles.error}>Price is required</span>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -140,7 +138,7 @@ const OrderDetails = ({ car }) => {
                 {...register("address", { required: true })}
               />
               {errors.address && (
-                <span className="error">Address is required</span>
+                <span className={styles.error}>Address is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -151,7 +149,9 @@ const OrderDetails = ({ car }) => {
                 required
                 {...register("city", { required: true })}
               />
-              {errors.city && <span className="error">City is required</span>}
+              {errors.city && (
+                <span className={styles.error}>City is required</span>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -166,7 +166,7 @@ const OrderDetails = ({ car }) => {
                 })}
               />
               {errors.phone && (
-                <span className="error">Phone Number is required</span>
+                <span className={styles.error}>Phone Number is required</span>
               )}
             </Grid>
             <Button

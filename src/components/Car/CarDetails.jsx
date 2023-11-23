@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "./CarDetails.css";
+import styles from "@/styles/Car.module.css";
 
 const CarDetails = ({ car }) => {
   const {
@@ -22,11 +22,7 @@ const CarDetails = ({ car }) => {
   return (
     <>
       <Box sx={{ width: "100%    " }}>
-        <Typography
-          sx={{ textAlign: "center", mb: 3 }}
-          variant="h5"
-          color="primary"
-        >
+        <Typography sx={{ textAlign: "center" }} variant="h5" color="primary">
           Product Details
         </Typography>
         <Divider />
@@ -37,13 +33,13 @@ const CarDetails = ({ car }) => {
           autoplay={{
             delay: 4000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
-          className="mySwiper"
           style={{ marginTop: 20 }}
         >
           <SwiperSlide>
             <img
-              className="car-gallery-img"
+              className={styles.carGalleryImg}
               style={{ width: "100%" }}
               src={img}
               alt=""
@@ -52,7 +48,7 @@ const CarDetails = ({ car }) => {
           {gallery1 && (
             <SwiperSlide>
               <img
-                className="car-gallery-img"
+                className={styles.carGalleryImg}
                 style={{ width: "100%" }}
                 src={gallery1}
                 alt=""
@@ -62,7 +58,7 @@ const CarDetails = ({ car }) => {
           {gallery2 && (
             <SwiperSlide>
               <img
-                className="car-gallery-img"
+                className={styles.carGalleryImg}
                 style={{ width: "100%" }}
                 src={gallery2}
                 alt=""
@@ -72,7 +68,7 @@ const CarDetails = ({ car }) => {
           {gallery3 && (
             <SwiperSlide>
               <img
-                className="car-gallery-img"
+                className={styles.carGalleryImg}
                 style={{ width: "100%" }}
                 src={gallery3}
                 alt=""
@@ -82,7 +78,7 @@ const CarDetails = ({ car }) => {
           {gallery4 && (
             <SwiperSlide>
               <img
-                className="car-gallery-img"
+                className={styles.carGalleryImg}
                 style={{ width: "100%", height: 400 }}
                 src={gallery4}
                 alt=""
@@ -95,10 +91,10 @@ const CarDetails = ({ car }) => {
         <Typography color="secondary" gutterBottom variant="h5" component="div">
           {carName}
         </Typography>
-        <Typography sx={{ fontWeight: 700 }} gutterBottom variant="h6">
+        <Typography gutterBottom variant="h6">
           $ {price}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary">
           {description}
         </Typography>
       </Paper>

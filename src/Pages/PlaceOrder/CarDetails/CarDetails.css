@@ -1,9 +1,0 @@
-.car-gallery-img {
-  height: 400px;
-}
-
-@media only screen and (max-width: 600px) {
-  .car-gallery-img {
-    height: 200px !important;
-  }
-}

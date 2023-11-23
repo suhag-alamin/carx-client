@@ -17,3 +17,17 @@
   border-radius: 0 50px 50px 0;
   padding: 2px 12px;
 }
+
+.carGalleryImg {
+  height: 400px;
+}
+
+.error {
+  color: #ff1654;
+}
+
+@media only screen and (max-width: 600px) {
+  .carGalleryImg {
+    height: 200px !important;
+  }
+}

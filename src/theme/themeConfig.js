@@ -82,7 +82,7 @@ const theme = createTheme({
         root: {
           borderRadius: "4px",
           height: "100%",
-          boxShadow: "4px 2px 20px -15px rgba(22,66,91,0.4)",
+          boxShadow: "10px 5px 20px -15px rgba(22,66,91,0.4)",
           // backgroundColor: "#fff",
           // border: "5px double #457B9D",
           border: "none",
@@ -196,18 +196,20 @@ theme.typography.h6 = {
 
 theme.typography.subtitle1 = {
   fontSize: "16px",
+  margin: "8px 0",
   [theme.breakpoints.up("md")]: {
     fontSize: "18px",
+    margin: "12px 0",
   },
-  margin: "12px 0",
 };
 
 theme.typography.subtitle2 = {
   fontSize: "14px",
+  margin: "6px 0",
   [theme.breakpoints.up("md")]: {
     fontSize: "16px",
+    margin: "8px 0",
   },
-  margin: "8px 0",
 };
 
 theme.typography.body1 = {

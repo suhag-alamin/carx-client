@@ -12,12 +12,12 @@ import {
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router";
 
-const SingleCar = ({ car }) => {
+const CarCard = ({ car }) => {
   const { _id, carName, description, img, price } = car;
 
   const navigate = useNavigate();
   const handleClick = (id) => {
-    navigate(`/placeOrder/${id}`);
+    navigate(`/place-order/${id}`);
   };
   return (
     <Grid item xs={2} sm={4} md={6} lg={4}>
@@ -57,4 +57,4 @@ const SingleCar = ({ car }) => {
   );
 };
 
-export default SingleCar;
+export default CarCard;

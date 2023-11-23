@@ -1,9 +1,8 @@
 import { Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
 import Rating from "@mui/material/Rating";
+import { Box } from "@mui/system";
 
-const SingleReview = ({ review: clientReview }) => {
+const ReviewCard = ({ review: clientReview }) => {
   const { userName, email, review, rating } = clientReview;
   return (
     <Box sx={{ height: 1, py: 2, px: 1 }}>
@@ -31,4 +30,4 @@ const SingleReview = ({ review: clientReview }) => {
   );
 };
 
-export default SingleReview;
+export default ReviewCard;

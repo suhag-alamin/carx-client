@@ -1,9 +1,9 @@
-import Banner from "@/components/Home/Banner/Banner";
-import BuyingEssentials from "@/components/Home/BuyingEssentials/BuyingEssentials";
-import CounterSection from "@/components/Home/CounterSection/CounterSection";
-import FeaturedCars from "@/components/Home/FeaturedCars/FeaturedCars";
-import Reviews from "@/components/Home/Reviews/Reviews";
-import RunningCar from "@/components/Home/RunningCar/RunningCar";
+import Banner from "@/components/Home/Banner";
+import BuyingEssentials from "@/components/Home/BuyingEssentials";
+import FeaturedCars from "@/components/Home/FeaturedCars";
+import RunningCar from "@/components/Home/RunningCar";
+import CounterSection from "@/components/Shared/CounterSection";
+import Reviews from "@/components/Shared/Reviews";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 const Home = () => {

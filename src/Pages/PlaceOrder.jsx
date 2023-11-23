@@ -1,12 +1,12 @@
+import CarDetails from "@/components/Car/CarDetails";
+import OrderDetails from "@/components/Car/OrderDetails";
+import OthersBanner from "@/components/Shared/OthersBanner";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { CircularProgress, Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
-import CarDetails from "../CarDetails/CarDetails";
-import OrderDetails from "../OrderDetails/OrderDetails";
 
 const PlaceOrder = () => {
   // dynamic title
@@ -26,7 +26,7 @@ const PlaceOrder = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
@@ -36,7 +36,7 @@ const PlaceOrder = () => {
       {/* banner  */}
       <OthersBanner>Place Order</OthersBanner>
       {/* car and order details  */}
-      <Box sx={{ bgcolor: "#edf2f4" }}>
+      <Box>
         <Container sx={{ py: 6 }}>
           <Grid
             container

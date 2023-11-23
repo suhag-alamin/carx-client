@@ -9,9 +9,9 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SingleCar from "../../../components/Card/CarCard";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
+import CarCard from "../components/Card/CarCard";
+import OthersBanner from "../components/Shared/OthersBanner";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Cars = () => {
   // dynamic title
@@ -49,7 +49,7 @@ const Cars = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
@@ -58,13 +58,10 @@ const Cars = () => {
       {/* banner  */}
       <OthersBanner>Cars</OthersBanner>
       {/* cars section  */}
-      <Box sx={{ bgcolor: "#edf2f4" }}>
+      <Box>
         <Container sx={{ py: 6 }}>
-          <Typography
-            variant="h4"
-            sx={{ fontWeight: 700, textAlign: "center", mb: 4 }}
-          >
-            ALL <span className="colored-text">CARS</span>{" "}
+          <Typography variant="h3" sx={{ textAlign: "center" }}>
+            ALL <span className="colored-text">CARS</span>
           </Typography>
           <Box sx={{ flexGrow: 1 }}>
             <Grid
@@ -73,7 +70,7 @@ const Cars = () => {
               columns={{ xs: 2, sm: 8, md: 12, lg: 12 }}
             >
               {cars.map((car) => (
-                <SingleCar key={car._id} car={car} />
+                <CarCard key={car._id} car={car} />
               ))}
             </Grid>
           </Box>

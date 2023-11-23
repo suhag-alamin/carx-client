@@ -1,3 +1,5 @@
+import OthersBanner from "@/components/Shared/OthersBanner";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -11,11 +13,8 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import OthersBanner from "../../Shared/OthersBanner/OthersBanner";
 
 const Contact = () => {
   // dynamic title
@@ -50,11 +49,7 @@ const Contact = () => {
               sx={{ px: 3, py: 2, textAlign: "center" }}
             >
               <LocationOnIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-              <Typography
-                variant="subtitle1"
-                color="secondary"
-                sx={{ fontWeight: 700 }}
-              >
+              <Typography variant="subtitle1" color="secondary">
                 4214 Arlington Avenue Des Arc, <br /> AR 72040, USA
               </Typography>
             </Paper>
@@ -65,11 +60,7 @@ const Contact = () => {
               sx={{ px: 3, py: 2, textAlign: "center" }}
             >
               <CallIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-              <Typography
-                variant="subtitle1"
-                color="secondary"
-                sx={{ fontWeight: 700 }}
-              >
+              <Typography variant="subtitle1" color="secondary">
                 (+1) 518-636-6052 <br /> Mon-Sat 9:00am-5:00pm
               </Typography>
             </Paper>
@@ -80,11 +71,7 @@ const Contact = () => {
               sx={{ px: 3, py: 2, textAlign: "center" }}
             >
               <EmailIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-              <Typography
-                variant="subtitle1"
-                color="secondary"
-                sx={{ fontWeight: 700 }}
-              >
+              <Typography variant="subtitle1" color="secondary">
                 Info@carx.com <br /> 24 X 7 online support
               </Typography>
             </Paper>
