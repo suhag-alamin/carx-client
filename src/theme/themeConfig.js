@@ -225,7 +225,7 @@ theme.typography.body1 = {
   [theme.breakpoints.up("md")]: {
     fontSize: "14px",
   },
-  margin: "10px 0",
+  // margin: "10px 0",
 };
 
 theme.typography.body2 = {

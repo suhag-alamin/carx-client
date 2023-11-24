@@ -1,3 +1,5 @@
+import OrderModal from "@/components/Modal/OrderModal";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
@@ -16,11 +18,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import CarModal from "../CarModal/CarModal";
 
 const ManageAllOrders = () => {
   // dynamic title
@@ -100,7 +100,7 @@ const ManageAllOrders = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
@@ -112,7 +112,9 @@ const ManageAllOrders = () => {
         sx={{ py: 2, px: 0, mx: 0 }}
       >
         <Typography
-          sx={{ textAlign: "", pb: 2 }}
+          sx={{
+            textAlign: "center",
+          }}
           variant="h4"
           color="secondary"
         >
@@ -121,7 +123,7 @@ const ManageAllOrders = () => {
         <Divider />
         <TableContainer sx={{ my: 3 }} component={Paper}>
           <Table sx={{}} aria-label="Appointment table">
-            <TableHead sx={{ bgcolor: "#f0f4ef" }}>
+            <TableHead sx={{ bgcolor: "customBg.main" }}>
               <TableRow>
                 <TableCell align="left">Name</TableCell>
                 <TableCell>Email</TableCell>
@@ -155,7 +157,7 @@ const ManageAllOrders = () => {
                     <ButtonGroup variant="text">
                       <Button
                         onClick={() => handleCancel(row._id)}
-                        sx={{ color: "#16425b" }}
+                        color="error"
                         variant="text"
                         startIcon={<DeleteIcon />}
                       >
@@ -163,7 +165,7 @@ const ManageAllOrders = () => {
                       </Button>
                       <Button
                         onClick={() => handleModalOpen(row._id)}
-                        sx={{ color: "#16425b" }}
+                        color="secondary"
                         variant="text"
                         startIcon={<EditIcon />}
                       >
@@ -178,12 +180,12 @@ const ManageAllOrders = () => {
         </TableContainer>
       </Box>
       {/* modal  */}
-      <CarModal
+      <OrderModal
         modalOpen={modalOpen}
         handleModalClose={handleModalClose}
         order={order}
         orderId={orderId}
-      ></CarModal>
+      ></OrderModal>
     </>
   );
 };

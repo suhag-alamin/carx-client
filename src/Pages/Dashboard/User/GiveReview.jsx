@@ -1,3 +1,4 @@
+import useAuth from "@/hooks/useAuth";
 import {
   Button,
   Container,
@@ -12,7 +13,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAuth from "../../../hooks/useAuth";
 
 const GiveReview = () => {
   const { user } = useAuth();
@@ -41,11 +41,7 @@ const GiveReview = () => {
   };
   return (
     <Container sx={{ py: 2 }}>
-      <Typography
-        sx={{ textAlign: "center", pb: 2 }}
-        variant="h4"
-        color="secondary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
         Please give your review.
       </Typography>
       <Divider />
@@ -62,7 +58,6 @@ const GiveReview = () => {
         >
           <Box
             component="form"
-            noValidate
             onSubmit={handleSubmit(onSubmit)}
             sx={{ mt: 3 }}
           >

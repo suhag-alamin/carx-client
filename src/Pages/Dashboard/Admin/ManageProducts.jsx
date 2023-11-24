@@ -1,3 +1,5 @@
+import ManageProductCard from "@/components/Card/ManageProductCard";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import {
   CircularProgress,
   Divider,
@@ -8,11 +10,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import ManageAProduct from "./ManageAProduct/ManageAProduct";
 
 const ManageProducts = () => {
   // dynamic title
@@ -78,7 +78,7 @@ const ManageProducts = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
@@ -88,11 +88,7 @@ const ManageProducts = () => {
       style={{ marginRight: 0 }}
       sx={{ py: 2, px: 0, mx: 0 }}
     >
-      <Typography
-        sx={{ textAlign: "center", pb: 2 }}
-        variant="h4"
-        color="secondary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
         Manage Products
       </Typography>
       <Divider />
@@ -104,7 +100,7 @@ const ManageProducts = () => {
           columns={{ xs: 2, sm: 8, md: 12, lg: 12 }}
         >
           {cars.map((car) => (
-            <ManageAProduct
+            <ManageProductCard
               key={car._id}
               car={car}
               handleDelete={handleDelete}

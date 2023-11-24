@@ -1,3 +1,4 @@
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import {
   Button,
   CircularProgress,
@@ -12,7 +13,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const AddProduct = () => {
   // dynamic title
@@ -122,11 +122,7 @@ const AddProduct = () => {
   };
   return (
     <Container>
-      <Typography
-        sx={{ textAlign: "center", pb: 2 }}
-        variant="h4"
-        color="secondary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
         Add a product.
       </Typography>
       <Divider />

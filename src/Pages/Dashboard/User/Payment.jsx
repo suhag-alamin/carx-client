@@ -1,3 +1,5 @@
+import useAuth from "@/hooks/useAuth";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import PaymentIcon from "@mui/icons-material/Payment";
 import {
   Button,
@@ -15,10 +17,8 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import useAuth from "../../../hooks/useAuth";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const Payment = () => {
   // dynamic title
@@ -29,7 +29,7 @@ const Payment = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // load ordes by email
+  // load orders by email
   useEffect(() => {
     setIsLoading(true);
     axios({
@@ -54,24 +54,20 @@ const Payment = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
 
   return (
     <Container>
-      <Typography
-        sx={{ textAlign: "center", pb: 2 }}
-        variant="h4"
-        color="secondary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
         Make Payment
       </Typography>
       <Divider />
       <TableContainer sx={{ my: 3 }} component={Paper}>
         <Table sx={{ minWidth: 350 }} aria-label="Appointment table">
-          <TableHead sx={{ bgcolor: "#f0f4ef" }}>
+          <TableHead sx={{ bgcolor: "customBg.main" }}>
             <TableRow>
               <TableCell align="center">Car</TableCell>
               <TableCell align="center">Price</TableCell>

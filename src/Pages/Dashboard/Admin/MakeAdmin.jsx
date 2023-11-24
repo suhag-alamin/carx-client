@@ -1,3 +1,4 @@
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import {
   Button,
   Container,
@@ -11,7 +12,6 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const MakeAdmin = () => {
   // dynamic title
@@ -39,11 +39,7 @@ const MakeAdmin = () => {
   };
   return (
     <Container sx={{ py: 2 }}>
-      <Typography
-        sx={{ textAlign: "center", pb: 2 }}
-        variant="h4"
-        color="secondary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
         Make Admin
       </Typography>
       <Divider />
@@ -51,7 +47,6 @@ const MakeAdmin = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          // alignItems: "center",
           marginX: "auto",
           width: { xs: "80%", md: "50%" },
           py: 3,

@@ -49,3 +49,7 @@ h6 {
 .swiper-button-prev:hover {
   color: #16425b !important;
 }
+
+.error {
+  color: #ff1654;
+}

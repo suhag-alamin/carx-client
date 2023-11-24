@@ -1,3 +1,5 @@
+import useAuth from "@/hooks/useAuth";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Button,
@@ -15,11 +17,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
-import useAuth from "../../../hooks/useAuth";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
 
 const MyOrders = () => {
   // dynamic title
@@ -29,7 +29,7 @@ const MyOrders = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
 
-  // load ordes by email
+  // load orders by email
   useEffect(() => {
     setIsLoading(true);
     axios({
@@ -77,24 +77,20 @@ const MyOrders = () => {
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress />
       </Box>
     );
   }
 
   return (
     <Container sx={{ py: 2 }}>
-      <Typography
-        sx={{ textAlign: "center", pb: 2 }}
-        variant="h4"
-        color="secondary"
-      >
+      <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
         My Orders
       </Typography>
       <Divider />
       <TableContainer sx={{ my: 3 }} component={Paper}>
         <Table sx={{ minWidth: 350 }} aria-label="Appointment table">
-          <TableHead sx={{ bgcolor: "#f0f4ef" }}>
+          <TableHead sx={{ bgcolor: "customBg.main" }}>
             <TableRow>
               <TableCell align="left">Name</TableCell>
               <TableCell align="center">Email</TableCell>
@@ -125,7 +121,7 @@ const MyOrders = () => {
                 <TableCell align="center">
                   <Button
                     onClick={() => handleCancel(row._id)}
-                    sx={{ color: "#ff1654" }}
+                    color="error"
                     variant="text"
                     startIcon={<CancelIcon />}
                   >

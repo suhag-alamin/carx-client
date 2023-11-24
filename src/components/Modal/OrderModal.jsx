@@ -1,5 +1,4 @@
 import {
-  Backdrop,
   Button,
   Fade,
   FormControl,
@@ -11,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 const style = {
@@ -20,14 +19,15 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #16425b",
+  bgcolor: "customBg.main",
+  border: "none",
+  outline: "none",
   boxShadow: 24,
   p: 4,
 };
 
-const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
-  const { carName, carImg, status } = order;
+const OrderModal = ({ modalOpen, handleModalClose, order, orderId }) => {
+  const { carName, status } = order;
 
   const [changeStatus, setChangeStatus] = useState("");
 
@@ -54,34 +54,16 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
 
   return (
     <>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={modalOpen}
-        onClose={handleModalClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
+      <Modal open={modalOpen} onClose={handleModalClose} closeAfterTransition>
         <Fade in={modalOpen}>
           <Box sx={style}>
-            <img style={{ width: "100%" }} src={carImg} alt="" />
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              {carName}
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ my: 2 }}>
-              {status}
-            </Typography>
+            <Typography variant="h6">{carName}</Typography>
+            <Typography variant="subtitle2">{status}</Typography>
             <Box sx={{ minWidth: 120 }}>
               <form onSubmit={handleSubmit}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Change Status
-                  </InputLabel>
+                  <InputLabel>Change Status</InputLabel>
                   <Select
-                    id="demo-simple-select"
                     value={changeStatus}
                     label="Change Status"
                     color="primary"
@@ -110,4 +92,4 @@ const CarModal = ({ modalOpen, handleModalClose, order, orderId }) => {
   );
 };
 
-export default CarModal;
+export default OrderModal;

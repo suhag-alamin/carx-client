@@ -1,5 +1,4 @@
 import {
-  Backdrop,
   Button,
   CircularProgress,
   Fade,
@@ -9,7 +8,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -19,8 +18,9 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "70%",
-  bgcolor: "background.paper",
-  border: "2px solid #16425b",
+  bgcolor: "customBg.main",
+  border: "none",
+  outline: "none",
   boxShadow: 24,
   p: 4,
 };
@@ -35,7 +35,7 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm({
     defaultValues: {
       carName: carName,
@@ -81,15 +81,9 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
     <>
       <Modal
         keepMounted
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         open={modalOpen}
         onClose={handleModalClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
       >
         <Fade in={modalOpen}>
           <Box sx={style}>

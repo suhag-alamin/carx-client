@@ -1,11 +1,11 @@
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { Container, Divider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
 import CheckoutForm from "./CheckoutForm";
 
 const stripePromise = loadStripe(
@@ -30,7 +30,7 @@ const PaymentHome = () => {
         color="secondary"
       >
         Please make payment for{" "}
-        <span style={{ color: "#457B9D", fontWeight: 700 }}>
+        <span style={{ color: "primary.main", fontWeight: 700 }}>
           {order?.carName}
         </span>
       </Typography>

@@ -12,13 +12,12 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
-import { Button } from "@mui/material";
+import { Button, ListItemButton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
@@ -68,7 +67,7 @@ function Dashboard(props) {
       </Toolbar>
       <Divider />
 
-      <ListItem color="primary" button>
+      <ListItemButton color="primary">
         <ListItemIcon>
           <HomeIcon color="primary" />
         </ListItemIcon>
@@ -79,8 +78,8 @@ function Dashboard(props) {
           sx={{ color: "secondary.main" }}
           primary="Home"
         />
-      </ListItem>
-      <ListItem color="primary" button>
+      </ListItemButton>
+      <ListItemButton color="primary">
         <ListItemIcon>
           <DashboardIcon color="primary" />
         </ListItemIcon>
@@ -91,11 +90,11 @@ function Dashboard(props) {
           sx={{ color: "secondary.main" }}
           primary="Dashboard"
         />
-      </ListItem>
+      </ListItemButton>
       {/* normal user  */}
       {!admin && (
         <Box>
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <ShoppingCartIcon color="primary" />
             </ListItemIcon>
@@ -105,9 +104,9 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="My Orders"
             />
-          </ListItem>
+          </ListItemButton>
 
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <PaymentIcon color="primary" />
             </ListItemIcon>
@@ -117,9 +116,9 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="Pay"
             />
-          </ListItem>
+          </ListItemButton>
 
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <RateReviewIcon color="primary" />
             </ListItemIcon>
@@ -129,14 +128,14 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="Review"
             />
-          </ListItem>
+          </ListItemButton>
         </Box>
       )}
 
       {/* admin  */}
       {admin && (
         <Box>
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <AdminPanelSettingsIcon color="primary" />
             </ListItemIcon>
@@ -146,8 +145,8 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="Make Admin"
             />
-          </ListItem>
-          <ListItem button>
+          </ListItemButton>
+          <ListItemButton>
             <ListItemIcon>
               <BorderClearIcon color="primary" />
             </ListItemIcon>
@@ -157,8 +156,8 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="Manage All Orders"
             />
-          </ListItem>
-          <ListItem button>
+          </ListItemButton>
+          <ListItemButton>
             <ListItemIcon>
               <WifiProtectedSetupIcon color="primary" />
             </ListItemIcon>
@@ -168,8 +167,8 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="Manage Products"
             />
-          </ListItem>
-          <ListItem button>
+          </ListItemButton>
+          <ListItemButton>
             <ListItemIcon>
               <AddCircleOutlineIcon color="primary" />
             </ListItemIcon>
@@ -179,19 +178,19 @@ function Dashboard(props) {
               sx={{ color: "secondary.main" }}
               primary="Add Products"
             />
-          </ListItem>
+          </ListItemButton>
         </Box>
       )}
 
       {/* log out  */}
       <Box sx={{ mt: 10 }}>
         <Divider />
-        <ListItem onClick={logOut} button>
+        <ListItemButton onClick={logOut}>
           <ListItemIcon>
             <LogoutIcon color="primary" />
           </ListItemIcon>
           <Button sx={{ p: 0, m: 0 }}>Log Out</Button>
-        </ListItem>
+        </ListItemButton>
       </Box>
 
       <Divider />

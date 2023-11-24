@@ -2,11 +2,11 @@ import { Button, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import useDocumentTitle from "../../../hooks/useDocumentTitle";
-import "./CheckoutForm.css";
+import styles from "@/styles/Payment.module.css";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 const CheckoutForm = ({ order }) => {
   // dynamic title
@@ -86,7 +86,7 @@ const CheckoutForm = ({ order }) => {
 
       axios
         .put(`https://carx-suhag.onrender.com/orders/${_id}`, payment)
-        .then((result) => {
+        .then(() => {
           navigate("/dashboard/payment");
         });
     }
@@ -94,9 +94,9 @@ const CheckoutForm = ({ order }) => {
 
   return (
     <div>
-      <form className="checkout-form" onSubmit={handleSubmit}>
+      <form className={styles.checkoutForm} onSubmit={handleSubmit}>
         <CardElement
-          className="card-element"
+          className={styles.cardElement}
           options={{
             style: {
               base: {
@@ -107,7 +107,7 @@ const CheckoutForm = ({ order }) => {
                 },
               },
               invalid: {
-                color: "#9e2146",
+                color: "#FF1654",
               },
             },
           }}

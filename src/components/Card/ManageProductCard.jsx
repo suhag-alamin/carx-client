@@ -1,3 +1,5 @@
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Button,
   ButtonGroup,
@@ -9,12 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import UpdateProductModal from "../UpdateProductModal/UpdateProductModal";
+import { useState } from "react";
+import UpdateProductModal from "../Modal/UpdateProductModal";
 
-const ManageAProduct = ({ car, handleDelete }) => {
+const ManageProductCard = ({ car, handleDelete }) => {
   const { _id, carName, img, price } = car;
 
   // modal
@@ -37,31 +37,23 @@ const ManageAProduct = ({ car, handleDelete }) => {
           </Box>
 
           <CardContent>
-            <Typography
-              color="secondary"
-              gutterBottom
-              variant="h5"
-              component="div"
-            >
+            <Typography color="secondary" gutterBottom variant="h5">
               {carName}
             </Typography>
-            <Typography gutterBottom variant="h6">
-              $ {price}
-            </Typography>
+            <Typography variant="h6">$ {price}</Typography>
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", pb: 2, pr: 2 }}>
-            <ButtonGroup variant="contained">
+          <CardActions sx={{ justifyContent: "center" }}>
+            <ButtonGroup variant="outlined">
               <Button
-                sx={{ px: 4 }}
                 startIcon={<EditIcon />}
                 onClick={() => handleModalOpen(_id)}
+                variant="contained"
               >
                 Edit
               </Button>
               <Button
-                // className="carx-btn"
                 // variant="contained"
-                sx={{ px: 4 }}
+                color="error"
                 startIcon={<DeleteIcon />}
                 onClick={() => handleDelete(_id)}
               >
@@ -81,4 +73,4 @@ const ManageAProduct = ({ car, handleDelete }) => {
   );
 };
 
-export default ManageAProduct;
+export default ManageProductCard;
