@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const MainDashboard = () => {
   const { admin } = useSelector((state) => state.auth);
-  console.log(admin);
 
   return <>{admin.isAdmin ? <ManageAllOrders /> : <MyOrders />}</>;
 };
