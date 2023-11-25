@@ -3,7 +3,6 @@ import axios from "axios";
 export const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: "" }) =>
   async ({ url, method, data, params, contentType }) => {
-    console.log(url);
     try {
       const result = await axios({
         url: baseUrl + url,

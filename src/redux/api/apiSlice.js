@@ -15,13 +15,6 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// export const apiSlice = createApi({
-//   reducerPath: "api",
-//   baseQuery,
-//   endpoints: (builder) => ({}),
-//   tagTypes: ["User", "Car", "Service", "Part", "Order", "Invoice", "Payment"],
-// });
-
 export const api = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery({

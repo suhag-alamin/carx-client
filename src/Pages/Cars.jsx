@@ -1,12 +1,6 @@
+import CarSkeleton from "@/components/Shared/CarSkeleton";
 import { useGetCarsQuery } from "@/redux/features/car/carApi";
-import {
-  CircularProgress,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import CarCard from "../components/Card/CarCard";
@@ -23,7 +17,6 @@ const Cars = () => {
   const [size, setSize] = useState(6);
   const [pageCount, setPageCount] = useState(1);
 
-  // const size = 6;
   const handleChange = (event, value) => {
     setPage(value);
   };
@@ -40,25 +33,20 @@ const Cars = () => {
     setPageCount(data?.meta?.total / size);
   }, [data]);
 
-  // loading spinner
-  if (isLoading) {
-    return (
-      <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
   return (
     <div>
       {/* banner  */}
       <OthersBanner>Cars</OthersBanner>
-      {/* cars section  */}
-      {data?.data?.length > 0 ? (
-        <Box>
-          <Container sx={{ py: 6 }}>
-            <Typography variant="h3" sx={{ textAlign: "center" }}>
-              ALL <span className="colored-text">CARS</span>
-            </Typography>
+      <Container sx={{ py: 6 }}>
+        <Typography variant="h3" sx={{ textAlign: "center" }}>
+          ALL <span className="colored-text">CARS</span>
+        </Typography>
+        {isLoading ? (
+          <>
+            <CarSkeleton count={6} />
+          </>
+        ) : (
+          <>
             <Box sx={{ flexGrow: 1 }}>
               <Grid
                 container
@@ -81,12 +69,13 @@ const Cars = () => {
                 />
               </Stack>
             </Box>
-          </Container>
-        </Box>
-      ) : (
+          </>
+        )}
+      </Container>
+      {data?.data?.length === 0 && (
         <Box sx={{ textAlign: "center", py: 2 }}>
           <Typography variant="h3" sx={{ textAlign: "center" }} color="error">
-            No Cars Found!
+            No Cars Found! Please try again later.
           </Typography>
         </Box>
       )}
