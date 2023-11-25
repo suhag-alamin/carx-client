@@ -45,51 +45,47 @@ const routes = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: (
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
-    ),
+    element: <Dashboard />,
     children: [
       {
         index: true,
         element: (
-          <>
+          <PrivateRoute>
             <MainDashboard />
-          </>
+          </PrivateRoute>
         ),
       },
       // normal user
       {
         path: "/dashboard/my-orders",
         element: (
-          <>
+          <PrivateRoute>
             <MyOrders />
-          </>
+          </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/review",
         element: (
-          <>
+          <PrivateRoute>
             <GiveReview />
-          </>
+          </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/payment",
         element: (
-          <>
+          <PrivateRoute>
             <Payment />
-          </>
+          </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/payment/:id",
         element: (
-          <>
+          <PrivateRoute>
             <PaymentHome />
-          </>
+          </PrivateRoute>
         ),
       },
       // admin
@@ -97,33 +93,41 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard/make-admin",
         element: (
-          <AdminRoute>
-            <MakeAdmin />
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <MakeAdmin />
+            </AdminRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/add-product",
         element: (
-          <AdminRoute>
-            <AddProduct />
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <AddProduct />
+            </AdminRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/manage-products",
         element: (
-          <AdminRoute>
-            <ManageProducts />
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageProducts />
+            </AdminRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/manage-all-orders",
         element: (
-          <AdminRoute>
-            <ManageAllOrders />
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageAllOrders />
+            </AdminRoute>
+          </PrivateRoute>
         ),
       },
     ],

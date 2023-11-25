@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/useAuth";
+import useFirebase from "@/hooks/useFirebase";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 const Register = () => {
   const [signUpInfo, setSignUpInfo] = useState({});
 
-  const { handleEmailRegister, signInWithGoogle } = useAuth();
+  const { handleEmailRegister, signInWithGoogle } = useFirebase();
 
   const navigate = useNavigate();
   const location = useLocation();

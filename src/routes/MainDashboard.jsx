@@ -1,11 +1,12 @@
-import useAuth from "@/hooks/useAuth";
 import ManageAllOrders from "@/pages/Dashboard/Admin/ManageAllOrders";
 import MyOrders from "@/pages/Dashboard/User/MyOrders";
+import { useSelector } from "react-redux";
 
 const MainDashboard = () => {
-  const { admin } = useAuth();
+  const { admin } = useSelector((state) => state.auth);
+  console.log(admin);
 
-  return <>{admin ? <ManageAllOrders /> : <MyOrders />}</>;
+  return <>{admin.isAdmin ? <ManageAllOrders /> : <MyOrders />}</>;
 };
 
 export default MainDashboard;

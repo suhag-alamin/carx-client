@@ -12,10 +12,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import styles from "@/styles/Car.module.css";
-import useAuth from "@/hooks/useAuth";
+import { useSelector } from "react-redux";
 
 const OrderDetails = ({ car }) => {
-  const { user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
 
   const {
     register,

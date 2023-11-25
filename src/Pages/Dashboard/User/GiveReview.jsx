@@ -1,4 +1,3 @@
-import useAuth from "@/hooks/useAuth";
 import {
   Button,
   Container,
@@ -10,12 +9,13 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const GiveReview = () => {
-  const { user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
   const [star, setStar] = useState(2);
   const {
     register,

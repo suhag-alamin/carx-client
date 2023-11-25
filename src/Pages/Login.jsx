@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/useAuth";
+import useFirebase from "@/hooks/useFirebase";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
@@ -18,7 +18,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
-  const { handleEmailLogin, signInWithGoogle } = useAuth();
+  const { handleEmailLogin, signInWithGoogle } = useFirebase();
 
   const location = useLocation();
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/useAuth";
+import useFirebase from "@/hooks/useFirebase";
 import logo from "@/images/logo.png";
 import styles from "@/styles/Navbar.module.css";
 import LoginIcon from "@mui/icons-material/Login";
@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = (props) => {
@@ -20,7 +21,8 @@ const Navbar = (props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
 
-  const { user, logOut } = useAuth();
+  const { user } = useSelector((state) => state.auth);
+  const { logOut } = useFirebase();
 
   useEffect(() => {
     const checkScroll = () => {

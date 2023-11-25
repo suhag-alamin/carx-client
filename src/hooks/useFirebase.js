@@ -1,10 +1,16 @@
 import initializeAuthentication from "@/config/firebase.init";
+import {
+  removeUser,
+  setAdmin,
+  setUser,
+  toggleLoading,
+} from "@/redux/features/auth/authSlice";
 import axios from "axios";
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
   getIdToken,
-  GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -12,27 +18,34 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 initializeAuthentication();
 
 const useFirebase = () => {
-  const [user, setUser] = useState({});
+  // const [initialUser, setInitialUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [admin, setAdmin] = useState(false);
+  // const [admin, setAdmin] = useState(false);
+
+  const dispatch = useDispatch();
 
   // auth and provider
-  const auth = getAuth();
+  const auth = useMemo(() => {
+    return getAuth();
+  }, []);
   const googleProvider = new GoogleAuthProvider();
 
   // google sign in
   const signInWithGoogle = (location, navigate) => {
     setIsLoading(true);
+
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        setUser(result.user);
+        // setInitialUser(result.user);
+
         // save user to database
         upsertUser(result?.user?.email, result?.user?.displayName);
 
@@ -43,15 +56,18 @@ const useFirebase = () => {
       .catch((error) => {
         toast.error(error.message);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   //   register new user
   const handleEmailRegister = (name, email, password, navigate) => {
     setIsLoading(true);
+
     createUserWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        setUser(result.user);
+      .then(() => {
+        // setInitialUser(result.user);
         // save user to database
         saveUser(email, name);
 
@@ -69,14 +85,17 @@ const useFirebase = () => {
       .catch((error) => {
         toast.error(error.message);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   // email login
   const handleEmailLogin = (email, password, location, navigate) => {
     setIsLoading(true);
+
     signInWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        setUser(result.user);
+      .then(() => {
+        // setInitialUser(result.user);
         toast.success("Logged In Successfully");
         const destination = location?.state?.from || "/";
         navigate(destination);
@@ -84,7 +103,9 @@ const useFirebase = () => {
       .catch((error) => {
         toast.error(error.message);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   // password reset
   const handlePasswordReset = (email) => {
@@ -108,20 +129,75 @@ const useFirebase = () => {
   };
 
   // observe user
+  // useEffect(() => {
+  //   dispatch(toggleLoading(true));
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setInitialUser(user);
+  //       dispatch(
+  //         setUser({
+  //           email: user.email,
+  //           displayName: user.displayName,
+  //           photoURL: user.photoURL,
+  //           uid: user.uid,
+  //         })
+  //       );
+
+  //       // id token
+  //       getIdToken(user).then((idToken) => {
+  //         localStorage.setItem("idToken", idToken);
+  //       });
+
+  //       dispatch(toggleLoading(false));
+  //     } else {
+  //       dispatch(removeUser());
+  //       dispatch(toggleLoading(false));
+  //       setInitialUser({});
+  //     }
+  //   });
+  // }, [auth]);
+  // observe user
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setUser(user);
+        dispatch(toggleLoading(true)); // Start loading
+        // setInitialUser(user);
+        dispatch(
+          setUser({
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            uid: user.uid,
+          })
+        );
 
         // id token
         getIdToken(user).then((idToken) => {
           localStorage.setItem("idToken", idToken);
         });
+
+        // admin check
+        try {
+          const result = await axios({
+            method: "get",
+            url: `https://carx-suhag.onrender.com/users/${user.email}`,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+            },
+          });
+          // setAdmin(result.data?.admin);
+          dispatch(setAdmin(result.data?.admin));
+        } catch (error) {
+          toast.error(error?.message || "Something went wrong");
+        }
       } else {
-        setUser({});
+        dispatch(removeUser());
+        // setInitialUser({});
       }
-      setIsLoading(false);
+      dispatch(toggleLoading(false)); // End loading
     });
+
+    return () => unsubscribe();
   }, [auth]);
 
   // save user to database
@@ -136,43 +212,43 @@ const useFirebase = () => {
   };
 
   // admin check
-  useEffect(() => {
-    // setIsLoading(true);
-    axios({
-      method: "get",
-      url: `https://carx-suhag.onrender.com/users/${user?.email}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("idToken")}`,
-      },
-    }).then((result) => {
-      setAdmin(result.data?.admin);
-      // setIsLoading(false);
-    });
-    // const checkAdmin = async () => {
+  // useEffect(() => {
+  //   // setIsLoading(true);
+  //   axios({
+  //     method: "get",
+  //     url: `https://carx-suhag.onrender.com/users/${initialUser?.email}`,
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+  //     },
+  //   }).then((result) => {
+  //     setAdmin(result.data?.admin);
+  //     // dispatch(setAdmin(result.data?.admin));
+  //     // setIsLoading(false);
+  //   });
+  //   // const checkAdmin = async () => {
 
-    //   const res = await fetch(
-    //     `https://carx-suhag.onrender.com/users/${user?.email}`,
-    //     {
-    //       headers: {
-    //         authorization: `Bearer ${localStorage.getItem("idToken")}`,
-    //       },
-    //     }
-    //   );
-    //   const data = await res.json();
-    //   setAdmin(data.admin);
-    //   setIsLoading(false);
-    // };
-    // checkAdmin();
-  }, [user?.email]);
+  //   //   const res = await fetch(
+  //   //     `https://carx-suhag.onrender.com/users/${user?.email}`,
+  //   //     {
+  //   //       headers: {
+  //   //         authorization: `Bearer ${localStorage.getItem("idToken")}`,
+  //   //       },
+  //   //     }
+  //   //   );
+  //   //   const data = await res.json();
+  //   //   setAdmin(data.admin);
+  //   //   setIsLoading(false);
+  //   // };
+  //   // checkAdmin();
+  // }, [initialUser?.email]);
+
   return {
     handleEmailRegister,
     handleEmailLogin,
-    user,
     isLoading,
     handlePasswordReset,
     signInWithGoogle,
     logOut,
-    admin,
   };
 };
 

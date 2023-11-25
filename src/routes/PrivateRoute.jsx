@@ -1,23 +1,24 @@
-import useAuth from "@/hooks/useAuth";
 import { Box, CircularProgress } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-  const { user, isLoading } = useAuth();
-  const { pathname } = useLocation();
+  const { user, isLoading } = useSelector((state) => state.auth);
 
+  const { pathname } = useLocation();
   if (isLoading) {
     return (
       <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress />
+        <CircularProgress color="error" />
       </Box>
     );
   }
-  if (user?.email) {
-    return children;
+
+  if (!user?.email && !isLoading) {
+    return <Navigate to="/login" state={{ from: pathname }} />;
   }
 
-  return <Navigate to="/login" state={{ from: pathname }} />;
+  return children;
 };
 
 export default PrivateRoute;

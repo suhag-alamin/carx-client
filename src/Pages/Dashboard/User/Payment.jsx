@@ -1,4 +1,3 @@
-import useAuth from "@/hooks/useAuth";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import PaymentIcon from "@mui/icons-material/Payment";
 import {
@@ -18,6 +17,7 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const Payment = () => {
@@ -26,7 +26,7 @@ const Payment = () => {
 
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   // load orders by email

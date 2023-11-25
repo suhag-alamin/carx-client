@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/useAuth";
+import useFirebase from "@/hooks/useFirebase";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const ForgetPassword = () => {
   const [loginUpInfo, setLoginInfo] = useState({});
 
-  const { handlePasswordReset } = useAuth();
+  const { handlePasswordReset } = useFirebase();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;

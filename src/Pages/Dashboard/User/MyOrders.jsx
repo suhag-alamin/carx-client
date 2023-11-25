@@ -1,4 +1,3 @@
-import useAuth from "@/hooks/useAuth";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import {
@@ -19,6 +18,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const MyOrders = () => {
@@ -27,7 +27,7 @@ const MyOrders = () => {
 
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
 
   // load orders by email
   useEffect(() => {

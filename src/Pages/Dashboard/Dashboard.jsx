@@ -1,5 +1,5 @@
-import useAuth from "@/hooks/useAuth";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import useFirebase from "@/hooks/useFirebase";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -24,6 +24,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -34,7 +35,8 @@ function Dashboard(props) {
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user, logOut, admin } = useAuth();
+  const { logOut } = useFirebase();
+  const { user, admin } = useSelector((state) => state.auth);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -92,7 +94,7 @@ function Dashboard(props) {
         />
       </ListItemButton>
       {/* normal user  */}
-      {!admin && (
+      {!admin.isAdmin && (
         <Box>
           <ListItemButton>
             <ListItemIcon>
@@ -133,7 +135,7 @@ function Dashboard(props) {
       )}
 
       {/* admin  */}
-      {admin && (
+      {admin.isAdmin && (
         <Box>
           <ListItemButton>
             <ListItemIcon>

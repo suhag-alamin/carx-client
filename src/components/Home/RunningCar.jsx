@@ -6,10 +6,7 @@ import wheel from "@/images/car-tier.png";
 import styles from "@/styles/Home.module.css";
 
 const RunningCar = () => {
-  window.onscroll = function () {
-    windowScroll();
-  };
-  function windowScroll() {
+  const windowScroll = () => {
     if (
       document.body.scrollTop > 150 ||
       document.documentElement.scrollTop > 150
@@ -18,6 +15,12 @@ const RunningCar = () => {
     } else {
       document.getElementById("running-car").className = "";
     }
+  };
+
+  if (typeof window !== "undefined") {
+    window.onscroll = function () {
+      windowScroll();
+    };
   }
   return (
     <Box sx={{ py: 6 }}>
