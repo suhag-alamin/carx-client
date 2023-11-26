@@ -1,5 +1,6 @@
+import { addToCart } from "@/redux/features/cart/cartSlice";
 import styles from "@/styles/Car.module.css";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   Button,
   Card,
@@ -10,15 +11,14 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
   const { _id, carName, description, img, price } = car;
 
-  const navigate = useNavigate();
-  const handleClick = (id) => {
-    navigate(`/place-order/${id}`);
-  };
+  const dispatch = useDispatch();
+
   return (
     <Grid item xs={2} sm={4} md={6} lg={4}>
       <Card>
@@ -43,13 +43,23 @@ const CarCard = ({ car }) => {
             {description.slice(0, 80)}...
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions
+          sx={{
+            justifyContent: "space-between",
+          }}
+        >
+          <Link to={`/place-order/${_id}`}>
+            <Button variant="outlined">Details</Button>
+          </Link>
           <Button
+            sx={{
+              my: 2,
+            }}
             variant="contained"
-            startIcon={<ShoppingCartIcon />}
-            onClick={() => handleClick(_id)}
+            endIcon={<AddShoppingCartIcon />}
+            onClick={() => dispatch(addToCart(car))}
           >
-            Buy Now
+            Add to Cart
           </Button>
         </CardActions>
       </Card>

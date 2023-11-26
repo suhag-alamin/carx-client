@@ -27,7 +27,7 @@ const PlaceOrder = () => {
             rowSpacing={2}
             columnSpacing={{ xs: 1, sm: 2, md: 4 }}
           >
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={12}>
               {isLoading ? (
                 <>
                   <CarxSkeleton count={1} height={40} />
@@ -40,7 +40,7 @@ const PlaceOrder = () => {
                 <CarDetails car={data?.data} />
               )}
             </Grid>
-            <Grid item xs={12} md={6}>
+            {/* <Grid item xs={12} md={6}>
               {isLoading ? (
                 <>
                   <CarxSkeleton count={1} height={40} />
@@ -57,7 +57,7 @@ const PlaceOrder = () => {
               ) : (
                 <OrderDetails car={data?.data} />
               )}
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>

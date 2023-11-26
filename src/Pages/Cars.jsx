@@ -34,7 +34,11 @@ const Cars = () => {
   }, [data]);
 
   return (
-    <div>
+    <Box
+      sx={{
+        bgcolor: "customBg.main",
+      }}
+    >
       {/* banner  */}
       <OthersBanner>Cars</OthersBanner>
       <Container sx={{ py: 6 }}>
@@ -79,7 +83,7 @@ const Cars = () => {
           </Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

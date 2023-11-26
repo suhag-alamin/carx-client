@@ -1,4 +1,4 @@
-import { Divider, Paper, Typography } from "@mui/material";
+import { Button, Divider, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import "swiper/css";
@@ -7,6 +7,9 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "@/styles/Car.module.css";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/features/cart/cartSlice";
 
 const CarDetails = ({ car }) => {
   const {
@@ -19,6 +22,9 @@ const CarDetails = ({ car }) => {
     gallery3,
     gallery4,
   } = car;
+
+  const dispatch = useDispatch();
+
   return (
     <>
       <Box sx={{ width: "100%    " }}>
@@ -38,51 +44,86 @@ const CarDetails = ({ car }) => {
           style={{ marginTop: 20 }}
         >
           <SwiperSlide>
-            <img
-              className={styles.carGalleryImg}
-              style={{ width: "100%" }}
-              src={img}
-              alt=""
-            />
-          </SwiperSlide>
-          {gallery1 && (
-            <SwiperSlide>
+            <Box
+              sx={{
+                width: "70%",
+                mx: "auto",
+              }}
+            >
               <img
                 className={styles.carGalleryImg}
                 style={{ width: "100%" }}
-                src={gallery1}
+                src={img}
                 alt=""
               />
+            </Box>
+          </SwiperSlide>
+          {gallery1 && (
+            <SwiperSlide>
+              <Box
+                sx={{
+                  width: "70%",
+                  mx: "auto",
+                }}
+              >
+                <img
+                  className={styles.carGalleryImg}
+                  style={{ width: "100%" }}
+                  src={gallery1}
+                  alt=""
+                />
+              </Box>
             </SwiperSlide>
           )}
           {gallery2 && (
             <SwiperSlide>
-              <img
-                className={styles.carGalleryImg}
-                style={{ width: "100%" }}
-                src={gallery2}
-                alt=""
-              />
+              <Box
+                sx={{
+                  width: "70%",
+                  mx: "auto",
+                }}
+              >
+                <img
+                  className={styles.carGalleryImg}
+                  style={{ width: "100%" }}
+                  src={gallery2}
+                  alt=""
+                />
+              </Box>
             </SwiperSlide>
           )}
           {gallery3 && (
             <SwiperSlide>
-              <img
-                className={styles.carGalleryImg}
-                style={{ width: "100%" }}
-                src={gallery3}
-                alt=""
-              />
+              <Box
+                sx={{
+                  width: "70%",
+                  mx: "auto",
+                }}
+              >
+                <img
+                  className={styles.carGalleryImg}
+                  style={{ width: "100%" }}
+                  src={gallery3}
+                  alt=""
+                />
+              </Box>
             </SwiperSlide>
           )}
           {gallery4 && (
             <SwiperSlide>
-              <img
-                className={styles.carGalleryImg}
-                style={{ width: "100%", height: 400 }}
-                src={gallery4}
-                alt=""
-              />
+              <Box
+                sx={{
+                  width: "70%",
+                  mx: "auto",
+                }}
+              >
+                <img
+                  className={styles.carGalleryImg}
+                  style={{ width: "100%" }}
+                  src={gallery4}
+                  alt=""
+                />
+              </Box>
             </SwiperSlide>
           )}
         </Swiper>
@@ -97,6 +138,16 @@ const CarDetails = ({ car }) => {
         <Typography variant="body1" color="text.secondary">
           {description}
         </Typography>
+        <Button
+          sx={{
+            my: 2,
+          }}
+          variant="contained"
+          endIcon={<AddShoppingCartIcon />}
+          onClick={() => dispatch(addToCart(car))}
+        >
+          Add to Cart
+        </Button>
       </Paper>
     </>
   );

@@ -1,3 +1,4 @@
+import CartBadge from "@/components/Shared/CartBadge";
 import useFirebase from "@/hooks/useFirebase";
 import logo from "@/images/logo.png";
 import styles from "@/styles/Navbar.module.css";
@@ -22,6 +23,7 @@ const Navbar = (props) => {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
+
   const { logOut } = useFirebase();
 
   useEffect(() => {
@@ -96,50 +98,52 @@ const Navbar = (props) => {
 
         <Divider />
 
-        {!user?.email ? (
-          <NavLink
-            className={(navInfo) =>
-              navInfo.isActive ? styles.navSelected : styles.navLink
-            }
-            to="/login"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            Login
-            <LoginIcon sx={{ ml: 1 }} />
-          </NavLink>
-        ) : (
-          <Box>
+        <>
+          {!user?.email ? (
             <NavLink
               className={(navInfo) =>
                 navInfo.isActive ? styles.navSelected : styles.navLink
               }
-              to="/dashboard"
+              to="/login"
+              style={{ display: "flex", alignItems: "center" }}
             >
-              Dashboard
+              Login
+              <LoginIcon sx={{ ml: 1 }} />
             </NavLink>
-            <Divider />
-            {/* //!need to work on this */}
-            {/* {user?.email && (
-              <p className={styles.navLink}>{user?.displayName}</p>
-            )}
-
-            {user?.photoURL && (
-              <img
-                style={{ width: 50, borderRadius: "50%" }}
-                src={user.photoURL}
-                alt=""
-              />
-            )} */}
-            <Divider />
-            <Button
-              onClick={logOut}
-              variant="outlined"
-              endIcon={<LogoutIcon />}
-            >
-              Log Out
-            </Button>
-          </Box>
-        )}
+          ) : (
+            <Box>
+              <NavLink
+                className={(navInfo) =>
+                  navInfo.isActive ? styles.navSelected : styles.navLink
+                }
+                to="/dashboard"
+              >
+                Dashboard
+              </NavLink>
+              <Divider />
+              {/* //!need to work on this */}
+              {/* {user?.email && (
+               <p className={styles.navLink}>{user?.displayName}</p>
+             )}
+        
+             {user?.photoURL && (
+               <img
+                 style={{ width: 50, borderRadius: "50%" }}
+                 src={user.photoURL}
+                 alt=""
+               />
+             )} */}
+              <Divider />
+              <Button
+                onClick={logOut}
+                variant="outlined"
+                endIcon={<LogoutIcon />}
+              >
+                Log Out
+              </Button>
+            </Box>
+          )}
+        </>
 
         <Divider />
       </nav>
@@ -260,17 +264,27 @@ const Navbar = (props) => {
                       </Button>
                     </Box>
                   )}
+
+                  <CartBadge />
                 </nav>
               </Box>
             </Box>
           </Container>
           <IconButton
+            // edge="end"
+            // onClick={handleDrawerToggle}
+            sx={{ display: { md: "none" }, color: "secondary.main" }}
+          >
+            <CartBadge />
+          </IconButton>
+          <Box
             edge="end"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" }, color: "secondary.main" }}
+            sx={{ mr: 1, display: { md: "none" }, color: "secondary.main" }}
           >
+            {" "}
             <MenuIcon />
-          </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 
