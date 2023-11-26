@@ -1,9 +1,10 @@
 import CarDetails from "@/components/Car/CarDetails";
 import OrderDetails from "@/components/Car/OrderDetails";
+import CarxSkeleton from "@/components/Shared/CarxSkeleton";
 import OthersBanner from "@/components/Shared/OthersBanner";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useGetSingleCarQuery } from "@/redux/features/car/carApi";
-import { CircularProgress, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useParams } from "react-router";
 
@@ -13,15 +14,6 @@ const PlaceOrder = () => {
   const { id } = useParams();
 
   const { data, isLoading } = useGetSingleCarQuery(id);
-
-  // loading spinner
-  if (isLoading) {
-    return (
-      <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
 
   return (
     <div>
@@ -36,10 +28,35 @@ const PlaceOrder = () => {
             columnSpacing={{ xs: 1, sm: 2, md: 4 }}
           >
             <Grid item xs={12} md={6}>
-              <CarDetails car={data?.data} />
+              {isLoading ? (
+                <>
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={400} />
+                  <CarxSkeleton count={1} height={20} />
+                  <CarxSkeleton count={1} height={20} />
+                  <CarxSkeleton count={1} height={40} />
+                </>
+              ) : (
+                <CarDetails car={data?.data} />
+              )}
             </Grid>
             <Grid item xs={12} md={6}>
-              <OrderDetails car={data?.data} />
+              {isLoading ? (
+                <>
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={40} />
+                  <CarxSkeleton count={1} height={20} />
+                </>
+              ) : (
+                <OrderDetails car={data?.data} />
+              )}
             </Grid>
           </Grid>
         </Container>

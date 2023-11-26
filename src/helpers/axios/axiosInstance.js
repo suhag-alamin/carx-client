@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const instance = axios.create();
-
-instance.defaults.headers.post["Content-Type"] = "application/json";
-instance.defaults.headers["Content-Type"] = "application/json";
-instance.defaults.timeout = 60000;
+const instance = axios.create({
+  timeout: 60000,
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true,
+});
 
 // request interceptor
 
@@ -24,3 +24,5 @@ instance.interceptors.response.use(
   (response) => response,
   (error) => Promise.reject(error)
 );
+
+export { instance as axiosInstance };

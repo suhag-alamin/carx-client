@@ -43,7 +43,7 @@ const Cars = () => {
         </Typography>
         {isLoading ? (
           <>
-            <CarxSkeleton count={6} />
+            <CarxSkeleton count={6} isCarCard={true} />
           </>
         ) : (
           <>

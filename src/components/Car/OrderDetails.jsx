@@ -1,3 +1,6 @@
+import { usePlaceOrderMutation } from "@/redux/features/order/orderApi";
+import { useCreatePaymentIntentMutation } from "@/redux/features/payment/paymentApi";
+import styles from "@/styles/Car.module.css";
 import {
   Button,
   CssBaseline,
@@ -8,14 +11,20 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import styles from "@/styles/Car.module.css";
 import { useSelector } from "react-redux";
 
 const OrderDetails = ({ car }) => {
   const { user } = useSelector((state) => state.auth);
+
+  const [
+    createPaymentIntent,
+    { isLoading: isPaymentIntentLoading, data: paymentIntent },
+  ] = useCreatePaymentIntentMutation();
+  console.log(paymentIntent, isPaymentIntentLoading);
+
+  const [placeOrder, { data: orderData }] = usePlaceOrderMutation();
+  console.log(orderData);
 
   const {
     register,
@@ -30,19 +39,56 @@ const OrderDetails = ({ car }) => {
       price: car?.price,
     },
   });
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.status = "pending";
     data.carImg = car?.img;
-    axios
-      .post("https://carx-suhag.onrender.com/orders", data)
-      .then((result) => {
-        if (result.data?.insertedId) {
-          toast.success(
-            "Successfully added an order. Please proceed with payment."
-          );
-          reset();
-        }
-      });
+    // axios
+    //   .post("https://carx-suhag.onrender.com/orders", data)
+    //   .then((result) => {
+    //     if (result.data?.insertedId) {
+    //       toast.success(
+    //         "Successfully added an order. Please proceed with payment."
+    //       );
+    //       reset();
+    //     }
+    //   });
+    if (data) {
+      const paymentIntentData = {
+        amount: data.price * 100,
+        currency: "usd",
+        email: data.userEmail,
+      };
+      const paymentInfo = await createPaymentIntent(paymentIntentData);
+
+      // paymentInfo.amount, paymentInfo.paymentId, paymentInfo.currency, paymentInfo.clientSecret
+
+      const orderData = {
+        car: car?._id,
+        orderDetails: {
+          totalAmount: paymentInfo?.amount / 100,
+          status: "pending",
+          color: data.color,
+          deliveryDetails: {
+            address: data.address,
+            city: data.city,
+            country: data.country || "Bangladesh",
+            zip: data.zip || "0000",
+            phone: data.phone,
+          },
+        },
+        payment: {
+          transactionId: paymentInfo?.paymentId,
+          amount: paymentInfo?.amount / 100,
+          currency: paymentInfo?.currency,
+          status: paymentInfo?.paymentId ? "success" : "pending",
+          last4: paymentInfo?.last4 || "0000",
+        },
+      };
+
+      placeOrder(orderData);
+
+      reset();
+    }
   };
   return (
     <>

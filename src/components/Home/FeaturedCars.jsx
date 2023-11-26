@@ -21,7 +21,7 @@ const FeaturedCars = () => {
         </Typography>
         {isLoading ? (
           <>
-            <CarxSkeleton />
+            <CarxSkeleton isCarCard={true} />
           </>
         ) : (
           <>

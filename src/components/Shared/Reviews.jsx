@@ -29,7 +29,7 @@ const Reviews = () => {
             </Grid>
             <Grid item xs={2} sm={8} md={8} sx={{ py: 2 }}>
               {isLoading ? (
-                <CarxSkeleton count={2} isCarCard={false} />
+                <CarxSkeleton count={1} />
               ) : (
                 <Swiper
                   navigation={true}
