@@ -1,4 +1,5 @@
 import { api } from "@/redux/api/apiSlice";
+import { tagTypes } from "@/redux/tagTypes";
 
 const carApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,14 +9,14 @@ const carApi = api.injectEndpoints({
         method: "GET",
         params: arg,
       }),
-      providesTags: ["Car"],
+      providesTags: [tagTypes.car],
     }),
     getSingleCar: builder.query({
       query: (id) => ({
         url: `/cars/${id}`,
         method: "GET",
       }),
-      providesTags: ["Car"],
+      providesTags: [tagTypes.car],
     }),
   }),
 });

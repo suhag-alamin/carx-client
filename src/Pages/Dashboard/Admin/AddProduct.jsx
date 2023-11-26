@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -265,7 +265,12 @@ const AddProduct = () => {
                       p: 0,
                     }}
                   >
-                    <CircularProgress size="20px" color="info" />
+                    <CircularProgress
+                      size="20px"
+                      sx={{
+                        color: "info.main",
+                      }}
+                    />
                   </Box>
                 ) : (
                   "Add Product"

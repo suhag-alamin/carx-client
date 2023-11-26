@@ -2,6 +2,7 @@
 import { baseAPI } from "@/config/baseApi";
 import { axiosBaseQuery } from "@/helpers/axios/axiosBaseQuery";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { tagTypesList } from "../tagTypes";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseAPI,
@@ -21,5 +22,5 @@ export const api = createApi({
     baseUrl: baseAPI,
   }),
   endpoints: (builder) => ({}),
-  tagTypes: ["User", "Car", "Service", "Part", "Order", "Invoice", "Payment"],
+  tagTypes: tagTypesList,
 });

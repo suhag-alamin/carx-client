@@ -1,10 +1,12 @@
 import OthersBanner from "@/components/Shared/OthersBanner";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { useSendMessageMutation } from "@/redux/features/message/messageApi";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   Button,
+  CircularProgress,
   Container,
   Grid,
   Paper,
@@ -12,13 +14,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const Contact = () => {
   // dynamic title
   useDocumentTitle("Contact");
+
+  const [sendMessage, { isLoading, isSuccess, isError, error }] =
+    useSendMessageMutation();
 
   const {
     register,
@@ -27,15 +32,21 @@ const Contact = () => {
     formState: { errors },
   } = useForm({});
   const onSubmit = (data) => {
-    axios
-      .post("https://carx-suhag.onrender.com/messages", data)
-      .then((result) => {
-        if (result.data?.insertedId) {
-          toast.success("Thank you. We got your message");
-          reset();
-        }
-      });
+    if (data) {
+      sendMessage(data);
+      reset();
+    }
   };
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      toast.success("Thank you. We got your message");
+    }
+    if (!isLoading && isError) {
+      toast.error(error.message);
+    }
+  }, [isLoading, isSuccess, isError, error]);
+
   return (
     <div>
       {/* banner  */}
@@ -172,8 +183,27 @@ const Contact = () => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1 }}
+                  disabled={isLoading}
                 >
-                  Send
+                  {isLoading ? (
+                    <Box
+                      sx={{
+                        textAlign: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        p: 0,
+                      }}
+                    >
+                      <CircularProgress
+                        size="20px"
+                        sx={{
+                          color: "info.main",
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    "Send Message"
+                  )}
                 </Button>
               </Grid>
             </Grid>

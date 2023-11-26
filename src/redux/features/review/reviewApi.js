@@ -1,4 +1,5 @@
 import { api } from "@/redux/api/apiSlice";
+import { tagTypes } from "@/redux/tagTypes";
 
 const reviewApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,37 +9,37 @@ const reviewApi = api.injectEndpoints({
         method: "GET",
         params: arg,
       }),
-      providesTags: ["Review"],
+      providesTags: [tagTypes.review],
     }),
     getSingleReview: builder.query({
       query: (id) => ({
         url: `/reviews/${id}`,
         method: "GET",
       }),
-      providesTags: ["Review"],
+      providesTags: [tagTypes.review],
     }),
     postReview: builder.mutation({
-      query: (body) => ({
+      query: (data) => ({
         url: "/reviews",
         method: "POST",
-        body,
+        data,
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags: [tagTypes.review],
     }),
     updateReview: builder.mutation({
-      query: ({ id, body }) => ({
+      query: ({ id, data }) => ({
         url: `/reviews/${id}`,
         method: "PUT",
-        body,
+        data,
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags: [tagTypes.review],
     }),
     deleteReview: builder.mutation({
       query: (id) => ({
         url: `/reviews/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags: [tagTypes.review],
     }),
   }),
 });

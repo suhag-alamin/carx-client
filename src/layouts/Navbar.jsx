@@ -118,7 +118,8 @@ const Navbar = (props) => {
               Dashboard
             </NavLink>
             <Divider />
-            {user?.email && (
+            {/* //!need to work on this */}
+            {/* {user?.email && (
               <p className={styles.navLink}>{user?.displayName}</p>
             )}
 
@@ -128,7 +129,7 @@ const Navbar = (props) => {
                 src={user.photoURL}
                 alt=""
               />
-            )}
+            )} */}
             <Divider />
             <Button
               onClick={logOut}
@@ -232,7 +233,9 @@ const Navbar = (props) => {
                       >
                         Dashboard
                       </NavLink>
-                      {user?.email && (
+                      {/* //!need to work on this */}
+
+                      {/* {user?.email && (
                         <span className={styles.navLink}>
                           {user?.displayName}
                         </span>
@@ -247,7 +250,7 @@ const Navbar = (props) => {
                           src={user.photoURL}
                           alt=""
                         />
-                      )}
+                      )} */}
                       <Button
                         onClick={logOut}
                         variant="outlined"
