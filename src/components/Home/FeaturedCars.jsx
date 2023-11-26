@@ -4,7 +4,7 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
-import CarSkeleton from "../Shared/CarSkeleton";
+import CarxSkeleton from "../Shared/CarxSkeleton";
 
 const FeaturedCars = () => {
   const { data, isLoading } = useGetCarsQuery({
@@ -21,7 +21,7 @@ const FeaturedCars = () => {
         </Typography>
         {isLoading ? (
           <>
-            <CarSkeleton />
+            <CarxSkeleton />
           </>
         ) : (
           <>

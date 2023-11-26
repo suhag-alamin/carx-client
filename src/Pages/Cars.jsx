@@ -1,4 +1,4 @@
-import CarSkeleton from "@/components/Shared/CarSkeleton";
+import CarxSkeleton from "@/components/Shared/CarxSkeleton";
 import { useGetCarsQuery } from "@/redux/features/car/carApi";
 import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -43,7 +43,7 @@ const Cars = () => {
         </Typography>
         {isLoading ? (
           <>
-            <CarSkeleton count={6} />
+            <CarxSkeleton count={6} />
           </>
         ) : (
           <>

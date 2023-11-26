@@ -1,39 +1,16 @@
-import useDocumentTitle from "@/hooks/useDocumentTitle";
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import { useGetReviewsQuery } from "@/redux/features/review/reviewApi";
+import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewCard from "../Card/ReviewCard";
-
-// reviews section
+import CarxSkeleton from "./CarxSkeleton";
 
 const Reviews = () => {
-  // dynamic title
-  useDocumentTitle("Review");
-
-  const [clientReviews, setClientReviews] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    setIsLoading(true);
-    axios.get("https://carx-suhag.onrender.com/reviews").then((result) => {
-      setClientReviews(result.data);
-      setIsLoading(false);
-    });
-  }, []);
-
-  // loading spinner
-  if (isLoading) {
-    return (
-      <Box sx={{ textAlign: "center", py: 2 }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
+  const { data, isLoading } = useGetReviewsQuery();
 
   return (
     <Box sx={{ bgcolor: "customBg.main" }}>
@@ -51,33 +28,37 @@ const Reviews = () => {
               </Typography>
             </Grid>
             <Grid item xs={2} sm={8} md={8} sx={{ py: 2 }}>
-              <Swiper
-                navigation={true}
-                grabCursor={true}
-                modules={[Navigation]}
-                slidesPerView={1}
-                spaceBetween={10}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  1024: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
-                  },
-                }}
-              >
-                {clientReviews.map((clientReview) => (
-                  <SwiperSlide key={clientReview._id}>
-                    <ReviewCard review={clientReview} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              {isLoading ? (
+                <CarxSkeleton count={2} isCarCard={false} />
+              ) : (
+                <Swiper
+                  navigation={true}
+                  grabCursor={true}
+                  modules={[Navigation]}
+                  slidesPerView={1}
+                  spaceBetween={10}
+                  breakpoints={{
+                    640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    1024: {
+                      slidesPerView: 2,
+                      spaceBetween: 30,
+                    },
+                  }}
+                >
+                  {data?.data?.map((clientReview) => (
+                    <SwiperSlide key={clientReview._id}>
+                      <ReviewCard review={clientReview} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              )}
             </Grid>
           </Grid>
         </Box>
