@@ -1,5 +1,4 @@
 import App from "@/App";
-import PaymentHome from "@/components/Payment/PaymentHome";
 import About from "@/pages/About";
 import CarDetailsPage from "@/pages/CarDetailsPage";
 import Cars from "@/pages/Cars";
@@ -13,7 +12,6 @@ import ManageProducts from "@/pages/Dashboard/Admin/ManageProducts";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import GiveReview from "@/pages/Dashboard/User/GiveReview";
 import MyOrders from "@/pages/Dashboard/User/MyOrders";
-import Payment from "@/pages/Dashboard/User/Payment";
 import ForgetPassword from "@/pages/ForgetPassword";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
@@ -79,22 +77,7 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/dashboard/payment",
-        element: (
-          <PrivateRoute>
-            <Payment />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/payment/:id",
-        element: (
-          <PrivateRoute>
-            <PaymentHome />
-          </PrivateRoute>
-        ),
-      },
+
       // admin
 
       {

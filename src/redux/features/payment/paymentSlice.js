@@ -12,7 +12,6 @@ const paymentSlice = createSlice({
   initialState,
   reducers: {
     setPaymentIntent: (state, action) => {
-      console.log(action);
       state.clientSecret = action.payload.clientSecret;
       state.paymentId = action.payload.paymentId;
       state.currency = action.payload.currency;

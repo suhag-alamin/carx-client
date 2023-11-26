@@ -18,7 +18,6 @@ const CarDetailsPage = () => {
     <div>
       {/* banner  */}
       <OthersBanner>Place Order</OthersBanner>
-      {/* car and order details  */}
       <Box>
         <Container sx={{ py: 6 }}>
           <Grid
@@ -39,24 +38,6 @@ const CarDetailsPage = () => {
                 <CarDetails car={data?.data} />
               )}
             </Grid>
-            {/* <Grid item xs={12} md={6}>
-              {isLoading ? (
-                <>
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={40} />
-                  <CarxSkeleton count={1} height={20} />
-                </>
-              ) : (
-                <OrderDetails car={data?.data} />
-              )}
-            </Grid> */}
           </Grid>
         </Container>
       </Box>

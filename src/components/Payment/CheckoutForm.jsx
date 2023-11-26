@@ -120,7 +120,11 @@ const CheckoutForm = () => {
             },
           }}
         />
-        <Button variant="contained" type="submit" disabled={!stripe || success}>
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={!stripe || success || isLoading || processing}
+        >
           {processing || isLoading ? (
             <Box
               sx={{

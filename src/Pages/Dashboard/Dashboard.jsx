@@ -8,7 +8,6 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
-import PaymentIcon from "@mui/icons-material/Payment";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
@@ -105,18 +104,6 @@ function Dashboard(props) {
               to={`/dashboard/my-orders`}
               sx={{ color: "secondary.main" }}
               primary="My Orders"
-            />
-          </ListItemButton>
-
-          <ListItemButton>
-            <ListItemIcon>
-              <PaymentIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText
-              as={Link}
-              to={`/dashboard/payment`}
-              sx={{ color: "secondary.main" }}
-              primary="Pay"
             />
           </ListItemButton>
 
