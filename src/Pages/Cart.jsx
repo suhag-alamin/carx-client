@@ -1,4 +1,5 @@
 import OthersBanner from "@/components/Shared/OthersBanner";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import {
   applyCoupon,
   removeCoupon,
@@ -24,19 +25,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Cart = () => {
+  useDocumentTitle("Cart");
+
   const { cars, total, tax, isCouponApplied } = useSelector(
     (state) => state.cart
   );
   const dispatch = useDispatch();
-  // const [totalAmount, setTotalAmount] = useState(total);
-  // const [tax, setTax] = useState(0);
-
-  // // let totalAmount = +total + calculateCax;
-  // useEffect(() => {
-  //   const calculateTax = +total * 0.1;
-  //   setTax(calculateTax);
-  //   setTotalAmount(+total + calculateTax);
-  // }, [total]);
 
   const { handleSubmit, register, reset } = useForm();
 
@@ -102,7 +96,6 @@ const Cart = () => {
 
             <Box
               sx={{
-                // bgcolor: "customBg.main",
                 p: 2,
                 borderRadius: 2,
               }}

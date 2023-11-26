@@ -35,7 +35,7 @@ const CartBadge = () => {
         onClick={toggleDrawer(anchor, true)}
       >
         <Badge badgeContent={cars?.length} max={9} color="secondary">
-          <LocalMallIcon color="action" />
+          <LocalMallIcon color="primary" />
         </Badge>
       </IconButton>
       <CartDrawer

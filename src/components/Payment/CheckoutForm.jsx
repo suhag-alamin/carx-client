@@ -1,35 +1,32 @@
+import { clearCart } from "@/redux/features/cart/cartSlice";
+import { usePlaceOrderMutation } from "@/redux/features/order/orderApi";
+import { clearOrderDetails } from "@/redux/features/order/orderSlice";
+import { clearPaymentIntent } from "@/redux/features/payment/paymentSlice";
+import styles from "@/styles/Payment.module.css";
 import { Button, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import styles from "@/styles/Payment.module.css";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
 
-const CheckoutForm = ({ order }) => {
-  // dynamic title
-  useDocumentTitle("Make Payment");
-  const { _id, price, userName, userEmail } = order;
+const CheckoutForm = () => {
+  const { clientSecret, amount } = useSelector((state) => state.payment);
+  const { user } = useSelector((state) => state.auth);
+  const orderDetails = useSelector((state) => state.order);
+  const { cars } = useSelector((state) => state.cart);
+
+  const [placeOrder, { isSuccess, isLoading }] = usePlaceOrderMutation();
+  const dispatch = useDispatch();
+
   const stripe = useStripe();
   const elements = useElements();
 
   const navigate = useNavigate();
 
-  const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState("");
-
-  useEffect(() => {
-    axios
-      .post("https://carx-suhag.onrender.com/create-payment-intent", {
-        price,
-      })
-      .then((result) => {
-        setClientSecret(result.data?.clientSecret);
-      });
-  }, [price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,8 +48,6 @@ const CheckoutForm = ({ order }) => {
     if (error) {
       setProcessing(false);
       toast.error(error.message);
-    } else {
-      // console.log(paymentMethod);
     }
 
     // payment intent
@@ -61,8 +56,8 @@ const CheckoutForm = ({ order }) => {
         payment_method: {
           card: card,
           billing_details: {
-            name: userName,
-            email: userEmail,
+            name: user?.displayName,
+            email: user?.email,
           },
         },
       });
@@ -72,25 +67,38 @@ const CheckoutForm = ({ order }) => {
       setProcessing(false);
     } else {
       setSuccess("Your payment processed successfully");
-      toast.success("Your payment processed successfully");
-
-      setProcessing(false);
 
       // save to database
-      const payment = {
-        amount: paymentIntent.amount,
-        created: paymentIntent.created,
-        last4: paymentMethod.card.last4,
-        transaction: paymentIntent.id,
+
+      const orderData = {
+        orderDetails: {
+          ...orderDetails,
+        },
+        user: user?._id,
+        cars: cars.map((car) => car._id),
+        payment: {
+          transactionId: paymentIntent.id,
+          amount: paymentIntent.amount / 100,
+          last4: paymentMethod.card.last4,
+          currency: paymentIntent.currency,
+          status: "success",
+        },
       };
 
-      axios
-        .put(`https://carx-suhag.onrender.com/orders/${_id}`, payment)
-        .then(() => {
-          navigate("/dashboard/payment");
-        });
+      placeOrder(orderData);
+      setProcessing(false);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess && !isLoading) {
+      toast.success("Order placed successfully");
+      dispatch(clearCart());
+      dispatch(clearOrderDetails());
+      dispatch(clearPaymentIntent());
+      navigate("/dashboard");
+    }
+  }, [isSuccess, isLoading, dispatch]);
 
   return (
     <div>
@@ -113,7 +121,7 @@ const CheckoutForm = ({ order }) => {
           }}
         />
         <Button variant="contained" type="submit" disabled={!stripe || success}>
-          {processing ? (
+          {processing || isLoading ? (
             <Box
               sx={{
                 textAlign: "center",
@@ -126,7 +134,7 @@ const CheckoutForm = ({ order }) => {
               <CircularProgress size="20px" color="info" />
             </Box>
           ) : (
-            `Pay $ ${price}`
+            `Pay $ ${amount}`
           )}
         </Button>
       </form>

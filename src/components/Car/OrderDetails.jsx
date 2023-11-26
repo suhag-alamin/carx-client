@@ -1,102 +1,101 @@
-import { usePlaceOrderMutation } from "@/redux/features/order/orderApi";
+import countries from "@/lib/countries";
+import { setOrderDetails } from "@/redux/features/order/orderSlice";
 import { useCreatePaymentIntentMutation } from "@/redux/features/payment/paymentApi";
+import { setPaymentIntent } from "@/redux/features/payment/paymentSlice";
 import styles from "@/styles/Car.module.css";
 import {
+  Autocomplete,
   Button,
-  CssBaseline,
+  CircularProgress,
   Divider,
   Grid,
-  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
-const OrderDetails = ({ car }) => {
+const OrderDetails = () => {
   const { user } = useSelector((state) => state.auth);
+  const { total } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const [code, setCode] = useState("");
 
   const [
     createPaymentIntent,
-    { isLoading: isPaymentIntentLoading, data: paymentIntent },
+    {
+      isLoading: isPaymentIntentLoading,
+      data: paymentIntentData,
+      isSuccess,
+      isError,
+      error,
+    },
   ] = useCreatePaymentIntentMutation();
-  console.log(paymentIntent, isPaymentIntentLoading);
-
-  const [placeOrder, { data: orderData }] = usePlaceOrderMutation();
-  console.log(orderData);
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      userName: user?.displayName,
-      userEmail: user?.email,
-      carName: car?.carName,
-      price: car?.price,
-    },
-  });
+  } = useForm();
   const onSubmit = async (data) => {
-    data.status = "pending";
-    data.carImg = car?.img;
-    // axios
-    //   .post("https://carx-suhag.onrender.com/orders", data)
-    //   .then((result) => {
-    //     if (result.data?.insertedId) {
-    //       toast.success(
-    //         "Successfully added an order. Please proceed with payment."
-    //       );
-    //       reset();
-    //     }
-    //   });
     if (data) {
-      const paymentIntentData = {
-        amount: data.price * 100,
-        currency: "usd",
-        email: data.userEmail,
-      };
-      const paymentInfo = await createPaymentIntent(paymentIntentData);
-
-      // paymentInfo.amount, paymentInfo.paymentId, paymentInfo.currency, paymentInfo.clientSecret
-
       const orderData = {
-        car: car?._id,
-        orderDetails: {
-          totalAmount: paymentInfo?.amount / 100,
-          status: "pending",
-          color: data.color,
-          deliveryDetails: {
-            address: data.address,
-            city: data.city,
-            country: data.country || "Bangladesh",
-            zip: data.zip || "0000",
-            phone: data.phone,
-          },
-        },
-        payment: {
-          transactionId: paymentInfo?.paymentId,
-          amount: paymentInfo?.amount / 100,
-          currency: paymentInfo?.currency,
-          status: paymentInfo?.paymentId ? "success" : "pending",
-          last4: paymentInfo?.last4 || "0000",
+        totalAmount: total,
+        deliveryDetails: {
+          address: data.address,
+          city: data.city,
+          country: data.country || "Bangladesh",
+          zipCode: data.zipCode || "0000",
+          phone: code + data.phoneNumber,
         },
       };
 
-      placeOrder(orderData);
+      dispatch(setOrderDetails(orderData));
 
+      const createPaymentIntentData = {
+        amount: total * 100,
+        currency: "usd",
+        email: user?.email,
+      };
+      createPaymentIntent(createPaymentIntentData);
       reset();
     }
   };
+
+  useEffect(() => {
+    if (
+      !isPaymentIntentLoading &&
+      isSuccess &&
+      paymentIntentData?.data?.paymentId
+    ) {
+      const paymentIntentInfoData = {
+        paymentId: paymentIntentData?.data?.paymentId,
+        amount: paymentIntentData?.data?.amount,
+        currency: paymentIntentData?.data?.currency,
+        clientSecret: paymentIntentData?.data?.clientSecret,
+      };
+      dispatch(setPaymentIntent(paymentIntentInfoData));
+    }
+    if (
+      !isPaymentIntentLoading &&
+      isError &&
+      !paymentIntentData?.data?.paymentId
+    ) {
+      toast.error(error.message || "Payment failed!");
+    }
+  }, [paymentIntentData, isPaymentIntentLoading, isSuccess, isError, error]);
+
   return (
     <>
       <Typography sx={{ textAlign: "center" }} variant="h5" color="primary">
         Order Details
       </Typography>
       <Divider />
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 2,
@@ -113,67 +112,119 @@ const OrderDetails = ({ car }) => {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
-          <Grid container spacing={2}>
+          <Grid
+            container
+            rowSpacing={2}
+            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
+          >
             <Grid item xs={12}>
-              <TextField
-                type="text"
+              <Autocomplete
+                options={countries}
+                autoHighlight
                 fullWidth
-                label="Your Name"
-                {...register("userName", { required: true })}
+                getOptionLabel={(option) => option.label}
+                renderOption={(props, option) => (
+                  <Box
+                    component="li"
+                    sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                    {...props}
+                  >
+                    <img
+                      loading="lazy"
+                      width="20"
+                      srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                      src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                      alt=""
+                    />
+                    {option.label} ({option.code})
+                  </Box>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Choose a country *"
+                    inputProps={{
+                      ...params.inputProps,
+                      autoComplete: "new-country",
+                    }}
+                    {...register("country", {
+                      required: true,
+                      minLength: 6,
+                      maxLength: 12,
+                    })}
+                  />
+                )}
               />
-              {errors.userName && (
-                <span className={styles.error}>User Name is required</span>
+              {errors.country && (
+                <span className={styles.error}>Country is required</span>
               )}
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                type="email"
-                fullWidth
-                label="Email Address"
-                {...register("userEmail", { required: true })}
-              />
-              {errors.userEmail && (
-                <span className={styles.error}>User Email is required</span>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                fullWidth
-                label="Car Name"
-                {...register("carName", { required: true })}
-              />
-              {errors.carName && (
-                <span className={styles.error}>Car Name is required</span>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                fullWidth
-                label="Car Price $"
-                {...register("price", { required: true })}
-              />
-              {errors.price && (
-                <span className={styles.error}>Price is required</span>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                select
-                label="Select Color"
-                fullWidth
-                helperText="Please select your color"
-                {...register("color")}
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                }}
               >
-                <MenuItem value="black">Black</MenuItem>
-                <MenuItem value="red">Red</MenuItem>
-                <MenuItem value="blue">Blue</MenuItem>
-                <MenuItem value="yellow">Yellow</MenuItem>
-                <MenuItem value="brown">Brown</MenuItem>
-                <MenuItem value="green">Green</MenuItem>
-                <MenuItem value="white">White</MenuItem>
-              </TextField>
+                <Autocomplete
+                  sx={{ width: "50%" }}
+                  options={countries}
+                  autoHighlight
+                  getOptionLabel={(option) => option.label + " " + option.phone}
+                  onChange={(event, newValue) => {
+                    setCode(newValue.phone);
+                  }}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                    >
+                      <img
+                        loading="lazy"
+                        width="20"
+                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                        alt=""
+                      />
+                      ({option.label}) +{option.phone}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Country Code *"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-code",
+                      }}
+                    />
+                  )}
+                />
+                <TextField
+                  type="tel"
+                  label="Number"
+                  fullWidth
+                  required
+                  {...register("phoneNumber", {
+                    required: true,
+                    minLength: 10,
+                    maxLength: 15,
+                  })}
+                />
+              </Box>
+
+              {errors.phoneNumber && (
+                <span
+                  style={{
+                    marginLeft: 5,
+                  }}
+                  className={styles.error}
+                >
+                  Number is required
+                </span>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -199,30 +250,52 @@ const OrderDetails = ({ car }) => {
                 <span className={styles.error}>City is required</span>
               )}
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 type="tel"
                 fullWidth
-                label="Phone"
+                label="Zip Code"
                 required
-                {...register("phone", {
+                {...register("zipCode", {
                   required: true,
-                  minLength: 6,
-                  maxLength: 12,
+                  minLength: 4,
+                  maxLength: 6,
                 })}
               />
-              {errors.phone && (
-                <span className={styles.error}>Phone Number is required</span>
+              {errors.zipCode && (
+                <span className={styles.error}>Zid Code is required</span>
               )}
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Place Order
-            </Button>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled={isPaymentIntentLoading}
+              >
+                {isPaymentIntentLoading ? (
+                  <Box
+                    sx={{
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      p: 0,
+                    }}
+                  >
+                    <CircularProgress
+                      size="20px"
+                      sx={{
+                        color: "info.main",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  "Proceed to Payment"
+                )}
+              </Button>
+            </Grid>
           </Grid>
         </Box>
       </Box>

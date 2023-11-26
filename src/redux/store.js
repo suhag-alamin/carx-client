@@ -4,6 +4,8 @@ import authReducer from "./features/auth/authSlice";
 import cartReducer from "./features/cart/cartSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
+import paymentReducer from "./features/payment/paymentSlice";
+import orderReducer from "./features/order/orderSlice";
 
 const persistConfig = {
   key: "cart",
@@ -16,6 +18,8 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     cart: persistedCartReducer,
+    payment: paymentReducer,
+    order: orderReducer,
     [api.reducerPath]: api.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",

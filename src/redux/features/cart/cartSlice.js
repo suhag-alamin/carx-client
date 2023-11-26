@@ -33,6 +33,12 @@ const cartSlice = createSlice({
       state.total = 0;
       state.tax = 0;
       state.isCouponApplied = false;
+      state.paymentIntent = {
+        clientSecret: null,
+        paymentId: null,
+        currency: null,
+        amount: null,
+      };
     },
     applyCoupon: (state) => {
       if (!state.isCouponApplied) {
