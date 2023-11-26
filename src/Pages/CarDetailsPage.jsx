@@ -1,5 +1,4 @@
 import CarDetails from "@/components/Car/CarDetails";
-import OrderDetails from "@/components/Car/OrderDetails";
 import CarxSkeleton from "@/components/Shared/CarxSkeleton";
 import OthersBanner from "@/components/Shared/OthersBanner";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
@@ -8,7 +7,7 @@ import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useParams } from "react-router";
 
-const PlaceOrder = () => {
+const CarDetailsPage = () => {
   // dynamic title
   useDocumentTitle("Place Order");
   const { id } = useParams();
@@ -65,4 +64,4 @@ const PlaceOrder = () => {
   );
 };
 
-export default PlaceOrder;
+export default CarDetailsPage;

@@ -1,7 +1,10 @@
 import App from "@/App";
 import PaymentHome from "@/components/Payment/PaymentHome";
 import About from "@/pages/About";
+import CarDetailsPage from "@/pages/CarDetailsPage";
 import Cars from "@/pages/Cars";
+import Cart from "@/pages/Cart";
+import Checkout from "@/pages/Checkout";
 import Contact from "@/pages/Contact";
 import AddProduct from "@/pages/Dashboard/Admin/AddProduct";
 import MakeAdmin from "@/pages/Dashboard/Admin/MakeAdmin";
@@ -15,7 +18,6 @@ import ForgetPassword from "@/pages/ForgetPassword";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
-import PlaceOrder from "@/pages/PlaceOrder";
 import Register from "@/pages/Register";
 import { createBrowserRouter } from "react-router-dom";
 import AdminRoute from "./AdminRoute";
@@ -31,12 +33,17 @@ const routes = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/cars", element: <Cars /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/cart", element: <Cart /> },
 
       {
-        path: "/place-order/:id",
+        path: "/cars/:id",
+        element: <CarDetailsPage />,
+      },
+      {
+        path: "/checkout",
         element: (
           <PrivateRoute>
-            <PlaceOrder />
+            <Checkout />
           </PrivateRoute>
         ),
       },

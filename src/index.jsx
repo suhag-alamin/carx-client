@@ -5,29 +5,32 @@ import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
 import theme from "./theme/themeConfig";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { persistor, store } from "./redux/store";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { ToastContainer } from "react-toastify";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <CssBaseline>
-        <ThemeProvider theme={theme}>
-          <RouterProvider router={routes} />
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </ThemeProvider>
-      </CssBaseline>
+      <PersistGate loading={null} persistor={persistor}>
+        <CssBaseline>
+          <ThemeProvider theme={theme}>
+            <RouterProvider router={routes} />
+            <ToastContainer
+              position="top-center"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </ThemeProvider>
+        </CssBaseline>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

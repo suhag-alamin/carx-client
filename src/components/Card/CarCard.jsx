@@ -48,7 +48,7 @@ const CarCard = ({ car }) => {
             justifyContent: "space-between",
           }}
         >
-          <Link to={`/place-order/${_id}`}>
+          <Link to={`/cars/${_id}`}>
             <Button variant="outlined">Details</Button>
           </Link>
           <Button
