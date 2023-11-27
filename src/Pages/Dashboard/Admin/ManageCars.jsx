@@ -90,40 +90,46 @@ const ManageCars = () => {
         </>
       ) : (
         <>
-          <Box sx={{ flexGrow: 1, mt: 2 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 4 }}
-              columns={{ xs: 2, sm: 8, md: 12, lg: 12 }}
-            >
-              {data?.data?.map((car) => (
-                <ManageCarCard
-                  key={car._id}
-                  car={car}
-                  handleDelete={handleDelete}
-                />
-              ))}
-            </Grid>
-          </Box>
-          {/* pagination  */}
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
-            <Stack spacing={2}>
-              <Pagination
-                count={pageCount}
-                page={page}
-                onChange={handleChange}
-                shape="rounded"
-              />
-            </Stack>
-          </Box>
+          {data?.data?.length > 0 ? (
+            <>
+              <Box sx={{ flexGrow: 1, mt: 2 }}>
+                <Grid
+                  container
+                  spacing={{ xs: 2, md: 4 }}
+                  columns={{ xs: 2, sm: 8, md: 12, lg: 12 }}
+                >
+                  {data?.data?.map((car) => (
+                    <ManageCarCard
+                      key={car._id}
+                      car={car}
+                      handleDelete={handleDelete}
+                    />
+                  ))}
+                </Grid>
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
+                <Stack spacing={2}>
+                  <Pagination
+                    count={pageCount}
+                    page={page}
+                    onChange={handleChange}
+                    shape="rounded"
+                  />
+                </Stack>
+              </Box>
+            </>
+          ) : (
+            <Box sx={{ textAlign: "center", py: 2 }}>
+              <Typography
+                variant="h3"
+                sx={{ textAlign: "center" }}
+                color="error"
+              >
+                No Cars Found! Try adding some.
+              </Typography>
+            </Box>
+          )}
         </>
-      )}
-      {!data?.data?.length === 0 && (
-        <Box sx={{ textAlign: "center", py: 2 }}>
-          <Typography variant="h3" sx={{ textAlign: "center" }} color="error">
-            No Cars Found! Try adding some.
-          </Typography>
-        </Box>
       )}
     </Box>
   );

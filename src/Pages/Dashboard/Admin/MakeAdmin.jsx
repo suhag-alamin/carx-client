@@ -1,6 +1,8 @@
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { useMakeAdminMutation } from "@/redux/features/auth/authApi";
 import {
   Button,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -8,14 +10,17 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const MakeAdmin = () => {
   // dynamic title
   useDocumentTitle("Make Admin");
+
+  const [makeAdmin, { isLoading, data, isError, error }] =
+    useMakeAdminMutation();
+
   const {
     register,
     handleSubmit,
@@ -23,20 +28,19 @@ const MakeAdmin = () => {
     formState: { errors },
   } = useForm({});
   const onSubmit = (data) => {
-    axios({
-      method: "put",
-      url: "https://carx-suhag.onrender.com/users/admin",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("idToken")}`,
-      },
-      data: data,
-    }).then((result) => {
-      if (result.data?.modifiedCount > 0) {
-        toast.success("Admin made successfully");
-        reset();
-      }
-    });
+    makeAdmin(data);
+    reset();
   };
+
+  useEffect(() => {
+    if (!isLoading && isError) {
+      toast.error(error?.data?.message || "Something went wrong!");
+    }
+    if (!isLoading && data) {
+      toast.success(data?.message || "Admin made successfully");
+    }
+  }, [isLoading, isError, error, data]);
+
   return (
     <Container sx={{ py: 2 }}>
       <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
@@ -68,8 +72,31 @@ const MakeAdmin = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <Button type="submit" fullWidth variant="contained">
-                Make Admin
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Box
+                    sx={{
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      p: 0,
+                    }}
+                  >
+                    <CircularProgress
+                      size="20px"
+                      sx={{
+                        color: "info.main",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  "Make Admin"
+                )}
               </Button>
             </Grid>
           </Grid>

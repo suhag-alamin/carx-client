@@ -12,16 +12,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 
 const CarDetails = ({ car }) => {
-  const {
-    carName,
-    description,
-    price,
-    img,
-    gallery1,
-    gallery2,
-    gallery3,
-    gallery4,
-  } = car;
+  const { carName, description, price, gallery, img } = car;
 
   const dispatch = useDispatch();
 
@@ -58,8 +49,8 @@ const CarDetails = ({ car }) => {
               />
             </Box>
           </SwiperSlide>
-          {gallery1 && (
-            <SwiperSlide>
+          {gallery?.map((g) => (
+            <SwiperSlide key={g}>
               <Box
                 sx={{
                   width: "70%",
@@ -69,63 +60,12 @@ const CarDetails = ({ car }) => {
                 <img
                   className={styles.carGalleryImg}
                   style={{ width: "100%" }}
-                  src={gallery1}
+                  src={g}
                   alt=""
                 />
               </Box>
             </SwiperSlide>
-          )}
-          {gallery2 && (
-            <SwiperSlide>
-              <Box
-                sx={{
-                  width: "70%",
-                  mx: "auto",
-                }}
-              >
-                <img
-                  className={styles.carGalleryImg}
-                  style={{ width: "100%" }}
-                  src={gallery2}
-                  alt=""
-                />
-              </Box>
-            </SwiperSlide>
-          )}
-          {gallery3 && (
-            <SwiperSlide>
-              <Box
-                sx={{
-                  width: "70%",
-                  mx: "auto",
-                }}
-              >
-                <img
-                  className={styles.carGalleryImg}
-                  style={{ width: "100%" }}
-                  src={gallery3}
-                  alt=""
-                />
-              </Box>
-            </SwiperSlide>
-          )}
-          {gallery4 && (
-            <SwiperSlide>
-              <Box
-                sx={{
-                  width: "70%",
-                  mx: "auto",
-                }}
-              >
-                <img
-                  className={styles.carGalleryImg}
-                  style={{ width: "100%" }}
-                  src={gallery4}
-                  alt=""
-                />
-              </Box>
-            </SwiperSlide>
-          )}
+          ))}
         </Swiper>
       </Box>
       <Paper sx={{ px: 3, py: 2 }}>
