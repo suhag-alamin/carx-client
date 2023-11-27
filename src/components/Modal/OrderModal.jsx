@@ -1,5 +1,7 @@
+import { useUpdateOrderMutation } from "@/redux/features/order/orderApi";
 import {
   Button,
+  CircularProgress,
   Fade,
   FormControl,
   InputLabel,
@@ -9,8 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const style = {
@@ -26,8 +27,12 @@ const style = {
   p: 4,
 };
 
-const OrderModal = ({ modalOpen, handleModalClose, order, orderId }) => {
-  const { carName, status } = order;
+const OrderModal = ({ modalOpen, handleModalClose, id }) => {
+  if (!id) {
+    return null;
+  }
+  const [updateOrder, { isLoading, data: updateDate, isError, error }] =
+    useUpdateOrderMutation();
 
   const [changeStatus, setChangeStatus] = useState("");
 
@@ -37,28 +42,37 @@ const OrderModal = ({ modalOpen, handleModalClose, order, orderId }) => {
 
   const handleSubmit = (e) => {
     if (changeStatus === "") {
-      order.status = "pending";
+      toast.error("Please select a status");
     } else {
-      order.status = changeStatus;
+      const updateData = {
+        orderDetails: {
+          status: changeStatus,
+        },
+      };
+      updateOrder({ id, data: updateData });
     }
-    axios
-      .put(`https://carx-suhag.onrender.com/allOrders/${orderId}`, order)
-      .then((result) => {
-        if (result.data?.modifiedCount > 0) {
-          toast.info("Status Updated");
-          handleModalClose();
-        }
-      });
     e.preventDefault();
   };
+
+  useEffect(() => {
+    if (isError && !isLoading) {
+      toast.error(error.message || "Something went wrong!");
+      handleModalClose();
+    }
+    if (updateDate && !isLoading) {
+      toast.success(updateDate?.message || "Status Updated");
+      handleModalClose();
+    }
+  }, [updateDate, isLoading, isError, error]);
 
   return (
     <>
       <Modal open={modalOpen} onClose={handleModalClose} closeAfterTransition>
         <Fade in={modalOpen}>
           <Box sx={style}>
-            <Typography variant="h6">{carName}</Typography>
-            <Typography variant="subtitle2">{status}</Typography>
+            <Typography variant="h6">
+              Change Status of Order ID: {id}
+            </Typography>
             <Box sx={{ minWidth: 120 }}>
               <form onSubmit={handleSubmit}>
                 <FormControl fullWidth>
@@ -69,10 +83,10 @@ const OrderModal = ({ modalOpen, handleModalClose, order, orderId }) => {
                     color="primary"
                     onChange={handleChange}
                   >
-                    <MenuItem value="approved">Approve</MenuItem>
+                    <MenuItem value="pending">Pending</MenuItem>
                     <MenuItem value="shipped">Shipped</MenuItem>
                     <MenuItem value="delivered">Delivered</MenuItem>
-                    <MenuItem value="rejected">Reject</MenuItem>
+                    <MenuItem value="cancelled">Cancel</MenuItem>
                   </Select>
                 </FormControl>
                 <Button
@@ -81,7 +95,25 @@ const OrderModal = ({ modalOpen, handleModalClose, order, orderId }) => {
                   variant="contained"
                   fullWidth
                 >
-                  Update
+                  {isLoading ? (
+                    <Box
+                      sx={{
+                        textAlign: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        p: 0,
+                      }}
+                    >
+                      <CircularProgress
+                        size="20px"
+                        sx={{
+                          color: "info.main",
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    "Update"
+                  )}
                 </Button>
               </form>
             </Box>

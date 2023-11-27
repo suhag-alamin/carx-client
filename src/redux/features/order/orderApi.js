@@ -14,6 +14,7 @@ const orderApi = api.injectEndpoints({
     getOrders: builder.query({
       query: (arg) => ({
         url: "/orders",
+        method: "GET",
         params: arg,
       }),
       providesTags: [tagTypes.order],
@@ -21,12 +22,16 @@ const orderApi = api.injectEndpoints({
     getOrdersByUser: builder.query({
       query: (arg) => ({
         url: "/orders/user",
+        method: "GET",
         params: arg,
       }),
       providesTags: [tagTypes.order],
     }),
     getSingleOrder: builder.query({
-      query: (id) => `/orders/${id}`,
+      query: (id) => ({
+        url: `/orders/${id}`,
+        method: "GET",
+      }),
       providesTags: [tagTypes.order],
     }),
     updateOrder: builder.mutation({

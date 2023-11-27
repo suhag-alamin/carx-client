@@ -22,6 +22,7 @@ import {
 import { Box } from "@mui/system";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const MyOrders = () => {
   // dynamic title
@@ -42,7 +43,7 @@ const MyOrders = () => {
               label: "Yes",
               onClick: () => {
                 toast.promise(
-                  cancelOrder(id), // Promise
+                  cancelOrder(id),
                   {
                     pending: "Canceling...",
                     success:
@@ -97,6 +98,7 @@ const MyOrders = () => {
               <TableCell align="center">Address</TableCell>
               <TableCell align="center">Cars</TableCell>
               <TableCell align="center">Total</TableCell>
+              <TableCell align="center">TID</TableCell>
               <TableCell align="center">Card last4</TableCell>
               <TableCell align="center">Status</TableCell>
               <TableCell align="center">Actions</TableCell>
@@ -127,6 +129,32 @@ const MyOrders = () => {
                 </TableCell>
                 <TableCell align="center">
                   $ {row?.orderDetails?.totalAmount}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(row?.payment?.transactionId)
+                      .then(() => {
+                        toast.success("Copied to clipboard");
+                      })
+                      .catch(() => {
+                        toast.error("Failed to copy text");
+                      });
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 0.5,
+                    }}
+                  >
+                    <ContentCopyIcon fontSize="20px" />
+                    {row?.payment?.transactionId?.slice(0, 5)}{" "}
+                  </Box>
                 </TableCell>
                 <TableCell align="center">{row?.payment?.last4}</TableCell>
                 <TableCell align="center">
