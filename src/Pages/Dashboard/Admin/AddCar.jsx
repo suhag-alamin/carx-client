@@ -1,4 +1,5 @@
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { useCreateCarMutation } from "@/redux/features/car/carApi";
 import {
   Button,
   CircularProgress,
@@ -10,17 +11,22 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const AddProduct = () => {
+const AddCar = () => {
   // dynamic title
-  useDocumentTitle("Add Product");
-  const [isLoading, setIsLoading] = useState(false);
+  useDocumentTitle("Add Car");
+
+  const [createCar, { data: carData, isLoading, isError, error }] =
+    useCreateCarMutation();
 
   const formData = new FormData();
-  const url = "https://api.cloudinary.com/v1_1/dkw1ovah4/image/upload";
+  const url = import.meta.env.VITE_CLOUDINARY_URL;
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -37,60 +43,69 @@ const AddProduct = () => {
       data.gallery4[0],
     ];
 
+    const gallery = [];
+
     formData.append("carName", data.carName);
     formData.append("description", data.description);
     formData.append("price", data.price);
     formData.append("file", data.img);
-    formData.append("upload_preset", "llqbnsmr");
+    formData.append(
+      "upload_preset",
+      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+    );
     // gallery
     for (let i = 0; i < files.length; i++) {
       //  upload image to cloudinary
 
       if (i === 0) {
-        setIsLoading(true);
         const file = files[i];
         formData.append("file", file);
-        formData.append("upload_preset", "llqbnsmr");
+        formData.append(
+          "upload_preset",
+          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+        );
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          data.gallery1 = pic.data.url;
-          setIsLoading(false);
+          gallery.push(pic.data.url);
         };
         uploadGallery();
       }
       if (i === 1) {
-        setIsLoading(true);
         const file = files[i];
         formData.append("file", file);
-        formData.append("upload_preset", "llqbnsmr");
+        formData.append(
+          "upload_preset",
+          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+        );
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          data.gallery2 = pic.data.url;
-          setIsLoading(false);
+          gallery.push(pic.data.url);
         };
         uploadGallery();
       }
       if (i === 2) {
-        setIsLoading(true);
         const file = files[i];
         formData.append("file", file);
-        formData.append("upload_preset", "llqbnsmr");
+        formData.append(
+          "upload_preset",
+          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+        );
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          data.gallery3 = pic.data.url;
-          setIsLoading(false);
+          gallery.push(pic.data.url);
         };
         uploadGallery();
       }
       if (i === 3) {
-        setIsLoading(true);
         const file = files[i];
         formData.append("file", file);
-        formData.append("upload_preset", "llqbnsmr");
+        formData.append(
+          "upload_preset",
+          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+        );
         const uploadGallery = async () => {
           const pic = await axios.post(url, formData);
-          data.gallery4 = pic.data.url;
-          setIsLoading(false);
+          gallery.push(pic.data.url);
         };
         uploadGallery();
       }
@@ -98,32 +113,41 @@ const AddProduct = () => {
 
     // upload image to cloudinary
     const uploadImage = async () => {
-      setIsLoading(true);
       const pic = await axios.post(url, formData);
       uploadToDb(pic.data.url);
-      setIsLoading(false);
     };
     uploadImage();
 
+    // upload to database
     const uploadToDb = (img) => {
       data.img = img;
       data.price = parseFloat(data.price);
-      setIsLoading(true);
-      axios
-        .post("https://carx-suhag.onrender.com/cars", data)
-        .then((result) => {
-          if (result.data?.insertedId) {
-            toast.success("Car added successfully!");
-            setIsLoading(false);
-            reset();
-          }
-        });
+      data.gallery = gallery;
+
+      delete data.gallery1;
+      delete data.gallery2;
+      delete data.gallery3;
+      delete data.gallery4;
+
+      createCar(data);
+      reset();
     };
   };
+
+  useEffect(() => {
+    if (!isLoading && isError) {
+      toast.error(error.message);
+    }
+    if (!isLoading && carData) {
+      toast.success(carData?.message || "Car added successfully!");
+      navigate("/dashboard/manage-cars");
+    }
+  }, [carData, isLoading, isError, error]);
+
   return (
     <Container>
       <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
-        Add a product.
+        Add a Car.
       </Typography>
       <Divider />
       <Box
@@ -251,8 +275,6 @@ const AddProduct = () => {
               <Button
                 type="submit"
                 fullWidth
-                loading={isLoading}
-                loadingPosition="end"
                 variant="contained"
                 sx={{ mb: 2 }}
               >
@@ -273,7 +295,7 @@ const AddProduct = () => {
                     />
                   </Box>
                 ) : (
-                  "Add Product"
+                  "Add Car"
                 )}
               </Button>
             </Grid>
@@ -284,4 +306,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddCar;

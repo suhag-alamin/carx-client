@@ -12,9 +12,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import UpdateProductModal from "../Modal/UpdateProductModal";
+import UpdateCarModal from "../Modal/UpdateCarModal";
+import { Link } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const ManageProductCard = ({ car, handleDelete }) => {
+const ManageCarCard = ({ car, handleDelete }) => {
   const { _id, carName, img, price } = car;
 
   // modal
@@ -42,12 +44,12 @@ const ManageProductCard = ({ car, handleDelete }) => {
             </Typography>
             <Typography variant="h6">$ {price}</Typography>
           </CardContent>
-          <CardActions sx={{ justifyContent: "center" }}>
+          <CardActions sx={{ justifyContent: "space-between" }}>
             <ButtonGroup variant="outlined">
               <Button
                 startIcon={<EditIcon />}
                 onClick={() => handleModalOpen(_id)}
-                variant="contained"
+                // variant="contained"
               >
                 Edit
               </Button>
@@ -60,11 +62,16 @@ const ManageProductCard = ({ car, handleDelete }) => {
                 Delete
               </Button>
             </ButtonGroup>
+            <Link to={`/cars/${_id}`} target="_blank">
+              <Button variant="contained" endIcon={<VisibilityIcon />}>
+                View
+              </Button>
+            </Link>
           </CardActions>
         </Card>
       </Grid>
       {/* modal  */}
-      <UpdateProductModal
+      <UpdateCarModal
         modalOpen={modalOpen}
         handleModalClose={handleModalClose}
         car={car}
@@ -73,4 +80,4 @@ const ManageProductCard = ({ car, handleDelete }) => {
   );
 };
 
-export default ManageProductCard;
+export default ManageCarCard;

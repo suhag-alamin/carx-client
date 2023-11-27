@@ -152,9 +152,9 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={Link}
-              to={`/dashboard/manage-products`}
+              to={`/dashboard/manage-cars`}
               sx={{ color: "secondary.main" }}
-              primary="Manage Products"
+              primary="Manage Cars"
             />
           </ListItemButton>
           <ListItemButton>
@@ -163,9 +163,9 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText
               as={Link}
-              to={`/dashboard/add-product`}
+              to={`/dashboard/add-car`}
               sx={{ color: "secondary.main" }}
-              primary="Add Products"
+              primary="Add Car"
             />
           </ListItemButton>
         </Box>

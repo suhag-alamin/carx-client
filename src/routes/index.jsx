@@ -5,10 +5,10 @@ import Cars from "@/pages/Cars";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import Contact from "@/pages/Contact";
-import AddProduct from "@/pages/Dashboard/Admin/AddProduct";
+import AddCar from "@/pages/Dashboard/Admin/AddCar";
 import MakeAdmin from "@/pages/Dashboard/Admin/MakeAdmin";
 import ManageAllOrders from "@/pages/Dashboard/Admin/ManageAllOrders";
-import ManageProducts from "@/pages/Dashboard/Admin/ManageProducts";
+import ManageCars from "@/pages/Dashboard/Admin/ManageCars";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import GiveReview from "@/pages/Dashboard/User/GiveReview";
 import MyOrders from "@/pages/Dashboard/User/MyOrders";
@@ -91,21 +91,21 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/add-product",
+        path: "/dashboard/add-car",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <AddProduct />
+              <AddCar />
             </AdminRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "/dashboard/manage-products",
+        path: "/dashboard/manage-cars",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <ManageProducts />
+              <ManageCars />
             </AdminRoute>
           </PrivateRoute>
         ),

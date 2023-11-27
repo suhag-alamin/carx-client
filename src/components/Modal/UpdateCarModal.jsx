@@ -1,3 +1,4 @@
+import { useUpdateCarMutation } from "@/redux/features/car/carApi";
 import {
   Button,
   CircularProgress,
@@ -8,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -25,16 +26,20 @@ const style = {
   p: 4,
 };
 
-const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
+const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
+  if (!car) return null;
+
   const { _id, carName, price } = car;
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [updateCar, { isLoading, data, isError, error }] =
+    useUpdateCarMutation();
 
   const formData = new FormData();
-  const url = "https://api.cloudinary.com/v1_1/dkw1ovah4/image/upload";
-
+  const url = import.meta.env.VITE_CLOUDINARY_URL;
   const {
     register,
     handleSubmit,
+    reset,
     formState: {},
   } = useForm({
     defaultValues: {
@@ -46,37 +51,44 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
     data.img = data.img[0];
     data.price = parseFloat(data.price);
 
-    formData.append("carName", data.carName);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
-    formData.append("file", data.img);
-    formData.append("upload_preset", "llqbnsmr");
-
-    // upload image to cloudinary
-    const uploadImage = async () => {
-      setIsLoading(true);
-      const pic = await axios.post(url, formData);
-      uploadToDb(pic.data.url);
-      setIsLoading(false);
-    };
-    uploadImage();
-
     const uploadToDb = (img) => {
       data.img = img;
-      setIsLoading(true);
-      axios
-        .put(`https://carx-suhag.onrender.com/cars/${_id}`, data)
-        .then((result) => {
-          if (result.data?.modifiedCount > 0) {
-            toast.info(
-              "Product Updated. To see the updated version, please refresh."
-            );
-            setIsLoading(false);
-            handleModalClose();
-          }
-        });
+      updateCar({ id: _id, data });
+      reset();
     };
+
+    if (data.img) {
+      formData.append("carName", data.carName);
+      formData.append("description", data.description);
+      formData.append("price", data.price);
+      formData.append("file", data.img);
+      formData.append(
+        "upload_preset",
+        import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+      );
+
+      // upload image to cloudinary
+      const uploadImage = async () => {
+        const pic = await axios.post(url, formData);
+        uploadToDb(pic.data.url);
+      };
+      uploadImage();
+    } else {
+      uploadToDb(car.img);
+    }
   };
+
+  useEffect(() => {
+    if (!isLoading && isError) {
+      toast.error(error.message || "Something went wrong!");
+      handleModalClose();
+    }
+    if (!isLoading && data) {
+      toast.success(data?.message || "Car Updated.");
+      handleModalClose();
+    }
+  }, [isLoading, isError, error, data]);
+
   return (
     <>
       <Modal
@@ -147,7 +159,7 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
                         <CircularProgress size="20px" color="info" />
                       </Box>
                     ) : (
-                      "Update Product"
+                      "Update Car"
                     )}
                   </Button>
                 </Grid>
@@ -160,4 +172,4 @@ const UpdateProductModal = ({ modalOpen, handleModalClose, car }) => {
   );
 };
 
-export default UpdateProductModal;
+export default UpdateCarModal;
