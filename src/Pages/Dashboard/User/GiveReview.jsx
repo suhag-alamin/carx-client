@@ -1,5 +1,7 @@
+import { usePostReviewMutation } from "@/redux/features/review/reviewApi";
 import {
   Button,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -8,37 +10,41 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const GiveReview = () => {
   const { user } = useSelector((state) => state.auth);
+
+  const [postReview, { isLoading, data }] = usePostReviewMutation();
+
   const [star, setStar] = useState(2);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      userName: user?.displayName,
-      email: user?.email,
-    },
-  });
+  } = useForm();
+
   const onSubmit = (data) => {
-    data.rating = star;
-    axios
-      .post("https://carx-suhag.onrender.com/reviews", data)
-      .then((result) => {
-        if (result.data?.insertedId) {
-          toast.success("Thanks for your review. 😍");
-          reset();
-        }
-      });
+    if (data) {
+      data.rating = star;
+      data.user = user._id;
+
+      postReview(data);
+      reset();
+    }
   };
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      toast.success(data?.message || "Thanks for your review. 😍");
+    }
+  }, [isLoading, data]);
+
   return (
     <Container sx={{ py: 2 }}>
       <Typography sx={{ textAlign: "center" }} variant="h4" color="secondary">
@@ -62,30 +68,6 @@ const GiveReview = () => {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  type="text"
-                  fullWidth
-                  required
-                  label="Your Name"
-                  {...register("userName", { required: true })}
-                />
-                {errors.userName && (
-                  <span className="error">User Name is required</span>
-                )}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  type="email"
-                  fullWidth
-                  required
-                  label="Email Address"
-                  {...register("email", { required: true })}
-                />
-                {errors.email && (
-                  <span className="error">User Email is required</span>
-                )}
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   type="text"
@@ -122,8 +104,27 @@ const GiveReview = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={isLoading}
               >
-                Give Review
+                {isLoading ? (
+                  <Box
+                    sx={{
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      p: 0,
+                    }}
+                  >
+                    <CircularProgress
+                      size="20px"
+                      sx={{
+                        color: "info.main",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  "Give Review"
+                )}
               </Button>
             </Grid>
           </Box>
