@@ -19,6 +19,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -63,13 +64,8 @@ const Cart = () => {
           >
             <List>
               {cars?.map((car) => (
-                <>
-                  <ListItem
-                    key={car._id}
-                    disablePadding
-                    disableRipple
-                    disableTouchRipple
-                  >
+                <React.Fragment key={car?._id}>
+                  <ListItem disablePadding>
                     <ListItemIcon>
                       <DirectionsCarIcon color="primary" />
                     </ListItemIcon>
@@ -90,7 +86,7 @@ const Cart = () => {
                     </Button>
                   </ListItem>
                   <Divider />
-                </>
+                </React.Fragment>
               ))}
             </List>
 

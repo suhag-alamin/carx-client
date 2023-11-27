@@ -270,21 +270,21 @@ const Navbar = (props) => {
               </Box>
             </Box>
           </Container>
-          <IconButton
+          <Box
             // edge="end"
             // onClick={handleDrawerToggle}
             sx={{ display: { md: "none" }, color: "secondary.main" }}
           >
             <CartBadge />
-          </IconButton>
-          <Box
+          </Box>
+          <IconButton
             edge="end"
             onClick={handleDrawerToggle}
             sx={{ mr: 1, display: { md: "none" }, color: "secondary.main" }}
           >
             {" "}
             <MenuIcon />
-          </Box>
+          </IconButton>
         </Toolbar>
       </AppBar>
 

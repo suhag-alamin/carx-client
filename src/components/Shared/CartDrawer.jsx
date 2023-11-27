@@ -9,6 +9,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -38,13 +39,8 @@ const CartDrawer = ({
       <List>
         {cars?.length > 0 ? (
           cars?.map((car) => (
-            <>
-              <ListItem
-                key={car._id}
-                disablePadding
-                disableRipple
-                disableTouchRipple
-              >
+            <React.Fragment key={car._id}>
+              <ListItem disablePadding={true}>
                 <ListItemIcon>
                   <DirectionsCarIcon color="primary" />
                 </ListItemIcon>
@@ -65,7 +61,7 @@ const CartDrawer = ({
                 </Button>
               </ListItem>
               <Divider />
-            </>
+            </React.Fragment>
           ))
         ) : (
           <ListItem>

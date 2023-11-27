@@ -30,8 +30,12 @@ const Cars = () => {
   }, [page, size]);
 
   useEffect(() => {
-    setPageCount(data?.meta?.total / size);
-  }, [data]);
+    if (data?.meta?.total && size) {
+      setPageCount(Math.ceil(data?.meta?.total / size));
+    } else {
+      setPageCount(1);
+    }
+  }, [data, size]);
 
   return (
     <Box

@@ -1,27 +1,32 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import car from "@/images/car.png";
 import wheel from "@/images/car-tier.png";
 import styles from "@/styles/Home.module.css";
 
 const RunningCar = () => {
   const windowScroll = () => {
-    if (
-      document.body.scrollTop > 150 ||
-      document.documentElement.scrollTop > 150
-    ) {
-      document.getElementById("running-car").className = styles.inView;
-    } else {
-      document.getElementById("running-car").className = "";
+    const runningCarElement = document.getElementById("running-car");
+    if (runningCarElement) {
+      if (
+        document.body.scrollTop > 150 ||
+        document.documentElement.scrollTop > 150
+      ) {
+        runningCarElement.className = styles.inView;
+      } else {
+        runningCarElement.className = "";
+      }
     }
   };
 
-  if (typeof window !== "undefined") {
-    window.onscroll = function () {
-      windowScroll();
+  useEffect(() => {
+    window.addEventListener("scroll", windowScroll);
+    return () => {
+      window.removeEventListener("scroll", windowScroll);
     };
-  }
+  }, []);
+
   return (
     <Box sx={{ py: 6 }}>
       <Grid

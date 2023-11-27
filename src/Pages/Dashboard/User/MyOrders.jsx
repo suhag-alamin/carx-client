@@ -1,5 +1,9 @@
+import { OrderStatus } from "@/constant/global";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
-import { useGetOrdersByUserQuery } from "@/redux/features/order/orderApi";
+import {
+  useCancelOrderMutation,
+  useGetOrdersByUserQuery,
+} from "@/redux/features/order/orderApi";
 import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Button,
@@ -16,60 +20,57 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { confirmAlert } from "react-confirm-alert";
+import { toast } from "react-toastify";
 
 const MyOrders = () => {
   // dynamic title
   useDocumentTitle("My Orders");
 
-  // const [orders, setOrders] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const { user } = useSelector((state) => state.auth);
-
   const { data, isLoading } = useGetOrdersByUserQuery();
-  console.log(data?.data);
-  // load orders by email
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   axios({
-  //     method: "get",
-  //     url: `https://carx-suhag.onrender.com/orders?email=${user?.email}`,
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("idToken")}`,
-  //     },
-  //   }).then((result) => {
-  //     setOrders(result.data);
-  //     setIsLoading(false);
-  //   });
-  // }, [user?.email]);
+
+  const [cancelOrder, { data: cancelOrderData }] = useCancelOrderMutation();
 
   // handleCancel
   const handleCancel = (id) => {
-    console.log(id);
-    // confirmAlert({
-    //   message: "Are you sure want to cancel?",
-    //   buttons: [
-    //     {
-    //       label: "Yes",
-    //       onClick: () => {
-    //         axios
-    //           .delete(`https://carx-suhag.onrender.com/orders/${id}`)
-    //           .then((result) => {
-    //             if (result.data.deletedCount > 0) {
-    //               const remaining = data?.data?.filter((order) => order._id !== id);
-    //               setOrders(remaining);
-    //               toast.info("Order Canceled");
-    //             }
-    //           });
-    //       },
-    //     },
-    //     {
-    //       label: "No",
-    //       onClick: () => {
-    //         return;
-    //       },
-    //     },
-    //   ],
-    // });
+    try {
+      if (id) {
+        confirmAlert({
+          message: "Are you sure want to cancel?",
+          buttons: [
+            {
+              label: "Yes",
+              onClick: () => {
+                toast.promise(
+                  cancelOrder(id), // Promise
+                  {
+                    pending: "Canceling...",
+                    success:
+                      cancelOrderData?.message ||
+                      "Order cancelled, we will refund your money.",
+                    error: "Something went wrong!",
+                  },
+                  {
+                    success: { autoClose: 2000 },
+                    error: { autoClose: 2000 },
+                  }
+                );
+              },
+            },
+            {
+              label: "No",
+              onClick: () => {
+                return;
+              },
+            },
+          ],
+        });
+      }
+    } catch (error) {
+      toast.error(error.message || "Something went wrong!", {
+        toastId: "cancel",
+      });
+    }
   };
 
   // loading spinner
@@ -94,9 +95,9 @@ const MyOrders = () => {
               <TableCell align="left">Name</TableCell>
               <TableCell align="center">Email</TableCell>
               <TableCell align="center">Address</TableCell>
-              <TableCell align="center">Car</TableCell>
-              <TableCell align="center">Price</TableCell>
-              <TableCell align="center">Color</TableCell>
+              <TableCell align="center">Cars</TableCell>
+              <TableCell align="center">Total</TableCell>
+              <TableCell align="center">Card last4</TableCell>
               <TableCell align="center">Status</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
@@ -112,21 +113,34 @@ const MyOrders = () => {
                   {row?.user?.displayName}
                 </TableCell>
                 <TableCell align="center">{row?.user?.email}</TableCell>
-                <TableCell align="center">{row.address}</TableCell>
-                <TableCell align="center">{row.carName}</TableCell>
+                <TableCell align="center">
+                  {row?.orderDetails?.deliveryDetails?.address}
+                </TableCell>
+                <TableCell align="center">
+                  {row?.cars && row?.cars.length > 0
+                    ? row?.cars?.map((car, i) => (
+                        <div key={car?._id}>
+                          {i + 1}/ {car.carName}.
+                        </div>
+                      ))
+                    : "No Cars"}
+                </TableCell>
                 <TableCell align="center">
                   $ {row?.orderDetails?.totalAmount}
                 </TableCell>
-                <TableCell align="center">{row.color}</TableCell>
+                <TableCell align="center">{row?.payment?.last4}</TableCell>
                 <TableCell align="center">
                   {row?.orderDetails?.status}
                 </TableCell>
                 <TableCell align="center">
                   <Button
-                    onClick={() => handleCancel(row._id)}
+                    onClick={() => handleCancel(row?._id)}
                     color="error"
                     variant="text"
                     startIcon={<CancelIcon />}
+                    disabled={
+                      row?.orderDetails?.status === OrderStatus.cancelled
+                    }
                   >
                     Cancel
                   </Button>

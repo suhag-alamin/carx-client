@@ -37,6 +37,13 @@ const orderApi = api.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.order],
     }),
+    cancelOrder: builder.mutation({
+      query: (id) => ({
+        url: `/orders/cancel/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: [tagTypes.order],
+    }),
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
@@ -53,5 +60,6 @@ export const {
   useGetOrdersByUserQuery,
   useGetSingleOrderQuery,
   useUpdateOrderMutation,
+  useCancelOrderMutation,
   useDeleteOrderMutation,
 } = orderApi;

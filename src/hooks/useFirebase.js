@@ -140,7 +140,7 @@ const useFirebase = () => {
             }
           }
         } catch (error) {
-          toast.error("ki error?");
+          toast.error(error?.message);
         }
 
         // id token
