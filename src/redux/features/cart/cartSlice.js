@@ -42,12 +42,12 @@ const cartSlice = createSlice({
     },
     applyCoupon: (state) => {
       if (!state.isCouponApplied) {
-        state.total = state.total * 0.8;
+        state.total = +(state.total * 0.8).toFixed(2);
       }
       state.isCouponApplied = true;
     },
     removeCoupon: (state) => {
-      state.total = state.total / 0.8;
+      state.total = +(state.total / 0.8).toFixed(2);
       state.isCouponApplied = false;
     },
   },
