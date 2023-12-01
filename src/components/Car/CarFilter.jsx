@@ -40,6 +40,9 @@ const CarFilter = ({ setFilter, filter }) => {
     if (!!debouncedSearchQuery) {
       newFilter = { ...newFilter, query: debouncedSearchQuery };
     }
+    if (debouncedSearchQuery === "") {
+      delete newFilter.query;
+    }
 
     if (sortType === "Newest") {
       newFilter = { ...newFilter, sortBy: "createdAt", sortOrder: "desc" };
