@@ -25,7 +25,6 @@ const Cars = () => {
   const { data, isLoading } = useGetCarsQuery({
     ...filter,
   });
-
   useEffect(() => {
     setFilter({ page: page, limit: size });
   }, [page, size]);
