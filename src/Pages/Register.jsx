@@ -1,6 +1,9 @@
+import Form from "@/components/Forms/Form";
+import FormTextField from "@/components/Forms/FormTextField";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import useFirebase from "@/hooks/useFirebase";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { registerSchema } from "@/schemas/auth";
+import { yupResolver } from "@hookform/resolvers/yup";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
@@ -9,66 +12,24 @@ import {
   Container,
   CssBaseline,
   Divider,
-  FormControl,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const Register = () => {
   useDocumentTitle("Register");
-
-  const [signUpInfo, setSignUpInfo] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
 
   const { handleEmailRegister, signInWithGoogle } = useFirebase();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleOnBlur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newValue = { ...signUpInfo };
-    newValue[field] = value;
-    setSignUpInfo(newValue);
-  };
+  const handleSubmit = (signUpInfo) => {
+    const { name, email, password } = signUpInfo;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, email, password, password2 } = signUpInfo;
-    if (name && email && password && password2) {
-      if (password !== password2) {
-        toast.warning("Password Not matched");
-        return;
-      }
-      handleEmailRegister(name, email, password, navigate);
-      e.target.reset();
-    } else {
-      toast.error(
-        !name
-          ? "Please enter your name"
-          : !email
-            ? "Please enter your email"
-            : !password
-              ? "Please enter password"
-              : "Please enter confirm password"
-      );
-    }
+    handleEmailRegister(name, email, password, navigate);
   };
 
   const handleGoogleLogin = () => {
@@ -90,108 +51,67 @@ const Register = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography variant="h5">Sign up</Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                required
-                type="text"
-                name="name"
-                fullWidth
-                label="Your Name"
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                type="email"
-                fullWidth
-                label="Email Address"
-                name="email"
-                onBlur={handleOnBlur}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
+        <Box sx={{ mt: 3 }}>
+          <Form
+            submitHandler={handleSubmit}
+            resolver={yupResolver(registerSchema)}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormTextField name="name" label="Your Name" />
+              </Grid>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="email"
+                  label="Email Address"
+                  name="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="password"
                   label="Password"
                   name="password"
-                  onBlur={handleOnBlur}
                 />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Confirm Password
-                </InputLabel>
-                <OutlinedInput
-                  type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
+              </Grid>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="password"
                   label="Confirm Password"
-                  name="password2"
-                  onBlur={handleOnBlur}
+                  name="confirmPassword"
                 />
-              </FormControl>
+              </Grid>
             </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
-          <Grid sx={{ mb: 2 }} container justifyContent="flex-end">
-            <Grid item>
-              <Link style={{ color: "#16425b" }} to="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid sx={{ mb: 2 }} container justifyContent="flex-end">
+              <Grid item>
+                <Link style={{ color: "#16425b" }} to="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-          <Divider />
-          <Box sx={{ py: 1, textAlign: "center" }}>
-            <Typography>Or Sign In Using Google</Typography>
-            <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
-              <Button
-                onClick={handleGoogleLogin}
-                fullWidth
-                startIcon={<GoogleIcon />}
-                variant="outlined"
-              >
-                Google LogIn
-              </Button>
+            <Divider />
+            <Box sx={{ py: 1, textAlign: "center" }}>
+              <Typography>Or Sign In Using Google</Typography>
+              <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
+                <Button
+                  onClick={handleGoogleLogin}
+                  fullWidth
+                  startIcon={<GoogleIcon />}
+                  variant="outlined"
+                >
+                  Google LogIn
+                </Button>
+              </Box>
             </Box>
-          </Box>
+          </Form>
         </Box>
       </Box>
     </Container>

@@ -1,4 +1,4 @@
-import ImageUpload from "@/components/Shared/ImageUpload";
+import ImageUpload from "@/components/Forms/ImageUpload";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useCreateCarMutation } from "@/redux/features/car/carApi";
 import {

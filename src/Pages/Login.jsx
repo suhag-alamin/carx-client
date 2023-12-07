@@ -1,6 +1,9 @@
+import Form from "@/components/Forms/Form";
+import FormTextField from "@/components/Forms/FormTextField";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import useFirebase from "@/hooks/useFirebase";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { loginSchema } from "@/schemas/auth";
+import { yupResolver } from "@hookform/resolvers/yup";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
@@ -8,62 +11,27 @@ import {
   Button,
   Checkbox,
   Divider,
-  FormControl,
   FormControlLabel,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
   useDocumentTitle("Login");
 
-  const [loginUpInfo, setLoginInfo] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   const { handleEmailLogin, signInWithGoogle } = useFirebase();
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleOnBlur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newValue = { ...loginUpInfo };
-    newValue[field] = value;
-    setLoginInfo(newValue);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (loginUpInfo) => {
     const { email, password } = loginUpInfo;
-    if (email && password) {
-      handleEmailLogin(email, password, location, navigate);
-    } else {
-      toast.error(
-        !email
-          ? "Please enter your email"
-          : !password
-            ? "Please enter password"
-            : "Something went wrong"
-      );
-    }
-    e.target.reset();
+
+    handleEmailLogin(email, password, location, navigate);
   };
 
   const handleDemoAdminLogin = () => {
@@ -115,89 +83,78 @@ const Login = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography variant="h5">Sign in</Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              required
-              type="email"
-              fullWidth
-              margin="normal"
-              label="Email Address"
-              name="email"
-              onBlur={handleOnBlur}
-            />
-            <FormControl fullWidth variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-                name="password"
-                onBlur={handleOnBlur}
-              />
-            </FormControl>
-
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button type="submit" fullWidth variant="contained">
-              Sign In
-            </Button>
-            <Button onClick={handleDemoAdminLogin} fullWidth variant="outlined">
-              Demo Admin Sign In
-            </Button>
-            <Grid sx={{ mb: 2 }} container>
-              <Grid item xs>
-                <Link
-                  style={{ color: "#16425b" }}
-                  to="/forget-password"
-                  variant="body2"
-                >
-                  Forgot password?
-                </Link>
+          <Box sx={{ mt: 1 }}>
+            <Form
+              submitHandler={handleSubmit}
+              resolver={yupResolver(loginSchema)}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <FormTextField
+                    type="email"
+                    label="Email Address"
+                    name="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormTextField
+                    type="password"
+                    label="Password"
+                    name="password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                  />
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link
-                  style={{ color: "#16425b" }}
-                  to="/register"
-                  variant="body2"
-                >
-                  {"Don't have an account? Sign Up"}
-                </Link>
+              <Button type="submit" fullWidth variant="contained">
+                Sign In
+              </Button>
+              <Button
+                onClick={handleDemoAdminLogin}
+                fullWidth
+                variant="outlined"
+              >
+                Demo Admin Sign In
+              </Button>
+              <Grid sx={{ mb: 2 }} container>
+                <Grid item xs>
+                  <Link
+                    style={{ color: "#16425b" }}
+                    to="/forget-password"
+                    variant="body2"
+                  >
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    style={{ color: "#16425b" }}
+                    to="/register"
+                    variant="body2"
+                  >
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
-            <Divider />
-            <Box sx={{ py: 1, textAlign: "center" }}>
-              <Typography>Or Sign In Using Google</Typography>
-              <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
-                <Button
-                  onClick={handleGoogleLogin}
-                  fullWidth
-                  startIcon={<GoogleIcon />}
-                  variant="outlined"
-                >
-                  Google LogIn
-                </Button>
+              <Divider />
+              <Box sx={{ py: 1, textAlign: "center" }}>
+                <Typography>Or Sign In Using Google</Typography>
+                <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
+                  <Button
+                    onClick={handleGoogleLogin}
+                    fullWidth
+                    startIcon={<GoogleIcon />}
+                    variant="outlined"
+                  >
+                    Google LogIn
+                  </Button>
+                </Box>
               </Box>
-            </Box>
+            </Form>
           </Box>
         </Box>
       </Grid>

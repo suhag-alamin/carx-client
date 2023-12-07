@@ -13,7 +13,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import ImageUpload from "../Shared/ImageUpload";
+import ImageUpload from "../Forms/ImageUpload";
 
 const style = {
   position: "absolute",

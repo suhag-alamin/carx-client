@@ -67,12 +67,15 @@ Carx is a full-stack application that brings affordability to your fingertips. T
 
   - React.js
   - Redux
+  - Redux RTK query
   - Material UI
   - CSS
   - Axios
   - React Router
   - React Hook Form
   - Swiper.js
+  - React Dropzone
+  - React Toastify
 
 - **Backend:**
   - Node.js
