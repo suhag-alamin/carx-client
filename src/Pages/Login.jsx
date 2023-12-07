@@ -1,4 +1,6 @@
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import useFirebase from "@/hooks/useFirebase";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
@@ -6,8 +8,13 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Paper,
   TextField,
   Typography,
@@ -15,9 +22,20 @@ import {
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  useDocumentTitle("Login");
+
   const [loginUpInfo, setLoginInfo] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const { handleEmailLogin, signInWithGoogle } = useFirebase();
 
   const location = useLocation();
@@ -32,10 +50,32 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    const { email, password } = loginUpInfo;
-    handleEmailLogin(email, password, location, navigate);
     e.preventDefault();
+    const { email, password } = loginUpInfo;
+    if (email && password) {
+      handleEmailLogin(email, password, location, navigate);
+    } else {
+      toast.error(
+        !email
+          ? "Please enter your email"
+          : !password
+            ? "Please enter password"
+            : "Something went wrong"
+      );
+    }
     e.target.reset();
+  };
+
+  const handleDemoAdminLogin = () => {
+    const email = import.meta.env.VITE_DEMO_ADMIN_EMAIL;
+    const password = import.meta.env.VITE_DEMO_ADMIN_PASSWORD;
+    handleEmailLogin(email, password, location, navigate);
+    toast.warning(
+      "You are logged in as a demo admin. Please don't delete any car. You can create new car and update or delete them. Thank you.",
+      {
+        autoClose: 3000,
+      }
+    );
   };
 
   const handleGoogleLogin = () => {
@@ -90,21 +130,39 @@ const Login = () => {
               name="email"
               onBlur={handleOnBlur}
             />
-            <TextField
-              required
-              fullWidth
-              margin="normal"
-              name="password"
-              label="Password"
-              type="password"
-              onBlur={handleOnBlur}
-            />
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+                name="password"
+                onBlur={handleOnBlur}
+              />
+            </FormControl>
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button type="submit" fullWidth variant="contained">
               Sign In
+            </Button>
+            <Button onClick={handleDemoAdminLogin} fullWidth variant="outlined">
+              Demo Admin Sign In
             </Button>
             <Grid sx={{ mb: 2 }} container>
               <Grid item xs>

@@ -1,4 +1,6 @@
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import useFirebase from "@/hooks/useFirebase";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
@@ -7,7 +9,12 @@ import {
   Container,
   CssBaseline,
   Divider,
+  FormControl,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
@@ -17,7 +24,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  useDocumentTitle("Register");
+
   const [signUpInfo, setSignUpInfo] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const { handleEmailRegister, signInWithGoogle } = useFirebase();
 
@@ -33,15 +49,26 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
-    const { name, email, password, password2 } = signUpInfo;
-    if (password !== password2) {
-      toast.warning("Password Not matched");
-      e.preventDefault();
-      return;
-    }
-    handleEmailRegister(name, email, password, navigate);
     e.preventDefault();
-    e.target.reset();
+    const { name, email, password, password2 } = signUpInfo;
+    if (name && email && password && password2) {
+      if (password !== password2) {
+        toast.warning("Password Not matched");
+        return;
+      }
+      handleEmailRegister(name, email, password, navigate);
+      e.target.reset();
+    } else {
+      toast.error(
+        !name
+          ? "Please enter your name"
+          : !email
+            ? "Please enter your email"
+            : !password
+              ? "Please enter password"
+              : "Please enter confirm password"
+      );
+    }
   };
 
   const handleGoogleLogin = () => {
@@ -86,24 +113,54 @@ const Register = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                onBlur={handleOnBlur}
-              />
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                  name="password"
+                  onBlur={handleOnBlur}
+                />
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password2"
-                label="Re Enter Password"
-                type="password"
-                onBlur={handleOnBlur}
-              />
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Confirm Password
+                </InputLabel>
+                <OutlinedInput
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Confirm Password"
+                  name="password2"
+                  onBlur={handleOnBlur}
+                />
+              </FormControl>
             </Grid>
           </Grid>
           <Button
