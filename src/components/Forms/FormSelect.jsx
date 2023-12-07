@@ -37,24 +37,11 @@ const FormSelect = ({
         control={control}
         name={name}
         render={({ field: { value, onChange } }) => (
-          //   <Select
-          //     style={{
-          //       width: "100%",
-          //     }}
-          //     onChange={(value) => {
-          //       onChange(value);
-          //       onFieldChange ? onFieldChange(value) : null;
-          //     }}
-          //     size={size}
-          //     options={options}
-          //     value={value}
-          //     placeholder={placeholder}
-          //   />
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="select-label">{label}</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="select-label"
+              id="simple-select"
               value={value}
               label={label}
               placeholder={placeholder}
@@ -65,9 +52,6 @@ const FormSelect = ({
                 onFieldChange ? onFieldChange(value) : null;
               }}
             >
-              {/* <MenuItem value={10}>Ten</MenuItem>
-    <MenuItem value={20}>Twenty</MenuItem>
-    <MenuItem value={30}>Thirty</MenuItem> */}
               {options.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}

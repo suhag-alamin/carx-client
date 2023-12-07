@@ -1,18 +1,18 @@
 import { useUpdateOrderMutation } from "@/redux/features/order/orderApi";
+import { updateOrderStatusSchema } from "@/schemas/order";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
   CircularProgress,
   Fade,
-  FormControl,
-  InputLabel,
-  MenuItem,
   Modal,
-  Select,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
+import Form from "../Forms/Form";
+import FormSelect from "../Forms/FormSelect";
 
 const style = {
   position: "absolute",
@@ -27,6 +27,13 @@ const style = {
   p: 4,
 };
 
+const statusOptions = [
+  { label: "Pending", value: "pending" },
+  { label: "Shipped", value: "shipped" },
+  { label: "Delivered", value: "delivered" },
+  { label: "Cancelled", value: "cancelled" },
+];
+
 const OrderModal = ({ modalOpen, handleModalClose, id }) => {
   if (!id) {
     return null;
@@ -34,24 +41,13 @@ const OrderModal = ({ modalOpen, handleModalClose, id }) => {
   const [updateOrder, { isLoading, data: updateDate, isError, error }] =
     useUpdateOrderMutation();
 
-  const [changeStatus, setChangeStatus] = useState("");
-
-  const handleChange = (e) => {
-    setChangeStatus(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    if (changeStatus === "") {
-      toast.error("Please select a status");
-    } else {
-      const updateData = {
-        orderDetails: {
-          status: changeStatus,
-        },
-      };
-      updateOrder({ id, data: updateData });
-    }
-    e.preventDefault();
+  const handleSubmit = (data) => {
+    const updateData = {
+      orderDetails: {
+        status: data.status,
+      },
+    };
+    updateOrder({ id, data: updateData });
   };
 
   useEffect(() => {
@@ -74,21 +70,15 @@ const OrderModal = ({ modalOpen, handleModalClose, id }) => {
               Change Status of Order ID: {id}
             </Typography>
             <Box sx={{ minWidth: 120 }}>
-              <form onSubmit={handleSubmit}>
-                <FormControl fullWidth>
-                  <InputLabel>Change Status</InputLabel>
-                  <Select
-                    value={changeStatus}
-                    label="Change Status"
-                    color="primary"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="pending">Pending</MenuItem>
-                    <MenuItem value="shipped">Shipped</MenuItem>
-                    <MenuItem value="delivered">Delivered</MenuItem>
-                    <MenuItem value="cancelled">Cancel</MenuItem>
-                  </Select>
-                </FormControl>
+              <Form
+                submitHandler={handleSubmit}
+                resolver={yupResolver(updateOrderStatusSchema)}
+              >
+                <FormSelect
+                  name="status"
+                  label="Change Status"
+                  options={statusOptions}
+                />
                 <Button
                   type="submit"
                   sx={{ mt: 2 }}
@@ -115,7 +105,7 @@ const OrderModal = ({ modalOpen, handleModalClose, id }) => {
                     "Update"
                   )}
                 </Button>
-              </form>
+              </Form>
             </Box>
           </Box>
         </Fade>

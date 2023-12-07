@@ -1,17 +1,19 @@
+import Form from "@/components/Forms/Form";
+import FormTextField from "@/components/Forms/FormTextField";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useMakeAdminMutation } from "@/redux/features/auth/authApi";
+import { makeAdminSchema } from "@/schemas/auth";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
   CircularProgress,
   Container,
   Divider,
   Grid,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const MakeAdmin = () => {
@@ -21,15 +23,8 @@ const MakeAdmin = () => {
   const [makeAdmin, { isLoading, data, isError, error }] =
     useMakeAdminMutation();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({});
   const onSubmit = (data) => {
     makeAdmin(data);
-    reset();
   };
 
   useEffect(() => {
@@ -56,50 +51,46 @@ const MakeAdmin = () => {
           py: 3,
         }}
       >
-        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="email"
-                fullWidth
-                required
-                label="User Email"
-                {...register("email", { required: true })}
-              />
-              {errors.email && (
-                <span className="error">User Email is required</span>
-              )}
-            </Grid>
+        <Box>
+          <Form
+            submitHandler={onSubmit}
+            resolver={yupResolver(makeAdminSchema)}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormTextField type="email" label="User Email" name="email" />
+              </Grid>
 
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <Box
-                    sx={{
-                      textAlign: "center",
-                      display: "flex",
-                      alignItems: "center",
-                      p: 0,
-                    }}
-                  >
-                    <CircularProgress
-                      size="20px"
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Box
                       sx={{
-                        color: "info.main",
+                        textAlign: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        p: 0,
                       }}
-                    />
-                  </Box>
-                ) : (
-                  "Make Admin"
-                )}
-              </Button>
+                    >
+                      <CircularProgress
+                        size="20px"
+                        sx={{
+                          color: "info.main",
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    "Make Admin"
+                  )}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          </Form>
         </Box>
       </Box>
     </Container>

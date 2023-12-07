@@ -19,3 +19,7 @@ export const orderDetailsSchema = yup.object().shape({
     phone: yup.string().required("Country phone is required"),
   }),
 });
+
+export const updateOrderStatusSchema = yup.object().shape({
+  status: yup.string().required("Status is required"),
+});

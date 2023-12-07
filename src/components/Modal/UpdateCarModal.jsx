@@ -1,4 +1,6 @@
 import { useUpdateCarMutation } from "@/redux/features/car/carApi";
+import { updateCarSchema } from "@/schemas/car";
+import { yupResolver } from "@hookform/resolvers/yup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
@@ -6,13 +8,13 @@ import {
   Fade,
   Grid,
   Modal,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import Form from "../Forms/Form";
+import FormTextField from "../Forms/FormTextField";
 import ImageUpload from "../Forms/ImageUpload";
 
 const style = {
@@ -59,18 +61,12 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: {},
-  } = useForm({
-    defaultValues: {
-      carName: carName,
-      description: description,
-      price: price,
-    },
-  });
+  const defaultValues = {
+    carName: carName,
+    description: description,
+    price: price,
+  };
+
   const onSubmit = (data) => {
     data.price = parseFloat(data.price);
 
@@ -82,7 +78,6 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
     }
 
     updateCar({ id: _id, data });
-    reset();
   };
 
   useEffect(() => {
@@ -112,138 +107,136 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
                 padding: 1,
               }}
             >
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="text"
-                      fullWidth
-                      label="Car Name"
-                      {...register("carName", { required: true })}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="text"
-                      fullWidth
-                      required
-                      multiline
-                      label="Car Description"
-                      {...register("description", { required: true })}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="number"
-                      fullWidth
-                      label="Car Price $"
-                      {...register("price", { required: true })}
-                    />
-                  </Grid>
-
-                  {/* car cover image update  */}
-
-                  <Grid item xs={12}>
-                    <Typography variant="body2" color="text.secondary">
-                      Cover Image
-                    </Typography>
-                    {newImg ? (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 1,
-                        }}
-                      >
-                        <img
-                          src={newImg}
-                          alt=""
-                          style={{ width: "50px", height: "50px" }}
-                        />
-                        <Button
-                          variant="text"
-                          color="error"
-                          onClick={() => handleImageDelete("img", img)}
-                        >
-                          <DeleteIcon />
-                        </Button>
-                      </Box>
-                    ) : (
-                      <ImageUpload
-                        name="img"
-                        onChange={handleImageChange}
-                        multiple={false}
+              <Box>
+                <Form
+                  submitHandler={onSubmit}
+                  defaultValues={defaultValues}
+                  resolver={yupResolver(updateCarSchema)}
+                >
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <FormTextField
+                        type="text"
+                        label="Car Name"
+                        name="carName"
                       />
-                    )}
-                  </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormTextField
+                        type="text-area"
+                        rows={4}
+                        label="Car Description"
+                        name="description"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormTextField
+                        type="number"
+                        label="Car Price $"
+                        name="price"
+                      />
+                    </Grid>
 
-                  {/* car gallery update */}
-                  <Grid item xs={12}>
-                    <Typography variant="body2" color="text.secondary">
-                      Gallery Images
-                    </Typography>
-                    {newGallery.map((url, index) => (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 1,
-                        }}
-                        key={index}
-                      >
-                        <img
-                          src={url}
-                          alt=""
-                          style={{ width: "50px", height: "50px" }}
-                        />
-                        <Button
-                          variant="text"
-                          color="error"
-                          onClick={() => handleImageDelete("gallery", url)}
+                    {/* car cover image update  */}
+
+                    <Grid item xs={12}>
+                      <Typography variant="body2" color="text.secondary">
+                        Cover Image
+                      </Typography>
+                      {newImg ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 1,
+                          }}
                         >
-                          <DeleteIcon />
-                        </Button>
-                      </Box>
-                    ))}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="body2" color="text.secondary">
-                      Add More Images
-                    </Typography>
-                    <ImageUpload
-                      name="gallery"
-                      onChange={handleImageChange}
-                      multiple={true}
-                    />
-                  </Grid>
+                          <img
+                            src={newImg}
+                            alt=""
+                            style={{ width: "50px", height: "50px" }}
+                          />
+                          <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => handleImageDelete("img", img)}
+                          >
+                            <DeleteIcon />
+                          </Button>
+                        </Box>
+                      ) : (
+                        <ImageUpload
+                          name="img"
+                          onChange={handleImageChange}
+                          multiple={false}
+                        />
+                      )}
+                    </Grid>
 
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3 }}
-                    disabled={isUploading || isLoading}
-                  >
-                    {isLoading ? (
-                      <Box
-                        sx={{
-                          textAlign: "center",
-                          display: "flex",
-                          alignItems: "center",
-                          p: 0,
-                        }}
-                      >
-                        <CircularProgress size="20px" color="info" />
-                      </Box>
-                    ) : (
-                      "Update Car"
-                    )}
-                  </Button>
-                </Grid>
+                    {/* car gallery update */}
+                    <Grid item xs={12}>
+                      <Typography variant="body2" color="text.secondary">
+                        Gallery Images
+                      </Typography>
+                      {newGallery.map((url, index) => (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 1,
+                          }}
+                          key={index}
+                        >
+                          <img
+                            src={url}
+                            alt=""
+                            style={{ width: "50px", height: "50px" }}
+                          />
+                          <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => handleImageDelete("gallery", url)}
+                          >
+                            <DeleteIcon />
+                          </Button>
+                        </Box>
+                      ))}
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="body2" color="text.secondary">
+                        Add More Images
+                      </Typography>
+                      <ImageUpload
+                        name="gallery"
+                        onChange={handleImageChange}
+                        multiple={true}
+                      />
+                    </Grid>
+
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3 }}
+                      disabled={isUploading || isLoading}
+                    >
+                      {isLoading ? (
+                        <Box
+                          sx={{
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                            p: 0,
+                          }}
+                        >
+                          <CircularProgress size="20px" color="info" />
+                        </Box>
+                      ) : (
+                        "Update Car"
+                      )}
+                    </Button>
+                  </Grid>
+                </Form>
               </Box>
             </Box>
           </Box>

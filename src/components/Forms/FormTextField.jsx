@@ -46,10 +46,6 @@ const FormTextField = ({
     event.preventDefault();
   };
 
-  const handleOnChange = (value) => {
-    onChange ? onChange(value) : null;
-  };
-
   return (
     <>
       <Controller
@@ -110,11 +106,10 @@ const FormTextField = ({
               value={value !== undefined ? value : field.value}
               sx={styleProp}
               disabled={disable}
-              onChange={handleOnChange}
-              defaultValue={value}
               fullWidth={fullWidth}
               helperText={helperText}
               label={label}
+              variant={variant}
             />
           ) : (
             <TextField

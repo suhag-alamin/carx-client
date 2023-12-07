@@ -58,7 +58,7 @@ const Register = () => {
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <FormTextField name="name" label="Your Name" />
+                <FormTextField type="text" name="name" label="Your Name" />
               </Grid>
               <Grid item xs={12}>
                 <FormTextField
