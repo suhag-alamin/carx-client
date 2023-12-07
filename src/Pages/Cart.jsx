@@ -1,3 +1,5 @@
+import Form from "@/components/Forms/Form";
+import FormTextField from "@/components/Forms/FormTextField";
 import OthersBanner from "@/components/Shared/OthersBanner";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import {
@@ -16,11 +18,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -33,15 +33,11 @@ const Cart = () => {
   );
   const dispatch = useDispatch();
 
-  const { handleSubmit, register, reset } = useForm();
-
   const onSubmit = (data) => {
     if (data.coupon === "20OFF") {
       dispatch(applyCoupon());
-      reset();
     } else {
       toast.error("Invalid coupon code!");
-      reset();
     }
   };
 
@@ -98,45 +94,43 @@ const Cart = () => {
             >
               <Box>
                 <Typography variant="body1">Have a coupon?</Typography>
-                <Box
-                  component="form"
-                  noValidate
-                  onSubmit={handleSubmit(onSubmit)}
-                  sx={{ my: 3, display: "flex", gap: 2 }}
-                >
-                  <TextField
-                    type="text"
-                    size="small"
-                    label="Coupon Code e.g. 20OFF"
-                    disabled={isCouponApplied}
-                    {...register("coupon", { required: true })}
-                  />
+                <Form submitHandler={onSubmit}>
+                  <Box sx={{ my: 3, display: "flex", gap: 2 }}>
+                    <FormTextField
+                      type="text"
+                      size="small"
+                      label="Coupon Code e.g. 20OFF"
+                      disabled={isCouponApplied}
+                      name="coupon"
+                      fullWidth={false}
+                    />
 
-                  <Button
-                    sx={{
-                      m: 0,
-                    }}
-                    type="submit"
-                    variant="outlined"
-                    size="small"
-                    disabled={isCouponApplied}
-                  >
-                    Apply
-                  </Button>
-                  {isCouponApplied && (
                     <Button
                       sx={{
                         m: 0,
                       }}
                       type="submit"
-                      variant="contained"
+                      variant="outlined"
                       size="small"
-                      onClick={() => dispatch(removeCoupon())}
+                      disabled={isCouponApplied}
                     >
-                      Reset
+                      Apply
                     </Button>
-                  )}
-                </Box>
+                    {isCouponApplied && (
+                      <Button
+                        sx={{
+                          m: 0,
+                        }}
+                        type="submit"
+                        variant="contained"
+                        size="small"
+                        onClick={() => dispatch(removeCoupon())}
+                      >
+                        Reset
+                      </Button>
+                    )}
+                  </Box>
+                </Form>
               </Box>
               <Divider />
               <Typography variant="subtitle2">
