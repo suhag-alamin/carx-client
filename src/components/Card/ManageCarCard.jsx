@@ -49,12 +49,10 @@ const ManageCarCard = ({ car, handleDelete }) => {
               <Button
                 startIcon={<EditIcon />}
                 onClick={() => handleModalOpen(_id)}
-                // variant="contained"
               >
                 Edit
               </Button>
               <Button
-                // variant="contained"
                 color="error"
                 startIcon={<DeleteIcon />}
                 onClick={() => handleDelete(_id)}

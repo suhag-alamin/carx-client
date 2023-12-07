@@ -1,4 +1,5 @@
 import { useUpdateCarMutation } from "@/redux/features/car/carApi";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
   CircularProgress,
@@ -29,12 +30,11 @@ const style = {
 
 const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
   if (!car) return null;
+  const { _id, carName, description, price, img, gallery } = car;
 
-  const [gallery, setGallery] = useState([]);
-  const [img, setImg] = useState(null);
+  const [newImg, setNewImg] = useState(img);
+  const [newGallery, setNewGallery] = useState(gallery);
   const [isUploading, setIsUploading] = useState(false);
-
-  const { _id, carName, price } = car;
 
   const [updateCar, { isLoading, data, isError, error }] =
     useUpdateCarMutation();
@@ -42,16 +42,23 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
   const handleImageChange = (name, urls) => {
     setIsUploading(true);
     if (name === "img") {
-      setImg(urls[0]);
-      setIsUploading(false);
+      setNewImg(urls[0]);
     } else {
-      setGallery(urls);
-      setIsUploading(false);
+      setNewGallery((prev) => [...prev, ...urls]);
+    }
+    setIsUploading(false);
+  };
+
+  const handleImageDelete = (name, url) => {
+    if (name === "img") {
+      setNewImg(null);
+    } else {
+      setNewGallery((prevGallery) =>
+        prevGallery.filter((item) => item !== url)
+      );
     }
   };
 
-  // const formData = new FormData();
-  // const url = import.meta.env.VITE_CLOUDINARY_URL;
   const {
     register,
     handleSubmit,
@@ -60,43 +67,22 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
   } = useForm({
     defaultValues: {
       carName: carName,
+      description: description,
       price: price,
     },
   });
   const onSubmit = (data) => {
     data.price = parseFloat(data.price);
 
-    // const uploadToDb = (img) => {
-    if (img) {
-      data.img = img;
+    if (newImg) {
+      data.img = newImg;
     }
-    if (gallery.length) {
-      data.gallery = gallery;
+    if (newGallery.length) {
+      data.gallery = newGallery;
     }
 
     updateCar({ id: _id, data });
     reset();
-    // };
-
-    // if (data.img) {
-    //   formData.append("carName", data.carName);
-    //   formData.append("description", data.description);
-    //   formData.append("price", data.price);
-    //   formData.append("file", data.img);
-    //   formData.append(
-    //     "upload_preset",
-    //     import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-    //   );
-
-    //   // upload image to cloudinary
-    //   const uploadImage = async () => {
-    //     const pic = await axios.post(url, formData);
-    //     uploadToDb(pic.data.url);
-    //   };
-    //   uploadImage();
-    // } else {
-    //   uploadToDb(car.img);
-    // }
   };
 
   useEffect(() => {
@@ -112,12 +98,7 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
 
   return (
     <>
-      <Modal
-        keepMounted
-        open={modalOpen}
-        onClose={handleModalClose}
-        closeAfterTransition
-      >
+      <Modal open={modalOpen} onClose={handleModalClose} closeAfterTransition>
         <Fade in={modalOpen}>
           <Box sx={style}>
             <Box
@@ -126,6 +107,9 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 marginX: "auto",
+                maxHeight: "70vh",
+                overflowY: "auto",
+                padding: 1,
               }}
             >
               <Box
@@ -144,6 +128,16 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      type="text"
+                      fullWidth
+                      required
+                      multiline
+                      label="Car Description"
+                      {...register("description", { required: true })}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
                       type="number"
                       fullWidth
                       label="Car Price $"
@@ -151,15 +145,79 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
                     />
                   </Grid>
 
-                  {/* car primary image update  */}
+                  {/* car cover image update  */}
+
                   <Grid item xs={12}>
                     <Typography variant="body2" color="text.secondary">
-                      Upload Car Image
+                      Cover Image
+                    </Typography>
+                    {newImg ? (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                        }}
+                      >
+                        <img
+                          src={newImg}
+                          alt=""
+                          style={{ width: "50px", height: "50px" }}
+                        />
+                        <Button
+                          variant="text"
+                          color="error"
+                          onClick={() => handleImageDelete("img", img)}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </Box>
+                    ) : (
+                      <ImageUpload
+                        name="img"
+                        onChange={handleImageChange}
+                        multiple={false}
+                      />
+                    )}
+                  </Grid>
+
+                  {/* car gallery update */}
+                  <Grid item xs={12}>
+                    <Typography variant="body2" color="text.secondary">
+                      Gallery Images
+                    </Typography>
+                    {newGallery.map((url, index) => (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                        }}
+                        key={index}
+                      >
+                        <img
+                          src={url}
+                          alt=""
+                          style={{ width: "50px", height: "50px" }}
+                        />
+                        <Button
+                          variant="text"
+                          color="error"
+                          onClick={() => handleImageDelete("gallery", url)}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </Box>
+                    ))}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="body2" color="text.secondary">
+                      Add More Images
                     </Typography>
                     <ImageUpload
-                      name="img"
+                      name="gallery"
                       onChange={handleImageChange}
-                      multiple={false}
+                      multiple={true}
                     />
                   </Grid>
 

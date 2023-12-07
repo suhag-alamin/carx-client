@@ -138,7 +138,7 @@ const AddCar = () => {
             {/* car primary image upload  */}
             <Grid item xs={12}>
               <Typography variant="body2" color="text.secondary">
-                Upload Car Image
+                Upload Cover Image
               </Typography>
               <ImageUpload
                 name="img"
@@ -151,7 +151,7 @@ const AddCar = () => {
 
             <Grid item xs={12}>
               <Typography variant="body2" color="text.secondary">
-                Upload Car Gallery Images
+                Upload Gallery Images
               </Typography>
               <ImageUpload
                 name="gallery"

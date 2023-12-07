@@ -31,7 +31,10 @@ const ImageUpload = ({ name, onChange, multiple }) => {
   const url = import.meta.env.VITE_CLOUDINARY_URL;
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpeg", ".jpg"],
+    },
     multiple,
     onDrop: async (acceptedFiles) => {
       setUploading(true);
