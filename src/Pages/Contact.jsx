@@ -1,6 +1,10 @@
+import Form from "@/components/Forms/Form";
+import FormTextField from "@/components/Forms/FormTextField";
 import OthersBanner from "@/components/Shared/OthersBanner";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useSendMessageMutation } from "@/redux/features/message/messageApi";
+import { contactSchema } from "@/schemas/global";
+import { yupResolver } from "@hookform/resolvers/yup";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -10,12 +14,10 @@ import {
   Container,
   Grid,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const Contact = () => {
@@ -25,16 +27,9 @@ const Contact = () => {
   const [sendMessage, { isLoading, isSuccess, isError, error }] =
     useSendMessageMutation();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({});
   const onSubmit = (data) => {
     if (data) {
       sendMessage(data);
-      reset();
     }
   };
 
@@ -109,104 +104,85 @@ const Contact = () => {
             marginX: "auto",
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="standard"
-                  type="text"
-                  fullWidth
-                  required
-                  label="Name"
-                  {...register("name", { required: true })}
-                />
-                {errors.name && <span className="error">Name is required</span>}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="standard"
-                  type="email"
-                  fullWidth
-                  required
-                  label="Email"
-                  {...register("email", { required: true })}
-                />
-                {errors.email && (
-                  <span className="error">Email is required</span>
-                )}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="standard"
-                  type="text"
-                  fullWidth
-                  required
-                  label="Subject"
-                  {...register("subject", { required: true })}
-                />
-                {errors.subject && (
-                  <span className="error">Subject is required</span>
-                )}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="filled"
-                  type="text"
-                  fullWidth
-                  multiline
-                  maxRows={3}
-                  required
-                  label="Message"
-                  {...register("message", { required: true })}
-                />
-                {errors.message && (
-                  <span className="error">Message is required</span>
-                )}
-              </Grid>
+          <Box sx={{ mt: 3 }}>
+            <Form
+              submitHandler={onSubmit}
+              resolver={yupResolver(contactSchema)}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <FormTextField
+                    name="name"
+                    variant="standard"
+                    type="text"
+                    label="Name *"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormTextField
+                    name="email"
+                    variant="standard"
+                    type="email"
+                    label="Email *"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormTextField
+                    name="subject"
+                    variant="standard"
+                    type="text"
+                    label="Subject *"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormTextField
+                    variant="standard"
+                    type="text-area"
+                    rows={3}
+                    label="Message *"
+                    name="message"
+                  />
+                </Grid>
 
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  textAlign: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 1 }}
-                  disabled={isLoading}
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
                 >
-                  {isLoading ? (
-                    <Box
-                      sx={{
-                        textAlign: "center",
-                        display: "flex",
-                        alignItems: "center",
-                        p: 0,
-                      }}
-                    >
-                      <CircularProgress
-                        size="20px"
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 1 }}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <Box
                         sx={{
-                          color: "info.main",
+                          textAlign: "center",
+                          display: "flex",
+                          alignItems: "center",
+                          p: 0,
                         }}
-                      />
-                    </Box>
-                  ) : (
-                    "Send Message"
-                  )}
-                </Button>
+                      >
+                        <CircularProgress
+                          size="20px"
+                          sx={{
+                            color: "info.main",
+                          }}
+                        />
+                      </Box>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
+            </Form>
           </Box>
         </Box>
       </Container>

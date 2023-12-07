@@ -95,10 +95,11 @@ const FormTextField = ({
               value={value !== undefined ? value : field.value}
               sx={styleProp}
               disabled={disable}
-              rows={rows}
+              maxRows={rows}
               variant={variant}
               fullWidth={fullWidth}
               helperText={helperText}
+              multiline
             />
           ) : type === "number" ? (
             <TextField
@@ -127,6 +128,7 @@ const FormTextField = ({
               fullWidth={fullWidth}
               helperText={helperText}
               label={label}
+              variant={variant}
             />
           )
         }
