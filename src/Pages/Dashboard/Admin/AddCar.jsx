@@ -1,3 +1,4 @@
+import ImageUpload from "@/components/Shared/ImageUpload";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useCreateCarMutation } from "@/redux/features/car/carApi";
 import {
@@ -10,8 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,13 +20,25 @@ const AddCar = () => {
   // dynamic title
   useDocumentTitle("Add Car");
 
+  const [gallery, setGallery] = useState([]);
+  const [img, setImg] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const [createCar, { data: carData, isLoading, isError, error }] =
     useCreateCarMutation();
 
-  const formData = new FormData();
-  const url = import.meta.env.VITE_CLOUDINARY_URL;
-
   const navigate = useNavigate();
+
+  const handleImageChange = (name, urls) => {
+    setIsUploading(true);
+    if (name === "img") {
+      setImg(urls[0]);
+      setIsUploading(false);
+    } else {
+      setGallery(urls);
+      setIsUploading(false);
+    }
+  };
 
   const {
     register,
@@ -35,103 +47,22 @@ const AddCar = () => {
     formState: { errors },
   } = useForm({});
   const onSubmit = (data) => {
-    data.img = data.img[0];
-    const files = [
-      data.gallery1[0],
-      data.gallery2[0],
-      data.gallery3[0],
-      data.gallery4[0],
-    ];
-
-    const gallery = [];
-
-    formData.append("carName", data.carName);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
-    formData.append("file", data.img);
-    formData.append(
-      "upload_preset",
-      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-    );
-    // gallery
-    for (let i = 0; i < files.length; i++) {
-      //  upload image to cloudinary
-
-      if (i === 0) {
-        const file = files[i];
-        formData.append("file", file);
-        formData.append(
-          "upload_preset",
-          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-        );
-        const uploadGallery = async () => {
-          const pic = await axios.post(url, formData);
-          gallery.push(pic.data.url);
-        };
-        uploadGallery();
-      }
-      if (i === 1) {
-        const file = files[i];
-        formData.append("file", file);
-        formData.append(
-          "upload_preset",
-          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-        );
-        const uploadGallery = async () => {
-          const pic = await axios.post(url, formData);
-          gallery.push(pic.data.url);
-        };
-        uploadGallery();
-      }
-      if (i === 2) {
-        const file = files[i];
-        formData.append("file", file);
-        formData.append(
-          "upload_preset",
-          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-        );
-        const uploadGallery = async () => {
-          const pic = await axios.post(url, formData);
-          gallery.push(pic.data.url);
-        };
-        uploadGallery();
-      }
-      if (i === 3) {
-        const file = files[i];
-        formData.append("file", file);
-        formData.append(
-          "upload_preset",
-          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-        );
-        const uploadGallery = async () => {
-          const pic = await axios.post(url, formData);
-          gallery.push(pic.data.url);
-        };
-        uploadGallery();
-      }
+    if (!img) {
+      toast.error("Car Image is required");
+      return;
     }
 
-    // upload image to cloudinary
-    const uploadImage = async () => {
-      const pic = await axios.post(url, formData);
-      uploadToDb(pic.data.url);
-    };
-    uploadImage();
+    if (!gallery.length) {
+      toast.error("Car Gallery Images are required");
+      return;
+    }
 
-    // upload to database
-    const uploadToDb = (img) => {
-      data.img = img;
-      data.price = parseFloat(data.price);
-      data.gallery = gallery;
+    data.img = img;
+    data.price = parseFloat(data.price);
+    data.gallery = gallery;
 
-      delete data.gallery1;
-      delete data.gallery2;
-      delete data.gallery3;
-      delete data.gallery4;
-
-      createCar(data);
-      reset();
-    };
+    createCar(data);
+    reset();
   };
 
   useEffect(() => {
@@ -150,6 +81,7 @@ const AddCar = () => {
         Add a Car.
       </Typography>
       <Divider />
+
       <Box
         sx={{
           marginTop: 1,
@@ -205,70 +137,27 @@ const AddCar = () => {
 
             {/* car primary image upload  */}
             <Grid item xs={12}>
-              <TextField
-                type="file"
-                fullWidth
-                required
-                helperText="Upload Car Image"
-                {...register("img", { required: true })}
+              <Typography variant="body2" color="text.secondary">
+                Upload Car Image
+              </Typography>
+              <ImageUpload
+                name="img"
+                onChange={handleImageChange}
+                multiple={false}
               />
-              {errors.img && (
-                <span className="error">Car Image is required</span>
-              )}
             </Grid>
 
             {/* car gallery image upload */}
 
             <Grid item xs={12}>
-              <TextField
-                type="file"
-                fullWidth
-                required
-                helperText="Upload car gallery image 1"
-                {...register("gallery1", { required: true })}
+              <Typography variant="body2" color="text.secondary">
+                Upload Car Gallery Images
+              </Typography>
+              <ImageUpload
+                name="gallery"
+                onChange={handleImageChange}
+                multiple={true}
               />
-              {errors.gallery1 && (
-                <span className="error">Gallery image 1 is required</span>
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                type="file"
-                fullWidth
-                required
-                helperText="Upload car gallery image 2"
-                {...register("gallery2", { required: true })}
-              />
-              {errors.gallery2 && (
-                <span className="error">Gallery image 2 is required</span>
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                type="file"
-                fullWidth
-                required
-                helperText="Upload car gallery image 3"
-                {...register("gallery3", { required: true })}
-              />
-              {errors.gallery3 && (
-                <span className="error">Gallery image 3 is required</span>
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                type="file"
-                fullWidth
-                required
-                helperText="Upload car gallery image 4"
-                {...register("gallery4", { required: true })}
-              />
-              {errors.gallery4 && (
-                <span className="error">Gallery image 4 is required</span>
-              )}
             </Grid>
 
             <Grid item xs={12}>
@@ -277,6 +166,7 @@ const AddCar = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mb: 2 }}
+                disabled={isLoading || isUploading}
               >
                 {isLoading ? (
                   <Box

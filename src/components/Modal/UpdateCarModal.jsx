@@ -6,12 +6,13 @@ import {
   Grid,
   Modal,
   TextField,
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import ImageUpload from "../Shared/ImageUpload";
 
 const style = {
   position: "absolute",
@@ -29,13 +30,28 @@ const style = {
 const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
   if (!car) return null;
 
+  const [gallery, setGallery] = useState([]);
+  const [img, setImg] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const { _id, carName, price } = car;
 
   const [updateCar, { isLoading, data, isError, error }] =
     useUpdateCarMutation();
 
-  const formData = new FormData();
-  const url = import.meta.env.VITE_CLOUDINARY_URL;
+  const handleImageChange = (name, urls) => {
+    setIsUploading(true);
+    if (name === "img") {
+      setImg(urls[0]);
+      setIsUploading(false);
+    } else {
+      setGallery(urls);
+      setIsUploading(false);
+    }
+  };
+
+  // const formData = new FormData();
+  // const url = import.meta.env.VITE_CLOUDINARY_URL;
   const {
     register,
     handleSubmit,
@@ -48,34 +64,39 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
     },
   });
   const onSubmit = (data) => {
-    data.img = data.img[0];
     data.price = parseFloat(data.price);
 
-    const uploadToDb = (img) => {
+    // const uploadToDb = (img) => {
+    if (img) {
       data.img = img;
-      updateCar({ id: _id, data });
-      reset();
-    };
-
-    if (data.img) {
-      formData.append("carName", data.carName);
-      formData.append("description", data.description);
-      formData.append("price", data.price);
-      formData.append("file", data.img);
-      formData.append(
-        "upload_preset",
-        import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-      );
-
-      // upload image to cloudinary
-      const uploadImage = async () => {
-        const pic = await axios.post(url, formData);
-        uploadToDb(pic.data.url);
-      };
-      uploadImage();
-    } else {
-      uploadToDb(car.img);
     }
+    if (gallery.length) {
+      data.gallery = gallery;
+    }
+
+    updateCar({ id: _id, data });
+    reset();
+    // };
+
+    // if (data.img) {
+    //   formData.append("carName", data.carName);
+    //   formData.append("description", data.description);
+    //   formData.append("price", data.price);
+    //   formData.append("file", data.img);
+    //   formData.append(
+    //     "upload_preset",
+    //     import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+    //   );
+
+    //   // upload image to cloudinary
+    //   const uploadImage = async () => {
+    //     const pic = await axios.post(url, formData);
+    //     uploadToDb(pic.data.url);
+    //   };
+    //   uploadImage();
+    // } else {
+    //   uploadToDb(car.img);
+    // }
   };
 
   useEffect(() => {
@@ -132,12 +153,13 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
 
                   {/* car primary image update  */}
                   <Grid item xs={12}>
-                    <TextField
-                      type="file"
-                      fullWidth
-                      required
-                      helperText="Update Car Image"
-                      {...register("img")}
+                    <Typography variant="body2" color="text.secondary">
+                      Upload Car Image
+                    </Typography>
+                    <ImageUpload
+                      name="img"
+                      onChange={handleImageChange}
+                      multiple={false}
                     />
                   </Grid>
 
@@ -146,6 +168,7 @@ const UpdateCarModal = ({ modalOpen, handleModalClose, car }) => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3 }}
+                    disabled={isUploading || isLoading}
                   >
                     {isLoading ? (
                       <Box
